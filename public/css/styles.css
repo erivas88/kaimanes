@@ -1,0 +1,1007 @@
+ 
+body {
+    background: url("../images/background.jpg") no-repeat center center fixed;
+    background-size: 100%;
+    background-position: center top;
+    margin: 0;
+    padding: 0;      
+    display: flex;
+    align-items: stretch; /* Llenar todo el espacio vertical */
+    justify-content: center;
+    font-family: "Poppins", serif !important;
+  }
+  
+  
+  .main-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 0px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 1250px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .header, .footer {
+    background-color: #006d6d;
+    color: white;
+    padding: 10px 20px;
+   
+  }
+  
+  .footer {
+    border-radius: 0 0 0px 0px; /* Footer: bordes redondeados inferiores */
+  }
+  
+  .map-container {
+    height: 400px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .accordion-button {
+    background: linear-gradient(45deg, #00768e, #3f8f99);
+    color: white;
+  }
+  
+  
+   .logo-containerd {
+    /* Define un contenedor general para el logo */
+    max-width: 100%; /* O ajusta al tamaño deseado */
+    height: 100%; /* Ajusta según el diseño o requerimientos */
+  }
+  .center-contentd {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    height: 100%; /* Asegura el centrado vertical */
+    text-align: center; /* Fallback para navegadores antiguos */
+  }
+  .small-text {
+  font-size: 10px; /* Ajusta según lo necesario */
+  }
+  .jjtxt{
+  text-align: justify;
+  line-height: 20px;
+  }
+  .pdd{
+  padding-top: 10px;
+  }
+  .color_mlp{
+  background: linear-gradient(45deg, #00768e, #3f8f99);
+  }
+  
+  .accordion-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--bs-accordion-btn-padding-y) var(--bs-accordion-btn-padding-x);
+  font-size: 1rem;
+  /*color: var(--bs-accordion-btn-color);*/
+  text-align: left;
+  background-color: var(--bs-accordion-btn-bg);
+  border: 0;
+  border-radius: 0;
+  overflow-anchor: none;
+  transition: var(--bs-accordion-transition);
+  border-radius: 0 0 10px 0;
+  color: white;
+  
+  }
+  
+  .accordion-item:last-of-type .accordion-button.collapsed {
+  border-bottom-right-radius: var(--bs-accordion-inner-border-radius);
+  border-bottom-left-radius: var(--bs-accordion-inner-border-radius);
+  border-radius: 0 0 10px 0;
+  }
+  
+  .accordion-item:first-of-type .accordion-button.collapsed {
+  border-top-right-radius: var(--bs-accordion-inner-border-radius);
+  border-top-left-radius: var(--bs-accordion-inner-border-radius);
+  border-radius: 0 0 10px 0;
+  }
+  
+  
+  .accordion-button:not(.collapsed) {
+  color: white;
+  font-weight: bold;
+  background-color: var(--bs-accordion-active-bg);
+  box-shadow: inset 0 calc(-1* var(--bs-accordion-border-width)) 0 var(--bs-accordion-border-color);
+  border-top-right-radius: var(--bs-accordion-inner-border-radius);
+  border-top-left-radius: var(--bs-accordion-inner-border-radius);
+  }
+  
+  .accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espaciado entre botones */
+  }
+  
+  .accordion-item {
+  border: none; /* Elimina bordes predeterminados */
+  }
+  
+  .list-group {
+  --bs-list-group-color: var(--bs-body-color);
+  --bs-list-group-bg: var(--bs-body-bg);
+  --bs-list-group-border-color: var(--bs-border-color);
+  --bs-list-group-border-width: var(--bs-border-width);
+  --bs-list-group-border-radius: var(--bs-border-radius);
+  --bs-list-group-item-padding-x: 1rem;
+  --bs-list-group-item-padding-y: 0.5rem;
+  --bs-list-group-action-color: var(--bs-secondary-color);
+  --bs-list-group-action-hover-color: var(--bs-emphasis-color);
+  --bs-list-group-action-hover-bg: var(--bs-tertiary-bg);
+  --bs-list-group-action-active-color: var(--bs-body-color);
+  --bs-list-group-action-active-bg: var(--bs-secondary-bg);
+  --bs-list-group-disabled-color: var(--bs-secondary-color);
+  --bs-list-group-disabled-bg: var(--bs-body-bg);
+  --bs-list-group-active-color: #fff;
+  --bs-list-group-active-bg: #0d6efd;
+  --bs-list-group-active-border-color: #0d6efd;
+  display: flex
+  ;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  border-radius: 0 !important;
+  }
+  
+  
+  .list-group-container {
+  max-height: 200px; /* Ajusta la altura según necesites */
+  overflow-y: auto;
+  border: 1px solid #ddd; /* Opcional, para visualizar mejor */
+  padding-right: 5px;
+  }
+  
+  .list-group-container {
+  max-width: 100%;
+              max-height: 0;
+              overflow-y: hidden;
+              transition: max-height 0.3s ease-in-out;
+          }
+
+
+          .list-group-container {
+            max-width: 100%;
+                        max-height: 0;
+                        overflow-y: hidden;
+                        transition: max-height 0.3s ease-in-out;
+                    }
+        
+          .accordion-collapse.show .list-group-container {
+              max-height: 350px; /* Ajusta la altura máxima según necesites */
+              overflow-y: auto;
+              border: none; /* Elimina todos los bordes */
+          }
+  
+          .list-group-item {
+  position: relative;
+  display: block;
+  padding: var(--bs-list-group-item-padding-y) var(--bs-list-group-item-padding-x);
+  color: var(--bs-list-group-color);
+  text-decoration: none;
+  background-color: #f5f5f5;
+  border: none; /* Elimina todos los bordes */
+  border-bottom: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color); /* Agrega solo el borde inferior */
+  }
+  
+  .list-group-item:hover {
+  position: relative;
+  display: block;
+  padding: var(--bs-list-group-item-padding-y) var(--bs-list-group-item-padding-x);
+  color: var(--bs-list-group-color);
+  text-decoration: none;
+  font-weight: bold;
+  background-color: #5cc0c9 !important;
+  border: none; /* Elimina todos los bordes */
+  border-bottom: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color); /* Agrega solo el borde inferior */
+  }
+  
+  .list-group-item:hover .icon-agua-superficial {
+  filter: brightness(0) invert(1); /* Invierte los colores (efecto de color blanco) */
+  }
+
+  
+  
+  .list-group-item:hover .icon-agua-subterranea {
+  filter: brightness(0) invert(1); /* Invierte los colores (efecto de color blanco) */
+  }
+  
+  .list-group-item:hover .icon-agua-reservorio {
+  filter: brightness(0) invert(1); /* Invierte los colores (efecto de color blanco) */
+  }
+
+
+
+  .seleccionado {
+    position: relative;
+    display: block;
+    padding: var(--bs-list-group-item-padding-y) var(--bs-list-group-item-padding-x);
+    color: black !important; /* Hace que el texto sea blanco para mejor visibilidad */
+    font-weight: bold !important;
+    text-decoration: none;
+    /*background-color: #fff !important; /* Color base del seleccionado */
+    border: none; /* Elimina todos los bordes */
+    border-bottom: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color); /* Agrega solo el borde inferior */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15); /* Efecto de sombra para resaltar */
+    transition: all 0.3s ease-in-out; /* Suaviza los efectos */
+}
+
+/* Agregar un borde izquierdo animado para destacar más */
+.seleccionado::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background-color: #ffcc00; /* Amarillo brillante */
+    /*animation: pulseBorder 1.5s infinite alternate ease-in-out; /* Animación intermitente */
+}
+.link_item:hover{
+  font-weight: bold;
+}
+
+/* Aplicar el efecto de color blanco a los iconos dentro de la estación seleccionada */
+.seleccionado .icon-agua-reservorio {
+    /*filter: brightness(0) invert(1); /* Hace que el icono sea blanco */
+}
+
+/* Mantiene el efecto de hover en cualquier list-group-item */
+.seleccionado .icon-agua-superficial {
+    /*filter: brightness(0) invert(1); /* Hace que el icono sea blanco */
+}
+
+.seleccionado .icon-agua-subterranea {
+  /*filter: brightness(0) invert(1); /* Hace que el icono sea blanco */
+}
+
+  
+  .logo-containerd {
+    /* Define un contenedor general para el logo */
+    max-width: 100%; /* O ajusta al tamaño deseado */
+    height: 100%; /* Ajusta según el diseño o requerimientos */
+  }
+  .center-contentd {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    height: 100%; /* Asegura el centrado vertical */
+    text-align: center; /* Fallback para navegadores antiguos */
+  }
+  .small-text {
+  font-size: 10px; /* Ajusta según lo necesario */
+  }
+  .jjtxt{
+  text-align: justify;
+  line-height: 20px;
+  }
+  .pdd{
+  padding-top: 10px;
+  }
+  .color_mlp{
+  background: linear-gradient(45deg, #00768e, #3f8f99);
+  }
+  
+  
+  .icon-agua-superficial {
+  display: inline-block;
+  width: 20px; /* Ajusta el tamaño del ícono */
+  height: 20px;    
+  background-image: url("../images/icons/agua-superficial-normal.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle; /* Alinea con el texto */
+  }
+  
+  
+  
+  
+  
+  .icon-agua-subterranea {
+  display: inline-block;
+  width: 20px; /* Ajusta el tamaño del ícono */
+  height: 20px;  
+  background-image: url("../images/icons/agua-subterranea-normal.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle; /* Alinea con el texto */
+  }
+  
+  
+  .icon-agua-reservorio {
+  display: inline-block;
+  width: 20px; /* Ajusta el tamaño del ícono */
+  height: 20px;
+  background-image: url("../images/icons/filtro-reservorio.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle; /* Alinea con el texto */
+  }
+
+
+  .icon-agua-reservorio_ {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: white; /* Color del icono */
+    -webkit-mask-image: url("../images/icons/filtro-reservorio.svg");
+    mask-image: url("../images/icons/filtro-reservorio.svg");
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+  }
+
+
+  .icon-agua-subterranea_ {
+    display: inline-block;
+    width: 20px; /* Ajusta el tamaño del ícono */
+    height: 20px;
+    background-color: white; /* Cambia el color del icono */
+    -webkit-mask-image: url("../images/icons/agua-subterranea-normal.svg");
+    mask-image: url("../images/icons/agua-subterranea-normal.svg");
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    vertical-align: middle; /* Alinea con el texto */
+  }
+
+  .icon-agua-superficial_ {
+    display: inline-block;
+    width: 20px; /* Ajusta el tamaño del ícono */
+    height: 20px;
+    background-color: white; /* Color del icono */
+    -webkit-mask-image: url("../images/icons/agua-superficial-normal.svg");
+    mask-image: url("../images/icons/agua-superficial-normal.svg");
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    vertical-align: middle; /* Alinea con el texto */
+  }
+  
+  
+  
+  
+  .items {
+   color : #3d5f7b;
+   font-weight: normal;
+   /*border-bottom: 1px solid #d3d3d3 !important;*/
+   font-size: 14px !important;
+   text-decoration: none !important;
+   
+  }
+  
+  .title_pop{
+  font-family: "Poppins", serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 16px;  
+  color:#04647c;
+
+  }
+  
+  .accordion-button:not(.collapsed) {
+  color: white;
+  font-weight: bold;
+  background-color: var(--bs-accordion-active-bg);
+  box-shadow: inset 0 calc(-1* var(--bs-accordion-border-width)) 0 var(--bs-accordion-border-color);
+  }
+  
+  .accordion-body {
+  /* padding: var(--bs-accordion-body-padding-y) var(--bs-accordion-body-padding-x); */
+  padding: 0;
+  }
+  
+  
+  
+  .marker-label span {
+    font-size: 9px;
+    color: white;    
+    padding: 2px 6px;  
+    white-space: nowrap; /* Evita los saltos de línea */
+    text-align: center; /* Centra el texto */
+    transform: translateX(-50%); /* Centra horizontalmente */
+    display: inline-block;
+    position: relative;
+    top: 0px; /* Ajusta para que el texto quede justo debajo */
+    font-family: "Poppins", serif;
+    font-weight: normal;
+    text-shadow: 
+        -1px -1px 0 black,  
+        1px -1px 0 black,  
+        -1px 1px 0 black,  
+        1px 1px 0 black; /* Crea un borde negro alrededor del texto */
+  }
+  
+  
+  .popup-content {
+      font-family: 'Poppins', serif;
+      font-size: 14px;
+      text-align: center; /* Centra el texto */
+  }
+  
+  .ver-estacion-btn {
+      background-color: #00768e;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 12px;
+      font-size: 12px;
+      cursor: pointer;
+      display: inline-flex; /* Flexbox para centrar ícono y texto */
+      align-items: center; /* Centra verticalmente */
+      justify-content: center; /* Centra horizontalmente */
+      gap: 6px; /* Espacio entre el ícono y el texto */
+      text-decoration: none; /* Quita subrayado si es un enlace */
+      font-family: 'Poppins', serif;
+      margin-top: 8px; /* Espaciado entre el texto y el botón */
+  }
+  
+  .ver-estacion-btn:hover {
+      background-color: #005f70; /* Color más oscuro al pasar el cursor */
+  }
+  
+  
+  .custom-marker {
+    image-rendering: auto;  /* Modo estándar para imágenes de buena calidad */
+    will-change: transform; /* Optimiza el renderizado */
+  }
+  
+  .accordion {
+    --bs-accordion-color: var(--bs-body-color);
+    --bs-accordion-bg: var(--bs-body-bg);
+    --bs-accordion-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, border-radius 0.15s ease;
+    --bs-accordion-border-color: var(--bs-border-color);
+    --bs-accordion-border-width: var(--bs-border-width);
+    --bs-accordion-border-radius: var(--bs-border-radius);
+    --bs-accordion-inner-border-radius: calc(var(--bs-border-radius) -(var(--bs-border-width)));
+    --bs-accordion-btn-padding-x: 1.25rem;
+    --bs-accordion-btn-padding-y: 1rem;
+    --bs-accordion-btn-color: var(--bs-body-color);
+    --bs-accordion-btn-bg: var(--bs-accordion-bg);
+   --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FFFFFF'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  
+    --bs-accordion-btn-icon-width: 1.25rem;
+    --bs-accordion-btn-icon-transform: rotate(-180deg);
+    --bs-accordion-btn-icon-transition: transform 0.2s ease-in-out;
+   --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FFFFFF'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  
+    --bs-accordion-btn-focus-border-color: #86b7fe;
+    --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    --bs-accordion-body-padding-x: 1.25rem;
+    --bs-accordion-body-padding-y: 1rem;
+    --bs-accordion-active-color: var(--bs-primary-text);
+    --bs-accordion-active-bg: var(--bs-primary-bg-subtle);
+  } 
+  
+
+  .custom-marker {
+    background-size: contain; /* Ajusta la imagen sin distorsión */
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.layer-control label {
+    display: block;
+    margin-bottom: 5px;
+    }
+    #map {
+    z-index: 0;
+    }
+    .layer-control {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-family: "Poppins", serif;
+    z-index: 999; /* Asegúrate de que esté encima del mapa */
+    }
+    .mapboxgl-control-container {
+    z-index: 10; /* Asegúrate de que los controles tengan un z-index mayor */
+    }
+
+    .maplibregl-ctrl.style-switcher {
+background: white;
+border-radius: 5px;
+padding: 10px;
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+font-family: "Poppins", serif;
+font-size: 12px;
+text-align: center;
+}
+
+.maplibregl-ctrl.style-switcher .style-option {
+display: block;
+margin: 5px 0;
+padding: 5px 10px;
+background: #f5f5f5;
+border: 1px solid #ccc;
+border-radius: 3px;
+cursor: pointer;
+transition: background 0.3s;
+font-family: "Poppins", serif;
+}
+
+.maplibregl-ctrl.style-switcher .style-option:hover {
+background: #e0e0e0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px; /* Espacio ligero entre cada fila */
+}
+.title {
+    font-size: 14px;
+    margin-left: 10px;
+
+    color :  #555 !important;
+}
+.subtitle {
+    font-size: 14px;
+    margin-left: 10px;
+    font-weight: normal;
+}
+.detail-row {
+    display: flex;
+    align-items: center; /* Alinea verticalmente texto e imagen */
+}
+.logo {
+    max-width: 100%;
+    height: auto;
+    padding: 15px;
+    margin-top: 0;
+    ; /* Asegura que la imagen no tenga espacio extra */
+}
+
+.img_device{
+
+  width: 100%;
+  height: 260px;
+  padding: 15px;
+  margin-top: 0;
+  display: block; /* Asegura que la imagen no tenga espacio extra */
+
+
+}
+
+
+.detail-row {
+    display: flex;
+    align-items: center;
+    padding: 2px 0;
+   
+}
+
+/* Títulos con mejor jerarquía visual */
+.title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+/* Subtítulos con color optimizado */
+.subtitle {
+    font-size: 14px;
+    font-weight: normal;
+    color: #666;
+}
+
+/* Iconos FontAwesome dentro del título */
+.title i {
+    margin-right: 8px;
+    color: #0a798f; /* Color acorde al diseño */
+}
+
+/* Imagen optimizada */
+/*.logo {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}*/
+
+/* Diseño Responsive */
+@media (max-width: 768px) {
+    .detail-container {
+        flex-direction: column;
+    }
+
+    .detail-text, .detail-image {
+        width: 100%;
+    }
+}
+
+
+.select2-container--default .select2-selection--single {
+    font-family: "Poppins", serif !important;
+}
+/* Cambiar la fuente de los elementos desplegados */
+.select2-container--default .select2-results__option {
+    font-family: "Poppins", serif !important;
+}
+.select2-container--default .select2-selection--single {
+   /*background-color: #00768e !important;
+   /* Fondo rojo */
+    background: linear-gradient(45deg, #00768e, #3f8f99);
+    color: white !important;
+   /* Texto blanco */
+    border: 1px solid #ccc;
+   /* Borde opcional */
+    border-radius: 0 0 10px 0;
+    font-family: "Poppins", serif !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: white !important;
+   /* Texto blanco dentro del select */
+}
+
+.select2-container--default .select2-selection--multiple {
+   background-color: transparent; 
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  cursor: text;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  /* position: relative; */
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+ 
+  background: linear-gradient(135deg, #2c8896, #3fa6b3);
+  border: 1px solid #aaa;
+  border-radius: 0 0 4px 0; 
+  box-sizing: border-box;
+  display: inline-block;
+  margin-left: 5px;
+  margin-top: 5px;
+  padding: 0;
+  padding-left: 20px;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+  white-space: nowrap;
+  color: white !important;
+  font-size: 13px;
+}
+
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice:hover {
+  background: linear-gradient(135deg, #25808c, #349ba7);
+  transform: scale(1.05);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+
+
+.select2-container--default .select2-results__option {
+  font-family: "Poppins", serif !important;
+  font-size: 13px;
+}
+
+.select2-container--default .select2-search--inline .select2-search__field {
+  background: transparent;
+  border: none;
+  outline: 0;
+  box-shadow: none;
+  font-family: "Poppins", serif !important;
+  font-size: 13px;
+  -webkit-appearance: textfield;
+}
+
+.select2-container--default .select2-search--inline .select2-search__field {
+  background: transparent;
+  border: none;
+  outline: 0;
+  box-shadow: none;
+  font-family: "Poppins", serif !important;
+  -webkit-appearance: textfield;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+  background-color: transparent;
+  border: none;
+  border-right: 1px solid #aaa;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0 4px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.select2-container--default .select2-selection--multiple {
+  background-color: transparent;
+  border: 1px solid #c0c1c2;
+  border-radius: 4px;
+  cursor: text;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  /* position: relative; */
+}
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+  border: solid #c0c1c2 1px;
+  outline: 0;
+}
+
+.stats-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+  font-family: 'Poppins', sans-serif;
+  gap: 10px;
+}
+
+.stats-row {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+  background: #eeeeee;
+  border-radius: 6px;
+}
+
+.stat-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #007b8f;
+  margin-bottom: 5px;
+  text-align: center;
+  padding: 5px;
+  background: #eeeeee;
+  border-radius: 4px;
+}
+
+.stat-unit {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.stat-values {
+  display: flex;
+  justify-content: space-around;
+  gap: 15px;
+  padding: 10px;
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+}
+
+.stat-value {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+
+.stat-label {
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+}
+
+
+.text-value {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+  color : #00768e;
+}
+
+
+
+.stats-row {
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+.stat-title {
+  font-weight: bold;
+  font-size: 14px;
+  color: #00768e;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.stat-title i {
+  color: #00768e;
+  font-size: 1.3em;
+}
+
+.stat-values {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-label {
+  font-weight: normal;
+  color: #555;
+  margin-bottom: 5px;
+  font-size: 13px;
+}
+
+.stat-label i {
+  margin-right: 5px;
+  color: #00768e;
+}
+
+.stat-value {
+  font-weight: normal;
+  font-size: 13px;
+  color: #003d4d;
+}
+.recentra {
+  display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+}
+.breadcrumb-item+.breadcrumb-item::before {
+  color: white !important; /* Cambia el color del separador a blanco */
+}
+
+/*#map-legend {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  font-family: "Poppins", serif !important;
+  font-size: 12px;
+}*/
+
+
+
+#map-legend {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.15); /* Fondo semi-transparente */
+  /*backdrop-filter: blur(10px); /* Efecto vidrio */
+  padding: 10px 18px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-family: "Poppins", sans-serif;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Sombra elegante */
+  z-index: 1000;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Animación al pasar el mouse */
+#map-legend:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.25);
+}
+
+/* Estilo de los elementos de la leyenda */
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-family: "Poppins", sans-serif !important;
+  font-size: 12px;
+  color: #fff;
+  font-weight: 500;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* Iconos redondeados y vibrantes */
+.legend-item span {
+  display: inline-block;
+  width: 16px;
+  height: 16px; 
+  margin-right: 8px;
+ 
+}
+
+/* Colores específicos para cada tipo de agua */
+/*.icon-agua-superficial {
+  background: linear-gradient(135deg, #00b4db, #0083b0);
+}
+
+.icon-agua-subterranea {
+  background: linear-gradient(135deg, #7ed56f, #28b485);
+}
+
+.icon-agua-reservorio {
+  background: linear-gradient(135deg, #ffb900, #ff7730);
+}*/
+
+
+.legend-circle {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+  border: 2px solid white;
+ 
+}
+.selectOption
+{
+  color: #3d5f7b; font-family: 'Poppins', serif  !important; font-size: 12px; font-weight: normal; display: block; margin-bottom: 5px;
+  
+}
+
+.ver-estacion-btn:hover {
+  background: linear-gradient(135deg, #005f73, #0097a3);
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 12px rgba(0, 118, 142, 0.4);
+}
+
+
+.ver-estacion-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0px 2px 4px rgba(0, 118, 142, 0.2);
+}
+
+.icon-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Icono redondo */
+  background: linear-gradient(135deg, #00768e, #00a6b8); /* Gradiente */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+.icon-container i {
+  color: white; /* Color del ícono */
+  font-size: 20px;
+}
+
+.gradient-icon {
+ /* font-size: 30px;*/
+  background: linear-gradient(135deg, #00768e, #00a6b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

@@ -1,0 +1,383 @@
+ 
+body {
+  
+  background: url("/images/background.jpg") no-repeat center center fixed;
+  background-size: 100%;
+  background-position: center top;
+  margin: 0;
+  padding: 0;      
+  display: flex;
+  align-items: stretch; /* Llenar todo el espacio vertical */
+  justify-content: center;
+  font-family: "Poppins", serif !important;
+}
+
+
+.main-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 0px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 1250px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header, .footer {
+  background-color: #006d6d;
+  color: white;
+  padding: 10px 20px;
+ 
+}
+
+.footer {
+  border-radius: 0 0 0px 0px; /* Footer: bordes redondeados inferiores */
+}
+
+.map-container {
+  height: 400px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.accordion-button {
+  background: linear-gradient(45deg, #00768e, #3f8f99);
+  color: white;
+}
+
+
+ .logo-containerd {
+  /* Define un contenedor general para el logo */
+  max-width: 100%; /* O ajusta al tamaño deseado */
+  height: 100%; /* Ajusta según el diseño o requerimientos */
+}
+.center-contentd {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  height: 100%; /* Asegura el centrado vertical */
+  text-align: center; /* Fallback para navegadores antiguos */
+}
+.small-text {
+font-size: 10px; /* Ajusta según lo necesario */
+}
+.jjtxt{
+text-align: justify;
+line-height: 20px;
+}
+.pdd{
+padding-top: 10px;
+}
+.color_mlp{
+background: linear-gradient(45deg, #00768e, #3f8f99);
+}
+
+.accordion-button {
+position: relative;
+display: flex;
+align-items: center;
+width: 100%;
+padding: var(--bs-accordion-btn-padding-y) var(--bs-accordion-btn-padding-x);
+font-size: 1rem;
+/*color: var(--bs-accordion-btn-color);*/
+text-align: left;
+background-color: var(--bs-accordion-btn-bg);
+border: 0;
+border-radius: 0;
+overflow-anchor: none;
+transition: var(--bs-accordion-transition);
+border-radius: 0 0 10px 0;
+color: white;
+
+}
+
+.accordion-item:last-of-type .accordion-button.collapsed {
+border-bottom-right-radius: var(--bs-accordion-inner-border-radius);
+border-bottom-left-radius: var(--bs-accordion-inner-border-radius);
+border-radius: 0 0 10px 0;
+}
+
+.accordion-item:first-of-type .accordion-button.collapsed {
+border-top-right-radius: var(--bs-accordion-inner-border-radius);
+border-top-left-radius: var(--bs-accordion-inner-border-radius);
+border-radius: 0 0 10px 0;
+}
+
+
+.accordion-button:not(.collapsed) {
+color: white;
+font-weight: bold;
+background-color: var(--bs-accordion-active-bg);
+box-shadow: inset 0 calc(-1* var(--bs-accordion-border-width)) 0 var(--bs-accordion-border-color);
+border-top-right-radius: var(--bs-accordion-inner-border-radius);
+border-top-left-radius: var(--bs-accordion-inner-border-radius);
+}
+
+.accordion {
+display: flex;
+flex-direction: column;
+gap: 10px; /* Espaciado entre botones */
+}
+
+.accordion-item {
+border: none; /* Elimina bordes predeterminados */
+}
+
+.list-group {
+--bs-list-group-color: var(--bs-body-color);
+--bs-list-group-bg: var(--bs-body-bg);
+--bs-list-group-border-color: var(--bs-border-color);
+--bs-list-group-border-width: var(--bs-border-width);
+--bs-list-group-border-radius: var(--bs-border-radius);
+--bs-list-group-item-padding-x: 1rem;
+--bs-list-group-item-padding-y: 0.5rem;
+--bs-list-group-action-color: var(--bs-secondary-color);
+--bs-list-group-action-hover-color: var(--bs-emphasis-color);
+--bs-list-group-action-hover-bg: var(--bs-tertiary-bg);
+--bs-list-group-action-active-color: var(--bs-body-color);
+--bs-list-group-action-active-bg: var(--bs-secondary-bg);
+--bs-list-group-disabled-color: var(--bs-secondary-color);
+--bs-list-group-disabled-bg: var(--bs-body-bg);
+--bs-list-group-active-color: #fff;
+--bs-list-group-active-bg: #0d6efd;
+--bs-list-group-active-border-color: #0d6efd;
+display: flex
+;
+flex-direction: column;
+padding-left: 0;
+margin-bottom: 0;
+border-radius: 0 !important;
+}
+
+
+.list-group-container {
+max-height: 200px; /* Ajusta la altura según necesites */
+overflow-y: auto;
+border: 1px solid #ddd; /* Opcional, para visualizar mejor */
+padding-right: 5px;
+}
+
+.list-group-container {
+max-width: 100%;
+            max-height: 0;
+            overflow-y: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+      
+        .accordion-collapse.show .list-group-container {
+            max-height: 200px; /* Ajusta la altura máxima según necesites */
+            overflow-y: auto;
+            border: none; /* Elimina todos los bordes */
+        }
+
+        .list-group-item {
+position: relative;
+display: block;
+padding: var(--bs-list-group-item-padding-y) var(--bs-list-group-item-padding-x);
+color: var(--bs-list-group-color);
+text-decoration: none;
+background-color: #f5f5f5;
+border: none; /* Elimina todos los bordes */
+border-bottom: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color); /* Agrega solo el borde inferior */
+}
+
+.list-group-item:hover {
+position: relative;
+display: block;
+padding: var(--bs-list-group-item-padding-y) var(--bs-list-group-item-padding-x);
+color: var(--bs-list-group-color);
+text-decoration: none;
+background-color: #5cc0c9 !important;
+border: none; /* Elimina todos los bordes */
+border-bottom: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color); /* Agrega solo el borde inferior */
+}
+
+.list-group-item:hover .icon-agua-superficial {
+filter: brightness(0) invert(1); /* Invierte los colores (efecto de color blanco) */
+}
+
+.list-group-item:hover .icon-agua-subterranea {
+filter: brightness(0) invert(1); /* Invierte los colores (efecto de color blanco) */
+}
+
+.list-group-item:hover .icon-agua-reservorio {
+filter: brightness(0) invert(1); /* Invierte los colores (efecto de color blanco) */
+}
+
+.logo-containerd {
+  /* Define un contenedor general para el logo */
+  max-width: 100%; /* O ajusta al tamaño deseado */
+  height: 100%; /* Ajusta según el diseño o requerimientos */
+}
+.center-contentd {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  height: 100%; /* Asegura el centrado vertical */
+  text-align: center; /* Fallback para navegadores antiguos */
+}
+.small-text {
+font-size: 10px; /* Ajusta según lo necesario */
+}
+.jjtxt{
+text-align: justify;
+line-height: 20px;
+}
+.pdd{
+padding-top: 10px;
+}
+.color_mlp{
+background: linear-gradient(45deg, #00768e, #3f8f99);
+}
+
+
+.icon-agua-superficial {
+display: inline-block;
+width: 20px; /* Ajusta el tamaño del ícono */
+height: 20px;    
+background-image: url("images/icons/agua-superficial-normal.svg");
+background-size: contain;
+background-repeat: no-repeat;
+background-position: center;
+vertical-align: middle; /* Alinea con el texto */
+}
+
+
+
+
+
+.icon-agua-subterranea {
+display: inline-block;
+width: 20px; /* Ajusta el tamaño del ícono */
+height: 20px;  
+background-image: url("images/icons/agua-subterranea-normal.svg");
+background-size: contain;
+background-repeat: no-repeat;
+background-position: center;
+vertical-align: middle; /* Alinea con el texto */
+}
+
+
+.icon-agua-reservorio {
+display: inline-block;
+width: 20px; /* Ajusta el tamaño del ícono */
+height: 20px;
+background-image: url('images/icons/filtro-reservorio.svg');
+background-size: contain;
+background-repeat: no-repeat;
+background-position: center;
+vertical-align: middle; /* Alinea con el texto */
+}
+
+.items {
+ color : #3d5f7b;
+ font-weight: bold;
+ /*border-bottom: 1px solid #d3d3d3 !important;*/
+ font-size: 14px !important;
+ text-decoration: none !important;
+ 
+}
+
+.title_pop{
+font-family: "Poppins", serif;
+font-weight: 700;
+font-style: normal;
+font-size: 16px;
+
+color:#04647c;
+}
+
+.accordion-button:not(.collapsed) {
+color: white;
+font-weight: bold;
+background-color: var(--bs-accordion-active-bg);
+box-shadow: inset 0 calc(-1* var(--bs-accordion-border-width)) 0 var(--bs-accordion-border-color);
+}
+
+.accordion-body {
+/* padding: var(--bs-accordion-body-padding-y) var(--bs-accordion-body-padding-x); */
+padding: 0;
+}
+
+
+
+.marker-label span {
+  font-size: 10px;
+  color: white;    
+  padding: 2px 6px;  
+  white-space: nowrap; /* Evita los saltos de línea */
+  text-align: center; /* Centra el texto */
+  transform: translateX(-50%); /* Centra horizontalmente */
+  display: inline-block;
+  position: relative;
+  top: 0px; /* Ajusta para que el texto quede justo debajo */
+  font-family: "Poppins", serif;
+  font-weight: bold;
+  text-shadow: 
+      -1px -1px 0 black,  
+      1px -1px 0 black,  
+      -1px 1px 0 black,  
+      1px 1px 0 black; /* Crea un borde negro alrededor del texto */
+}
+
+
+.popup-content {
+    font-family: 'Poppins', serif;
+    font-size: 14px;
+    text-align: center; /* Centra el texto */
+}
+
+.ver-estacion-btn {
+    background-color: #00768e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    display: inline-flex; /* Flexbox para centrar ícono y texto */
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+    gap: 6px; /* Espacio entre el ícono y el texto */
+    text-decoration: none; /* Quita subrayado si es un enlace */
+    font-family: 'Poppins', serif;
+    margin-top: 8px; /* Espaciado entre el texto y el botón */
+}
+
+.ver-estacion-btn:hover {
+    background-color: #005f70; /* Color más oscuro al pasar el cursor */
+}
+
+
+.custom-marker {
+  image-rendering: auto;  /* Modo estándar para imágenes de buena calidad */
+  will-change: transform; /* Optimiza el renderizado */
+}
+
+.accordion {
+  --bs-accordion-color: var(--bs-body-color);
+  --bs-accordion-bg: var(--bs-body-bg);
+  --bs-accordion-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, border-radius 0.15s ease;
+  --bs-accordion-border-color: var(--bs-border-color);
+  --bs-accordion-border-width: var(--bs-border-width);
+  --bs-accordion-border-radius: var(--bs-border-radius);
+  --bs-accordion-inner-border-radius: calc(var(--bs-border-radius) -(var(--bs-border-width)));
+  --bs-accordion-btn-padding-x: 1.25rem;
+  --bs-accordion-btn-padding-y: 1rem;
+  --bs-accordion-btn-color: var(--bs-body-color);
+  --bs-accordion-btn-bg: var(--bs-accordion-bg);
+ --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FFFFFF'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+
+  --bs-accordion-btn-icon-width: 1.25rem;
+  --bs-accordion-btn-icon-transform: rotate(-180deg);
+  --bs-accordion-btn-icon-transition: transform 0.2s ease-in-out;
+ --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FFFFFF'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+
+  --bs-accordion-btn-focus-border-color: #86b7fe;
+  --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  --bs-accordion-body-padding-x: 1.25rem;
+  --bs-accordion-body-padding-y: 1rem;
+  --bs-accordion-active-color: var(--bs-primary-text);
+  --bs-accordion-active-bg: var(--bs-primary-bg-subtle);
+} 

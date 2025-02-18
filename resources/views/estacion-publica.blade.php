@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>{{ $estacion->nombre }}</title>
+      <link href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.min.css" rel="stylesheet" />
+      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+      <script src="https://kit.fontawesome.com/e5291bc371.js" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="{{ asset('css/styles.css') }}" />
+   </head>
+   <style>
+   </style>
+   </style>
+   <body>
+      <div class="main-container">
+         <div class="header d-flex justify-content-between align-items-center px-3" style="background-color: white; padding: 10px 0;">
+            <a href="{{ url('/') }}">
+            <img   src="{{ asset('images/image.png') }}"
+               style="max-width: 150px; height: auto; float: left; margin-right: 15px; padding: 10px 0;" 
+               alt="Logo Los Pelambres" class="logo">
+            </a>
+            <nav class="d-flex">
+               <a href="{{ url('/') }}" class="text-dark text-decoration-none mx-2 title_pop">Mapa</a>
+               <a href="{{ url('/glosary') }}" class="text-dark text-decoration-none mx-2  title_pop">Glosario</a>
+            </nav>
+         </div>
+         <nav class="d-flex align-items-center px-4 py-3 justify-content-between" style="background: linear-gradient(to right, #02697e, #3e98a6);">
+            <a href="{{ url('/') }}" class="text-white text-decoration-none fw-bold">Sistema de Monitoreo de Aguas Valle Pupío</a>
+            <nav aria-label="breadcrumb">
+               <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item">
+                     <a href="{{ url('/sector/' . $estacion->sector) }}" 
+                        class="text-white text-decoration-none fw-bold"
+                        data-bs-toggle="tooltip" 
+                        title="Ver en mapa" data-bs-placement="bottom">
+                     {{ $estacion->descripcion }}
+                     </a>
+                  </li>
+                  <li class="breadcrumb-item">
+                     <a href="{{ url('/estacion-publica/' . $estacion->estacion_id) }}" class="text-white text-decoration-none">
+                     {{ $estacion->nombre }}
+                     </a>
+                  </li>
+               </ol>
+            </nav>
+         </nav>
+         <div class="container-fluid mt-4">
+            <div class="row" style="padding-top: 20px;">
+               <div class="col-md-3">
+                  <div class="panel">
+                     <div style="background-color: #f5f5f5; padding: 15px 10px 0 10px;">
+                        <h5 class="fw-bold title_pop">Filtrar por:</h5>
+                        <hr style="width: 100%;" />
+                     </div>
+                     <div  style="background-color: #f5f5f5;">
+                        {!! $side !!}
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-9">
+                  <div class="panel" style="background-color: #eeeeee; border-bottom-left-radius: 25px; padding-bottom: 15px; ; box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);">
+                     <div style="background-color: transparent; padding: 15px 10px 0 10px;">
+                        <h5 class="fw-bold title_pop"><span class="{{ $estacion->icon_titlte }}" >&nbsp;</span > &nbsp; <span id="primary_title"> {{ $estacion->nombre }}</span></h5>
+                        <hr />
+                     </div>
+                     <div class="row align-items-center detail-container">
+                        <div class="col-lg-7 detail-text" style="padding-top: -20px !important;">
+                           <div class="container">
+                              <div class="row detail-row">
+                                 <div class="col-4 fw-bold title">Código Estación:</div>
+                                 <div class="col-7 subtitle" id="cuencaStation">{{ $estacion->nombre }}</div>
+                              </div>
+                              <div class="row detail-row">
+                                 <div class="col-4 fw-bold title">Cuenca:</div>
+                                 <div class="col-7 subtitle" id="cuencaStation">{{ $estacion->cuenca }}</div>
+                              </div>
+                              <div class="row detail-row">
+                                 <div class="col-4 fw-bold title">Subcuenca:</div>
+                                 <div class="col-7 subtitle" id="subcuencaStation">{{ $estacion->subcuenca }}</div>
+                              </div>
+                              <div class="row detail-row">
+                                 <div class="col-4 fw-bold title">Región:</div>
+                                 <div class="col-7 subtitle" id="regionStation">{{ $estacion->region }}</div>
+                              </div>
+                              <div class="row detail-row">
+                                 <div class="col-4 fw-bold title">Tipo de Monitoreo:</div>
+                                 <div class="col-7 subtitle" id="typeStation">{{ $estacion->descripcion }}</div>
+                              </div>
+                              <div class="row detail-row">
+                                 <div class="col-4 fw-bold title">Coordenadas:</div>
+                                 <div class="col-7 subtitle" id="coordenadaStation">[{{ $estacion->utm_north }} ; {{ $estacion->utm_east }} ; {{ $estacion->utm_datum }}]</div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-5 detail-image">
+                           <img  id="imgDevice" src="{{ $estacion->link_imagen }}"  alt="loading.." class="img_device" />                    
+                        </div>
+                     </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                     <div class="col-lg-12">
+                        <br>
+                        <div class="row">
+                           <div class="col-lg-6">
+                              <div>
+                                 <label for="dateRangeSelect" class="selectOption"><i style="color: #60d1cc" class="fas fa-calendar-alt gradient-icon"></i>&nbsp;Periodo de tiempo</label>
+                                 <select id="dateRangeSelect" style="width: 100%;">
+                                 </select>
+                              </div>
+                           </div>
+                           <div class="col-lg-6">
+                              <div>
+                              <!--<i class="fas fa-map-marker-alt gradient-icon"></i>-->
+                                 <label for="typeSelect" class="selectOption"><i style="" class="fas fa-leaf gradient-icon"></i>&nbsp;Tipo de parámetro (Max. 2 Opciones)</label>
+                                 <select id="typeSelect" style="width: 100%;">                      
+                                 </select>
+                              </div>
+                           </div>
+                        </div>
+                        <div style=" margin-left: 0px; margin-right: 10px;">
+                           <br>
+                           <div id="conductivityChart" style="width: 100%; height: 550px; padding: 0px; position: relative;">
+                              <!-- Spinner de carga -->
+                              <div id="loadingSpinner" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10;">
+                                 <div style="border: 4px solid #f3f3f3; border-radius: 50%; border-top: 4px solid #3498db; width: 40px; height: 40px; animation: spin 1s linear infinite;"></div>
+                              </div>
+                           </div>
+                           <br>
+                           <div style=" margin-left: 10px;margin-right: 10px; background-color: #eee;">
+                              <p style="font-size: 14px; font-weight: bold; margin-bottom: 10px; text-align: justify; padding: 10px; font-family: 'Poppins', serif; text-align: center;  color:#04647c;">
+                                 Detalles de la variable <span id="plotVar"> </span> en el rango: <span id="dateMin">2024-12-31 00:00:00</span> al <span id="dateMax">2024-12-31 00:00:00</span>
+                              </p>
+                              <div class="stats-container" style="display: flex; justify-content: space-around; margin-top: 10px; padding: 10px; font-family: 'Poppins'">
+                                 <!-- Aquí se insertarán dinámicamente las estadísticas -->
+                              </div>
+                              <p style="font-size: 12px; color: #888; margin-bottom: 20px; line-height: 1.5; font-family: 'Poppins', serif; text-align: justify; padding: 20px;">
+                                 Nota: la información de monitoreo disponible está sujeta a las condiciones de conectividad y telecomunicaciones en la zona. La realización de mantenciones en los equipos y/o algún otro evento pueden alterar momentáneamente los registros, provocando imprecisiones en la información. Para mayores detalles ver sección "Observaciones".
+                              </p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- Footer -->
+         <div class="footer text-center mt-4 color_mlp">
+            <div class="row align-items-center pdd">
+               <div class="col-lg-3 d-flex justify-content-center">
+                  <img src="{{ asset('images/antofagasta-mineralsWT.png') }}" style="max-width: 70%; height: auto; padding-top: 10px;" alt="Logo Los Pelambres" class="logo" />
+               </div>
+               <div class="col-lg-3 d-flex flex-column align-items-start">
+                  <span class="text-line txt small-text pdd">
+                  <span style="font-weight: bold;"><i class="fas fa-mobile-alt"></i> &nbsp; Teléfono:</span> +56 2 3456 7890
+                  </span>
+                  <span class="text-line txt small-text pdd">
+                  <span style="font-weight: bold;"><i class="fas fa-envelope"></i>&nbsp; Email:</span> comunicacionesexternas@pelambres.cl
+                  </span>
+                  <span class="text-line txt small-text pdd">
+                  <span style="font-weight: bold;"><i class="fas fa-globe"></i>&nbsp; Web:</span> www.aminerals.com
+                  </span>
+               </div>
+               <div class="col-lg-3">
+                  <div class="section">
+                     <p class="small-text jjtxt">
+                        Este desarrollo ha sido implementado por <span style="font-weight: bold;">GP Consultores</span>, a través de su equipo especializado en soluciones de monitoreo web. gp@gpconsultores.cl
+                     </p>
+                     <p></p>
+                  </div>
+               </div>
+               <div class="col-lg-3">
+                  <img src="{{ asset('images/gp-blanco.png') }}" style="max-width: 65%; height: auto; padding-top: 10px;" alt="Logo Los Pelambres" class="logo" />
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Bootstrap JS -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>     
+      <script src="{{ asset('stock/code/highstock.js') }}"></script>  
+      <script src="{{ asset('stock/code/modules/data.js') }}"></script>
+      <script src="{{ asset('stock/code/modules/export-data.js') }}"></script>
+      <script src="{{ asset('stock/code/modules/accessibility.js') }}"></script>
+      <script src="{{ asset('stock/code/modules/no-data-to-display.js') }}"></script>  
+      <script src="{{ asset('lst/lst_op.js') }}"></script>
+      <script src="{{ asset('plot/plot.js') }}"></script>
+      <script>
+         document.addEventListener("DOMContentLoaded", function () {
+         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+         return new bootstrap.Tooltip(tooltipTriggerEl);
+         });
+         });
+         
+      </script>
+   </body>
+</html>
