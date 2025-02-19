@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Sector;
+use App\Models\Estacion;
+
 
 class SectorController extends Controller
 {
@@ -22,19 +25,18 @@ class SectorController extends Controller
         ]);
     }
 
-    /**
-     * Obtiene los sectores y sus estaciones desde la base de datos.
-     */
+   
     private function getsSectores()
     {
         try {
-            $sectores = DB::select("SELECT * FROM sectores");
-
+            
+            $sectores = Sector::all();
+    
             $data = [];
             foreach ($sectores as $sector) {
                 $submenu = $this->getStations($sector->id_sector);
                 $data[] = [
-                    'menu' => json_decode(json_encode($sector), true), // Convertir stdClass a array
+                    'menu' => $sector->toArray(), // Convertir modelo Eloquent a array
                     'submenu' => $submenu
                 ];
             }
@@ -44,23 +46,17 @@ class SectorController extends Controller
         }
     }
 
-    /**
-     * Obtiene las estaciones de un sector específico.
-     */
     private function getStations($sector)
     {
         try {
-            $estaciones = DB::select("SELECT * FROM estaciones WHERE sector = ? ORDER BY nombre", [$sector]);
 
-            return ['submenu' => json_decode(json_encode($estaciones), true)]; // Convertir stdClass a array
+            $estaciones = Estacion::where('sector', $sector)->orderBy('nombre')->get();    
+            return ['submenu' => $estaciones->toArray()]; 
         } catch (\Exception $e) {
             return ['submenu' => []];
         }
     }
-
-    /**
-     * Genera el HTML del menú desplegable como un acordeón.
-     */
+    
     private function generateDropdownHTML($array, $idSectorActivo = null)
     {
         $html = '<div class="accordion" id="accordionExample">';

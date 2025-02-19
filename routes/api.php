@@ -8,8 +8,8 @@ use App\Http\Controllers\LeftMenuController;
 use App\Http\Controllers\LeftOpenController;
 use App\Http\Controllers\LeftOpenMenuController;
 
-#Route::post('/api/plot', [PlotController::class, 'store']);
-Route::post('/api/plot', [PlotController::class, 'store'])->middleware('internal.token');
+Route::post('/api/plot', [PlotController::class, 'store']);
+#Route::post('/api/plot', [PlotController::class, 'store'])->middleware('internal.token');
 
 Route::get('/api/location', [LocationController::class, 'getLocation']);
 Route::get('/api/location/sector/sector_publico/{sector_publico}', [LocationController::class, 'getBySectorPublico']);

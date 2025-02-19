@@ -44,6 +44,7 @@ body {
     background: linear-gradient(45deg, #00768e, #3f8f99);
     color: white;
   }
+
   
   
    .logo-containerd {
@@ -90,6 +91,26 @@ body {
   color: white;
   
   }
+
+
+  .accordion-button_
+  {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: var(--bs-accordion-btn-padding-y) var(--bs-accordion-btn-padding-x);
+      font-size: 1rem; 
+      text-align: left;
+      background-color: var(--bs-accordion-btn-bg);
+      border: 0;
+      border-radius: 0;
+      overflow-anchor: none;
+      transition: var(--bs-accordion-transition);
+      border-radius: 0 0 10px 0;
+      color: white;
+    
+    }
   
   .accordion-item:last-of-type .accordion-button.collapsed {
   border-bottom-right-radius: var(--bs-accordion-inner-border-radius);
@@ -300,7 +321,44 @@ body {
   }
   
   
-  
+  .icon-agua-superficial_alt {
+    background-image: url("../images/icons/markers/pin-agua-superficial.png");
+    background-size: contain; /* Evita estiramientos */
+    background-repeat: no-repeat; /* Evita repeticiones */
+    background-position: center; /* Alineación centrada */
+    width: 20px !important; /* Ancho */
+    height: 24px  !important; /* Alto */
+    image-rendering: auto; /* Mantiene calidad */
+    filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.5)); /* Suavizado */
+}
+
+.icon-agua-subterranea_alt {
+  background-image: url("../images/icons/markers/pin-agua-subterranea.png");
+  background-size: contain; /* Evita estiramientos */
+  background-repeat: no-repeat; /* Evita repeticiones */
+  background-position: center; /* Alineación centrada */
+  width: 20px !important; /* Ancho */
+  height: 24px  !important; /* Alto */
+  image-rendering: auto; /* Mantiene calidad */
+  filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.5)); /* Suavizado */
+}
+
+
+.icon-agua-reservorio_alt {
+  background-image: url("../images/icons/markers/pin-reservorio.svg");
+  background-size: contain; /* Evita estiramientos */
+  background-repeat: no-repeat; /* Evita repeticiones */
+  background-position: center; /* Alineación centrada */
+  width: 20px !important; /* Ancho */
+  height: 24px  !important; /* Alto */
+  image-rendering: auto; /* Mantiene calidad */
+  filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.5)); /* Suavizado */
+}
+    
+    
+        
+
+
   
   
   .icon-agua-subterranea {
@@ -1004,4 +1062,13 @@ background: #e0e0e0;
   background: linear-gradient(135deg, #00768e, #00a6b8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+#map-legend .legend-item {
+  font-weight: normal; /* Opcional, para mejorar la visibilidad */
+  text-shadow: 
+      -1px -1px 0 black,  
+      1px -1px 0 black,  
+      -1px 1px 0 black,  
+      1px 1px 0 black; /* Crea un borde negro alrededor del texto */
 }

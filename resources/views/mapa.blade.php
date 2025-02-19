@@ -4,6 +4,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Sistema de Monitoreo</title>
+      <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
       <!-- Bootstrap CSS -->
       <link href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.min.css" rel="stylesheet">
       <link rel="stylesheet" href="https://unpkg.com/maplibre-gl-minimap/dist/maplibre-gl-minimap.css">
@@ -26,8 +27,9 @@
                <a href="{{ url('/glosary') }}" class="text-dark text-decoration-none mx-2  title_pop">Glosario</a>      
             </nav>
          </div>
+
          <nav class="d-flex align-items-center px-4 py-3" style="background: linear-gradient(to right, #02697e, #3e98a6);">
-            <a href="{{ url('/') }}" class="text-white text-decoration-none mx-1 fw-bold">Sistema de Monitoreo de Aguas Valle Pupío</a>
+            <a href="{{ url('/') }}" class="text-white text-decoration-none mx-1 fw-bold">Sistema de Mediciones en Linea de Aguas - Valle Pupío</a>
          </nav>
          <div class="container-fluid mt-4">
             <div class="row" style="padding-top: 20px;">
@@ -35,9 +37,9 @@
                   <div class="panel">
                      <a data-bs-toggle="tooltip"
                         data-bs-placement="left"
-                        title="Selecciona un sector para ver las estaciones">
+                        title="Selecciona un sector para visualizar las estaciones">
                         <div  style="background-color: #f5f5f5; padding: 15px 10px 0 10px;">
-                           <h5 class="fw-bold title_pop">  Filtrar por :</h5>
+                           <h5 class="fw-bold title_pop">  Seleccionar </h5>
                            <hr style="width: 100%">
                         </div>
                      </a>
@@ -58,17 +60,18 @@
                            <label><input type="radio" name="map-style" value="Satellite" checked> Satellite</label>
                         </div>
                         <style>
-                        </style>
-                        <!-- Leyenda del mapa -->
+
+                           </style>
+                       
                         <div id="map-legend">
                            <div class="legend-item">
-                              <span class="icon-agua-superficial" style=" width: 13px; height: 13px ;"></span>&nbsp; Agua Superficial
+                              <span class="icon-agua-superficial_alt" ></span>&nbsp; Agua Superficial
                            </div>
                            <div class="legend-item">
-                              <span class="icon-agua-subterranea" style=" width: 13px; height: 13px"></span>&nbsp; Agua Subterránea
+                              <span class="icon-agua-subterranea_alt" ></span>&nbsp; Agua Subterránea
                            </div>
                            <div class="legend-item">
-                              <span class="icon-agua-reservorio" style=" width: 13px; height: 13px"></span>&nbsp; Reservorio
+                              <span class="icon-agua-reservorio_alt" ></span>&nbsp; Reservorio
                            </div>
                         </div>
                      </div>
@@ -119,7 +122,7 @@
       <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>   
       <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.min.js"></script>
       <script src="https://unpkg.com/maplibre-gl-minimap/dist/maplibre-gl-minimap.js"></script>
-      <script src="{{ asset('map/map.js') }}"></script>
+      @vite('resources/js/map.js')
       <script>
          document.addEventListener("DOMContentLoaded", function () {
          var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));

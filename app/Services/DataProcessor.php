@@ -1,52 +1,81 @@
 <?php
 
 namespace App\Services;
+use Illuminate\Support\Facades\DB;
 
 class DataProcessor
 {
     public static function processQueryResults($results)
+{
+    $series = [];
+    $dataPoints = [];
+    $unidad = "";
+
+    foreach ($results as $row)
     {
-
-        $series = [];
-        $dataPoints = [];
-        $unidad = "";
-
-        foreach ($results as $row) {
-            $milliseconds = self::convertToMilliseconds($row->fecha_hora); 
-            $value = self::convertToFloat($row->valor); 
-
-       
-            $series['name'] =  $row->sensor;
-            $series['parametro'] = $row->sensor;
-            $series['unidad'] = $row->unidad;
-            $series['limite_superior'] = $row->limite_superior;
-            $series['limite_inferior'] = $row->limite_inferior;
-            $series['yAxis'] = $row->yAxis;
-            $series['decimales'] = $row->decimales;
-            $dataPoints[] = [$milliseconds, $value];
-            $unidad = $row->unidad; 
-        }
-       
-        $series['data'] = $dataPoints;
-
-       
-        if (!empty($dataPoints)) {
-            $dateRange = self::getDateRange($dataPoints); 
-
-            
-            $series['periodo'] = "{$dateRange['minDate']} — {$dateRange['maxDate']}";
-
-            $stats = self::calculateStatistics($dataPoints, $unidad);
-            $series['stats'] = $stats; 
-
-            $series['dateRange'] = $dateRange; 
-        } else {
-          
-            $series['periodo'] = '';
-        }
-
-        return $series;
+        $milliseconds = self::convertToMilliseconds($row->fecha_hora);
+        $value = self::convertToFloat($row->valor);
+        $plotlines = self::getPlotlines($row->id_estacion, $row->sensor);
+        $series['name'] = $row->sensor;
+        $series['parametro'] = $row->sensor;
+        $series['unidad'] = $row->unidad;
+        $series['limite_superior'] = $row->limite_superior;
+        $series['limite_inferior'] = $row->limite_inferior;
+        $series['yAxis'] = $row->yAxis;
+        $series['decimales'] = $row->decimales;
+        $series['plotlines'] = $plotlines; 
+        $series['id_estacion'] = $row->id_estacion;
+        $dataPoints[] = [$milliseconds, $value];
+        $unidad = $row->unidad;
     }
+
+    $series['data'] = $dataPoints;
+
+    if (!empty($dataPoints)) {
+        $dateRange = self::getDateRange($dataPoints);
+        $series['periodo'] = "Periodo desde {$dateRange['minDate']} hasta {$dateRange['maxDate']}";
+
+        $stats = self::calculateStatistics($dataPoints, $unidad);
+        $series['stats'] = $stats;
+        $series['dateRange'] = $dateRange;
+    } else {
+        $series['periodo'] = '';
+    }
+
+    return $series;
+}
+
+
+
+public static function getPlotlines($idEstacion, $parametro)
+{
+    $query = "CALL GetPlotlineByEstacionParametro(?, ?)";
+    $results = DB::select($query, [$idEstacion, $parametro]);
+
+    $plotlines = [];
+
+    foreach ($results as $row) {
+        $plotlines[] = [
+            'color' => $row->color ?? 'red', // Si no tiene color, usa rojo por defecto
+            'dashStyle' => $row->style ?? 'Dash', // Si no tiene estilo, usa Dash por defecto
+            'width' => $row->width ?? 2, // Si no tiene ancho, usa 2 por defecto
+            'value' => $row->value, // Posición en el eje Y
+            'zIndex'=> 3, // M
+            'label' => [
+                'text' => $row->text ?? 'Límite', // Texto de la etiqueta
+                'align' => $row->align ?? 'left', // Alineación de la etiqueta
+                'x' => -10, // Ajuste horizontal del texto
+                'style' => [
+                    'color' => 'black',                   
+                ]
+            ]
+        ];
+    }
+
+    return $plotlines;
+}
+
+
 
 
     private static function convertToMilliseconds($datetime)

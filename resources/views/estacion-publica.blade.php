@@ -4,6 +4,7 @@
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>{{ $estacion->nombre }}</title>
+      <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
       <link href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.min.css" rel="stylesheet" />
       <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
       <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
@@ -28,7 +29,7 @@
             </nav>
          </div>
          <nav class="d-flex align-items-center px-4 py-3 justify-content-between" style="background: linear-gradient(to right, #02697e, #3e98a6);">
-            <a href="{{ url('/') }}" class="text-white text-decoration-none fw-bold">Sistema de Monitoreo de Aguas Valle Pupío</a>
+            <a href="{{ url('/') }}" class="text-white text-decoration-none fw-bold">Sistema de Mediciones en Linea de Aguas - Valle Pupío</a>
             <nav aria-label="breadcrumb">
                <ol class="breadcrumb m-0">
                   <li class="breadcrumb-item">
@@ -52,7 +53,7 @@
                <div class="col-md-3">
                   <div class="panel">
                      <div style="background-color: #f5f5f5; padding: 15px 10px 0 10px;">
-                        <h5 class="fw-bold title_pop">Filtrar por:</h5>
+                        <h5 class="fw-bold title_pop">Seleccionar :</h5>
                         <hr style="width: 100%;" />
                      </div>
                      <div  style="background-color: #f5f5f5;">

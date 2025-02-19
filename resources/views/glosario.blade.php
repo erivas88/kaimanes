@@ -3,7 +3,8 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Sistema de Monitoreo</title>
+      <title>Glosario</title>
+      <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
       <!-- Bootstrap CSS -->
       <link href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.min.css" rel="stylesheet">
       <link rel="stylesheet" href="https://unpkg.com/maplibre-gl-minimap/dist/maplibre-gl-minimap.css">
@@ -27,7 +28,7 @@
             </nav>
          </div>
          <nav class="d-flex align-items-center px-4 py-3" style="background: linear-gradient(to right, #02697e, #3e98a6);">
-            <a href="{{ url('/') }}" class="text-white text-decoration-none mx-1 fw-bold">Sistema de Monitoreo de Aguas Valle Pupío</a>
+            <a href="{{ url('/') }}" class="text-white text-decoration-none mx-1 fw-bold">Sistema de Mediciones en Linea de Aguas - Valle Pupío</a>
 
          </nav>
 
@@ -37,7 +38,7 @@
                <div class="col-md-3">
                   <div class="panel">
                      <div style="background-color: #f5f5f5; padding: 15px 10px 0 10px;">
-                        <h5 class="fw-bold title_pop">  Filtrar por :</h5>
+                        <h5 class="fw-bold title_pop"> Seleccionar por :</h5>
                         <hr style="width: 100%">
                      </div>
                      <div id="side" style="background-color: #f5f5f5">

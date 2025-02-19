@@ -315,11 +315,11 @@ function plotChart(dataArray) {
         credits: { enabled: false },
         title: { 
             text: chartTitle, 
-            style: { color: 'gray', fontFamily: 'Poppins, serif', fontWeight: '300', fontSize: '14px' } 
+            style: { color: 'gray', fontFamily: 'Poppins, serif', fontWeight: '300', fontSize: '13px' } 
         },
         subtitle: { 
             text: dataArray[0]?.periodo || "Periodo no disponible", 
-            style: { color: 'darkgray', fontFamily: 'Poppins, serif', fontSize: '12px' } 
+            style: { color: 'darkgray', fontFamily: 'Poppins, serif', fontSize: '11px' } 
         },
         xAxis: {
             type: 'datetime',
@@ -338,41 +338,40 @@ function plotChart(dataArray) {
         yAxis: dataArray.length > 0 ? [
             dataArray[0] ? {
                 title: { 
-                    text: `${dataArray[0]?.parametro || ""} [${dataArray[0]?.unidad || ""}]`, // Agregar unidad
+                    text: `${dataArray[0]?.parametro || ""} [${dataArray[0]?.unidad || ""}]`,
                     style: { color: colors[0], fontFamily: 'Poppins, serif', fontWeight: '600' } 
                 },
                 labels: {
                     formatter: function () { return this.value.toFixed(1); },
-                    style: { fontFamily: 'Poppins, serif', fontSize: '10px' }
+                    style: { color: colors[0], fontFamily: 'Poppins, serif', fontSize: '10px' }
                 },
                 crosshair: { width: 1, dashStyle: 'solid' },
-               
-                
                 gridLineWidth: 1,
                 gridLineColor: '#E0E0E0',
                 gridLineDashStyle: 'dash',
-                min: dataArray[0]?.limite_inferior ?? undefined, // Si es null, usa el valor por defecto de Highcharts
-                max: dataArray[0]?.limite_superior ?? undefined, // Si es null, usa el valor por defecto de Highcharts
-                reversed: dataArray[0]?.yAxis === 0 // Si yAxis es 0, invierte el eje
+                min: dataArray[0]?.limite_inferior ?? undefined,
+                max: dataArray[0]?.limite_superior ?? undefined,
+                reversed: dataArray[0]?.yAxis === 0,
+                plotLines: dataArray[0]?.plotlines ?? [] // Asigna los plotLines correspondientes
             } : null,
         
             dataArray[1] ? {
                 title: { 
-                    text: `${dataArray[1]?.parametro || ""} [${dataArray[1]?.unidad || ""}]`, // Agregar unidad
+                    text: `${dataArray[1]?.parametro || ""} [${dataArray[1]?.unidad || ""}]`,
                     style: { color: colors[1], fontFamily: 'Poppins, serif', fontWeight: '600' } 
                 },
                 labels: {
                     formatter: function () { return this.value.toFixed(1); },
-                    style: { fontFamily: 'Poppins, serif', fontSize: '10px' }
+                    style: { color: colors[1], fontFamily: 'Poppins, serif', fontSize: '10px' }
                 },
                 crosshair: { width: 1, dashStyle: 'solid' },
                 opposite: true,               
-                min: dataArray[1]?.limite_inferior ?? undefined, // Si es null, usa el valor por defecto de Highcharts
-                max: dataArray[1]?.limite_superior ?? undefined, // Si es null, usa el valor por defecto de Highcharts
-                reversed: dataArray[1]?.yAxis === 0 // Si yAxis es 0, invierte el eje
+                min: dataArray[1]?.limite_inferior ?? undefined,
+                max: dataArray[1]?.limite_superior ?? undefined,
+                reversed: dataArray[1]?.yAxis === 0,
+                plotLines: dataArray[1]?.plotlines ?? [] // Asigna los plotLines correspondientes
             } : null
-        ].filter(Boolean) : [],
-        
+        ].filter(Boolean) : [], 
         tooltip: {
             shared: true,
             headerFormat: '<b>{point.x:%d-%m-%Y %H:%M}</b><br>',
