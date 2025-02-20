@@ -148,10 +148,12 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
             console.log('Respuesta del servidor:', response);
             
             $('#loadingSpinner').hide();
-
+        
             let statsContainer = $(".stats-container");
             statsContainer.empty();
-
+            let notaContainer = $("#notas"); // Contenedor de notas
+            notaContainer.empty(); // Limpiar notas previas
+        
             // Validar si la respuesta tiene datos útiles
             if (!response || response.length === 0 || !response[0].stats) {
                 console.warn("No hay datos válidos para mostrar.");
@@ -161,19 +163,27 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
                 plotChart(response);
                 return;
             }
-
+        
             let statsHtml = response.map((param, index) => { 
                 if (!param.stats) return ""; // Si no hay estadísticas, omitir
-            
+        
+                // Obtener nota de compromiso si existe
+                let compromisoNota = param.compromisos?.nota ? `<p class="compromiso-text">${param.compromisos.nota}</p>` : "";
+        
+                // Agregar compromiso al contenedor de notas
+                if (compromisoNota) {
+                    notaContainer.append(compromisoNota);
+                }
+        
                 return `
                     <div class="stats-row">                       
                         <div class="stat-values">
                             <div class="stat-item">
-                                <p class="stat-label"><i class="fas fa-arrow-up"></i>Valor Máximo</p>
+                                <p class="stat-label"><i class="fas fa-arrow-up"></i> Valor Máximo</p>
                                 <p class="stat-value">${param.stats.max ?? "N/A"}</p>
                             </div>
                             <div class="stat-item">
-                                <p class="stat-label"><i class="fas fa-arrow-down"></i>Valor Mínimo</p>
+                                <p class="stat-label"><i class="fas fa-arrow-down"></i> Valor Mínimo</p>
                                 <p class="stat-value">${param.stats.min ?? "N/A"}</p>
                             </div>
                             <div class="stat-item">
@@ -184,7 +194,7 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
                                 <p class="stat-label"><i class="fas fa-percentage"></i> Desv. Std</p>
                                 <p class="stat-value">${param.stats.dvst ?? "N/A"}</p>
                             </div>
-                             <div class="stat-item">
+                            <div class="stat-item">
                                 <p class="stat-label"><i class="fas fa-leaf"></i> Parámetro</p>
                                 <p class="stat-value">${param.parametro || "N/A"} (${param.unidad || "N/A"})</p>
                             </div>
@@ -192,15 +202,14 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
                     </div>
                 `;
             }).join("");
-            
-
+        
             statsContainer.append(statsHtml);
-
+        
             // Actualizar detalles de la variable y fechas
             $('#plotVar').html(response.length === 1 ? (response[0].parametro || "N/A") : `${response[0].parametro || "N/A"} vs ${response[1]?.parametro || "N/A"}`);
             $('#dateMin').html(response[0].dateRange?.minDate || "—");
             $('#dateMax').html(response[0].dateRange?.maxDate || "—");
-
+        
             // Llamar a la función para graficar si hay datos válidos
             if (response[0].data && response[0].data.length > 0) {
                 plotChart(response);
@@ -208,6 +217,7 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
                 console.warn("No hay datos para graficar.");
             }
         },
+        
         error: function(error) {
             console.error('Error en la solicitud:', error);
             $('#loadingSpinner').hide();

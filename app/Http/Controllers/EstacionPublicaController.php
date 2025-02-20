@@ -13,7 +13,6 @@ class EstacionPublicaController extends Controller
        
         $estacion = DB::select("CALL GetEstacionById(?)", [$id_estacion]);
 
-
         if (empty($estacion)) {
             abort(404, "Estación no encontrada");
         }
@@ -146,8 +145,8 @@ $html .= 'Monitoreo DGA';
 $html .= '</button>';
     $html .= '</div>';
 
-    $html .= '<div class="mt-2" style="font-size: 13px; line-height: 160%; color: #666; font-weight: 500; text-align: justify;font-weight: normal;">';
-    $html .= '<br>Los registros de monitoreo de esta web son referenciales, los datos oficiales corresponden al monitoreo efectuado por la DGA.';
+    $html .= '<div class="mt-2" style="font-size: 13px; line-height: 170%; color: #666; font-weight: 500; text-align: justify;font-weight: normal;">';
+    $html .= '<div style="padding: 13px"><br><p>Los registros de monitoreo de esta web son referenciales, los datos oficiales corresponden al monitoreo efectuado por la DGA.</p></div>';
     $html .= '</div><br><hr>';
 
 

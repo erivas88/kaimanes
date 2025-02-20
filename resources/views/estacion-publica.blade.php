@@ -70,28 +70,28 @@
                      <div class="row align-items-center detail-container">
                         <div class="col-lg-7 detail-text" style="padding-top: -20px !important;">
                            <div class="container">
-                              <div class="row detail-row">
-                                 <div class="col-4 fw-bold title">Código Estación:</div>
+                             <!-- <div class="row detail-row">
+                                 <div class="col-4 title">Código Estación:</div>
                                  <div class="col-7 subtitle" id="cuencaStation">{{ $estacion->nombre }}</div>
-                              </div>
+                              </div>-->
                               <div class="row detail-row">
-                                 <div class="col-4 fw-bold title">Cuenca:</div>
+                                 <div class="col-4  title">Cuenca:</div>
                                  <div class="col-7 subtitle" id="cuencaStation">{{ $estacion->cuenca }}</div>
                               </div>
                               <div class="row detail-row">
-                                 <div class="col-4 fw-bold title">Subcuenca:</div>
+                                 <div class="col-4  title">Subcuenca:</div>
                                  <div class="col-7 subtitle" id="subcuencaStation">{{ $estacion->subcuenca }}</div>
                               </div>
                               <div class="row detail-row">
-                                 <div class="col-4 fw-bold title">Región:</div>
+                                 <div class="col-4  title">Región:</div>
                                  <div class="col-7 subtitle" id="regionStation">{{ $estacion->region }}</div>
                               </div>
                               <div class="row detail-row">
-                                 <div class="col-4 fw-bold title">Tipo de Monitoreo:</div>
+                                 <div class="col-4  title">Tipo de Monitoreo:</div>
                                  <div class="col-7 subtitle" id="typeStation">{{ $estacion->descripcion }}</div>
                               </div>
                               <div class="row detail-row">
-                                 <div class="col-4 fw-bold title">Coordenadas:</div>
+                                 <div class="col-4  title">Coordenadas:</div>
                                  <div class="col-7 subtitle" id="coordenadaStation">[{{ $estacion->utm_north }} ; {{ $estacion->utm_east }} ; {{ $estacion->utm_datum }}]</div>
                               </div>
                            </div>
@@ -123,6 +123,7 @@
                            </div>
                         </div>
                         <div style=" margin-left: 0px; margin-right: 10px;">
+                          
                            <br>
                            <div id="conductivityChart" style="width: 100%; height: 550px; padding: 0px; position: relative;">
                               <!-- Spinner de carga -->
@@ -132,15 +133,46 @@
                            </div>
                            <br>
                            <div style=" margin-left: 10px;margin-right: 10px; background-color: #eee;">
-                              <p style="font-size: 14px; font-weight: bold; margin-bottom: 10px; text-align: justify; padding: 10px; font-family: 'Poppins', serif; text-align: center;  color:#04647c;">
+
+                           <style>
+                             .notas_view {
+    font-size: 13px !important;
+    color: #666;
+    margin-bottom: 5px; /* Reduce el margen inferior */
+    line-height: 170%;
+    font-family: 'Poppins', serif;
+    text-align: justify;
+    padding: 20px;
+    color: #949494;
+}
+
+.ultima-nota {
+    margin-top: -30px; /* Reduce la separación */
+}
+                              
+                           </style>
+
+                     
+                              <p id="notas" class="notas_view"></p>
+                              
+                           
+                           <p  class="ultima-nota" style="font-size: 13px; color: #949494; margin-bottom: 20px; line-height: 170%; font-family: 'Poppins', serif; text-align: justify; padding: 20px;">
+                           <i class="fas fa-info-circle" style="color: #07798f; "></i>  
+                           Nota: la información de monitoreo disponible está sujeta a las condiciones de conectividad y telecomunicaciones en la zona. La realización de mantenciones en los equipos y/o algún otro evento pueden alterar momentáneamente los registros, provocando imprecisiones en la información. Para mayores detalles ver sección "Observaciones".
+                              </p>
+
+                      
+
+                              <p style="font-size: 14px; font-weight:normal; margin-bottom: 10px; text-align: justify; padding: 10px; font-family: 'Poppins', serif; text-align: center; color: #949494">
                                  Detalles de la variable <span id="plotVar"> </span> en el rango: <span id="dateMin">2024-12-31 00:00:00</span> al <span id="dateMax">2024-12-31 00:00:00</span>
                               </p>
+
+
+
                               <div class="stats-container" style="display: flex; justify-content: space-around; margin-top: 10px; padding: 10px; font-family: 'Poppins'">
                                  <!-- Aquí se insertarán dinámicamente las estadísticas -->
                               </div>
-                              <p style="font-size: 12px; color: #888; margin-bottom: 20px; line-height: 1.5; font-family: 'Poppins', serif; text-align: justify; padding: 20px;">
-                                 Nota: la información de monitoreo disponible está sujeta a las condiciones de conectividad y telecomunicaciones en la zona. La realización de mantenciones en los equipos y/o algún otro evento pueden alterar momentáneamente los registros, provocando imprecisiones en la información. Para mayores detalles ver sección "Observaciones".
-                              </p>
+                             
                            </div>
                         </div>
                      </div>

@@ -10,12 +10,12 @@ class DataProcessor
     $series = [];
     $dataPoints = [];
     $unidad = "";
-
     foreach ($results as $row)
     {
         $milliseconds = self::convertToMilliseconds($row->fecha_hora);
         $value = self::convertToFloat($row->valor);
         $plotlines = self::getPlotlines($row->id_estacion, $row->sensor);
+        $compromisos = self::getCompromisos($row->id_estacion, $row->sensor);   
         $series['name'] = $row->sensor;
         $series['parametro'] = $row->sensor;
         $series['unidad'] = $row->unidad;
@@ -25,23 +25,23 @@ class DataProcessor
         $series['decimales'] = $row->decimales;
         $series['plotlines'] = $plotlines; 
         $series['id_estacion'] = $row->id_estacion;
+        $series['compromisos'] = $compromisos;
         $dataPoints[] = [$milliseconds, $value];
         $unidad = $row->unidad;
     }
 
     $series['data'] = $dataPoints;
-
-    if (!empty($dataPoints)) {
+    if (!empty($dataPoints))
+    {
         $dateRange = self::getDateRange($dataPoints);
         $series['periodo'] = "Periodo desde {$dateRange['minDate']} hasta {$dateRange['maxDate']}";
-
         $stats = self::calculateStatistics($dataPoints, $unidad);
         $series['stats'] = $stats;
         $series['dateRange'] = $dateRange;
+
     } else {
         $series['periodo'] = '';
     }
-
     return $series;
 }
 
@@ -53,7 +53,6 @@ public static function getPlotlines($idEstacion, $parametro)
     $results = DB::select($query, [$idEstacion, $parametro]);
 
     $plotlines = [];
-
     foreach ($results as $row) {
         $plotlines[] = [
             'color' => $row->color ?? 'red', // Si no tiene color, usa rojo por defecto
@@ -66,16 +65,21 @@ public static function getPlotlines($idEstacion, $parametro)
                 'align' => $row->align ?? 'left', // Alineación de la etiqueta
                 'x' => -10, // Ajuste horizontal del texto
                 'style' => [
-                    'color' => 'black',                   
+                    'color' => '#949494',                   
                 ]
             ]
         ];
     }
-
     return $plotlines;
 }
 
 
+public static function getCompromisos($idEstacion, $parametro)
+{
+    $query = "CALL GetCompromisos(?, ?)";
+    $result = DB::select($query, [$idEstacion, $parametro]);
+    return reset($result); 
+}
 
 
     private static function convertToMilliseconds($datetime)
@@ -115,9 +119,7 @@ public static function getPlotlines($idEstacion, $parametro)
             ];
         }
     
-        $average = array_sum($values) / $count;
-        
-        // Cálculo de la desviación estándar
+        $average = array_sum($values) / $count;        
         $variance = array_sum(array_map(fn($val) => pow($val - $average, 2), $values)) / $count;
         $standardDeviation = sqrt($variance);
     
