@@ -13,21 +13,21 @@ class DataProcessor
     foreach ($results as $row)
     {
         $milliseconds = self::convertToMilliseconds($row->fecha_hora);
-        $value = self::convertToFloat($row->valor);
-        $plotlines = self::getPlotlines($row->id_estacion, $row->sensor);
-        $compromisos = self::getCompromisos($row->id_estacion, $row->sensor);   
+        $value = self::convertToFloat($row->valor);       
         $series['name'] = $row->sensor;
+        $series['showInNavigator'] = true;
         $series['parametro'] = $row->sensor;
-        $series['unidad'] = $row->unidad;
+        $series['unidad'] = $row->unidad; 
         $series['limite_superior'] = $row->limite_superior;
         $series['limite_inferior'] = $row->limite_inferior;
         $series['yAxis'] = $row->yAxis;
         $series['decimales'] = $row->decimales;
-        $series['plotlines'] = $plotlines; 
+        $series['decimales_serie'] = $row->decimales_serie;
+        $series['plotlines'] = json_decode($row->plotData, true);
         $series['id_estacion'] = $row->id_estacion;
-        $series['compromisos'] = $compromisos;
+        $series['compromisos'] = $row->nota;
         $dataPoints[] = [$milliseconds, $value];
-        $unidad = $row->unidad;
+        $unidad = $row->unidad;        
     }
 
     $series['data'] = $dataPoints;

@@ -9,16 +9,14 @@ class PlotController extends Controller
 {
     public function store(Request $request)
     {   
-           
-    
+               
         $validated = $request->validate([
-            'sensor' => 'required|array', // Acepta un array de sensores
-            'sensor.*' => 'integer', // Cada elemento del array debe ser un número entero
-            'periodo' => 'required|array', // Asegurar que periodo es un array
-            'periodo.*' => 'integer', // Cada elemento debe ser un número entero
+            'sensor' => 'required|array', 
+            'sensor.*' => 'integer', 
+            'periodo' => 'required|array', 
+            'periodo.*' => 'integer', 
             'estacion' => 'required|integer',
-        ]);
-    
+        ]);    
      
         $periodo = $validated['periodo'][0] ?? null;
     
@@ -30,8 +28,9 @@ class PlotController extends Controller
         }
     
         try {
-            $allProcessedData = []; 
             
+            DB::statement("SET time_zone = 'America/Santiago'");
+            $allProcessedData = [];             
             foreach ($validated['sensor'] as $sensorId) {
          
                 $results = DB::select('CALL GetSensorData(?, ?, ?)', [

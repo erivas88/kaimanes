@@ -10,6 +10,20 @@ use App\Models\Estacion;
 
 class SectorController extends Controller
 {
+
+    public function glosary($id = null)
+    {
+        // Obtener los sectores y generar el dropdown
+        $sectores = $this->getsSectores();
+        $dropdown = $this->generateDropdownHTML($sectores, $id);
+
+        // Retornar la vista 'glosario'
+        return view('glosario', [
+            'sector' => $id,
+            'dropdown' => $dropdown
+        ]);
+    }
+
     public function show($id = null)
     {
     // Obtener los sectores y estaciones

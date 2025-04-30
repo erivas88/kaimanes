@@ -381,3 +381,40 @@ padding: 0;
   --bs-accordion-active-color: var(--bs-primary-text);
   --bs-accordion-active-bg: var(--bs-primary-bg-subtle);
 } 
+
+
+.hover-underline {
+  position: relative;
+  text-decoration: none;
+  color: inherit; /* Hereda el color del texto */
+}
+
+.hover-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 3px; /* Grosor del subrayado */
+  background-color: currentColor;
+  transition: width 0.3s ease;
+}
+
+.hover-underline:hover::after {
+  width: 100%;
+}
+
+.notas_view {
+  font-size: 13px !important;
+  color: #666;
+  margin-bottom: 5px; /* Reduce el margen inferior */
+  line-height: 170%;
+  font-family: "Poppins", serif;
+  text-align: justify;
+  padding: 20px;
+  color: #949494;
+}
+
+.ultima-nota {
+  margin-top: -30px; /* Reduce la separación */
+}

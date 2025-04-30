@@ -1005,3 +1005,21 @@ body {
   text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
  /* Crea un borde negro alrededor del texto */
 }
+
+
+
+.accordion-button:hover {
+  background: linear-gradient(45deg, #00768e, #3f8f99);
+  transform: scale(1.0);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4) !important;
+  cursor: pointer !important;
+}
+
+
+.accordion-button_:hover {
+ 
+  transform: scale(1.0);
+  filter: brightness(1.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4) !important;
+  cursor: pointer !important;
+}

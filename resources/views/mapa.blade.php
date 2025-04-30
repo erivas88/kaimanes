@@ -13,6 +13,28 @@
       <script src="https://kit.fontawesome.com/e5291bc371.js" crossorigin="anonymous"></script>
       <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
    </head>
+   <style>
+      .hover-underline {
+  position: relative;
+  text-decoration: none;
+  color: inherit; /* Hereda el color del texto */
+}
+
+.hover-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 3px; /* Grosor del subrayado */
+  background-color: currentColor;
+  transition: width 0.3s ease;
+}
+
+.hover-underline:hover::after {
+  width: 100%;
+}
+</style>
    <body>
       <div class="main-container">
          <!-- Header -->
@@ -23,8 +45,8 @@
                alt="Logo Los Pelambres" class="logo">
             </a>
             <nav class="d-flex">
-               <a href="{{ url('/') }}" class="text-dark text-decoration-none mx-2 title_pop">Mapa</a>
-               <a href="{{ url('/glosary') }}" class="text-dark text-decoration-none mx-2  title_pop">Glosario</a>      
+               <a href="{{ url('/') }}" class="text-dark text-decoration-none mx-2 title_pop hover-underline">Mapa</a>
+               <a href="{{ url('/glosary') }}" class="text-dark text-decoration-none mx-2  title_pop hover-underline">Glosario</a>      
             </nav>
          </div>
 
@@ -42,7 +64,7 @@
                            <h5 class="fw-bold title_pop">  Seleccionar </h5>
                            <hr style="width: 100%">
                         </div>
-                     </a>
+                     </a>                     
                      <div style="background-color: #f5f5f5">
                         {!! $dropdown !!}
                      </div>
@@ -55,9 +77,9 @@
                         <hr>
                      </div>
                      <div id="map-container" style="height: 600px; position: relative;">
-                        <div class="layer-control">
-                           <label><input type="radio" name="map-style" value="Standard:Light"> Mapa</label>     
-                           <label><input type="radio" name="map-style" value="Satellite" checked> Satellite</label>
+                        <div class="layer-control" style="display: none">
+                           <label><input type="radio" name="map-style" value="Street Map"> Mapa</label>     
+                           <label><input type="radio" name="map-style" value="Satellite" checked> Satelite</label>
                         </div>
                         <style>
 
@@ -122,7 +144,7 @@
       <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>   
       <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.min.js"></script>
       <script src="https://unpkg.com/maplibre-gl-minimap/dist/maplibre-gl-minimap.js"></script>
-      @vite('resources/js/map.js')
+      <script src="{{ asset('map/map.js') }}"></script>    
       <script>
          document.addEventListener("DOMContentLoaded", function () {
          var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));

@@ -1,44 +1,10 @@
-
-
-
-
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    // Selectores
-    const typeSelect = $('#typeSelect');
-    const dateRangeSelect = $('#dateRangeSelect');
-    const imgDevice = $('#imgDevice');
-
-    // Función para mostrar el spinner dentro de una imagen
-    function showSpinner(img) {
-        const spinner = $('<div class="spinner"></div>');
-        img.append(spinner);
-    }
-
-    // Función para ocultar el spinner
-    function hideSpinner(img) {
-        img.find('.spinner').remove();
-    }
-
-    // Mostrar un ícono de carga en #codeStation mientras se resuelve la petición
-    $('#pointStation').html('<i class="fas fa-spinner fa-spin"></i> &nbsp; Cargando...');
-    $('#imgDevice').html('<i class="fas fa-spinner fa-spin"></i> &nbsp; Cargando...');
-
- 
-
-    if (!idDevice) {
-        $('#codeStation').html('<div style="text-align: center; color: red;">Error: Parámetro id_device no proporcionado.</div>');
-        return;
-    }
-
+document.addEventListener('DOMContentLoaded', function() {
 
     $.ajax({
-        url: `http://10.0.0.75/api_caimanes/public/api/info_device/${idDevice}`, 
-        method: 'GET',        
+        url: `http://caimanes.katta.cl/api/info_device/${idDevice}`,
+        method: 'GET',
         dataType: 'json',
-        success: function (response) {
+        success: function(response) {
             if (response && response.parametros && response.periodos) {
                 $('#typeSelect').select2({
                     placeholder: 'Parámetros',
@@ -46,50 +12,159 @@ document.addEventListener('DOMContentLoaded', function () {
                     multiple: true,
                     minimumResultsForSearch: Infinity,
                     maximumSelectionLength: 2,
-                    data: response.parametros.map(item => ({ id: item.sensor, text: item.tipo })),
-                    language: { 
+                    data: response.parametros.map(item => ({
+                        id: item.sensor,
+                        text: item.tipo
+                    })),
+                    language: {
                         noResults: () => "Sin parámetros asociados",
                         maximumSelected: () => "Solo puedes seleccionar 2 parámetros"
                     },
                     escapeMarkup: markup => markup
                 }).prop('disabled', false);
-    
+
                 $('#dateRangeSelect').select2({
                     placeholder: 'Periodo',
                     allowClear: true,
                     multiple: true,
                     minimumResultsForSearch: Infinity,
                     maximumSelectionLength: 1,
-                    data: response.periodos.map(item => ({ id: item.id_periodo, text: item.descripcion })),
-                    language: { 
+                    data: response.periodos.map(item => ({
+                        id: item.id_periodo,
+                        text: item.descripcion
+                    })),
+                    language: {
                         noResults: () => "Sin parámetros asociados",
                         maximumSelected: () => "Solo puedes seleccionar 1 periodo"
                     }
                 }).prop('disabled', false);
-    
-                const typeSelectValue = response.parametros.length > 0 ? response.parametros[0].sensor : null;
-                const dateRangeSelectValue = response.periodos.length > 0 ? response.periodos[0].id_periodo : null;
-    
+
+                typeSelectValue = response.parametros.length > 0 ? response.parametros[0].sensor : null;
+                dateRangeSelectValue = response.periodos.length > 0 ? response.periodos[0].id_periodo : null;
+
                 console.log('Valor inicial de #typeSelect:', typeSelectValue);
                 console.log('Valor inicial de #dateRangeSelect:', dateRangeSelectValue);
                 drawChart([typeSelectValue], [dateRangeSelectValue], idDevice);
+       
             } else {
                 console.error('Datos incompletos en la respuesta del servidor.');
             }
         },
-        error: function (xhr, status, error) {
+        error: function(xhr, status, error) {
             $('#codeStation').html('<div style="text-align: center; color: red;">Error al cargar los datos.</div>');
             console.error('Error al obtener los datos:', status, error);
         }
-    });   
-   
+    });
+
+    let table = $('#tableObservations').DataTable({
+        "language": {
+            "decimal": "",
+            "emptyTable": "Sin Observaciones",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ observaciones",
+            "infoEmpty": "Mostrando 0 a 0 de 0 observaciones",
+            "infoFiltered": "(filtrados de _MAX_ observaciones)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Mostrar _MENU_ observaciones por página",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "searchPlaceholder": "Buscar...",
+            "zeroRecords": "No se encontraron registros coincidentes",
+            "paginate": {
+                "first": '<i class="fa fa-fast-backward" aria-hidden="true"></i>',
+                "last": '<i class="fa fa-fast-forward" aria-hidden="true"></i>',
+                "next": '<i class="fa fa-chevron-right"></i>',
+                "previous": '<i class="fa fa-chevron-left"></i>'
+            },
+            "aria": {
+                "sortAscending": ": Activar para ordenar la columna en orden ascendente",
+                "sortDescending": ": Activar para ordenar la columna en orden descendente"
+            }
+        },
+        "lengthChange": false,
+        ajax: {
+            url: "http://caimanes.katta.cl/api/table",
+            type: "POST",
+            data: function(d) {
+                d.device = idDevice;
+                d.periodo = $('#dateRangeSelect').val() && $('#dateRangeSelect').val().length > 0 ?
+                    $('#dateRangeSelect').val()[0] :
+                    1;
+
+            }
+        },
+        columns: [{
+                data: 'nombre',
+                width: '15%'
+            },
+            {
+                data: 'tipo',
+                width: '15%'
+            },
+            {
+                data: 'fecha_inicio',
+                width: '15%'
+            },
+            {
+                data: 'fecha_fin',
+                width: '25%'
+            },
+            {
+                data: 'observacion',
+                width: '35%'
+            }
+        ]
+    });
+
+ 
+    function showSpinner(img) {
+        const spinner = $('<div class="spinner"></div>');
+        img.append(spinner);
+    }
+
+
+    function hideSpinner(img) {
+        img.find('.spinner').remove();
+    }
+
+
+    $('#pointStation').html('<i class="fas fa-spinner fa-spin"></i> &nbsp; Cargando...');
+    $('#imgDevice').html('<i class="fas fa-spinner fa-spin"></i> &nbsp; Cargando...');
+
+    if (!idDevice) {
+        $('#codeStation').html('<div style="text-align: center; color: red;">Error: Parámetro id_device no proporcionado.</div>');
+        return;
+    }
+
+    document.getElementById("OpenModal").addEventListener("click", function() 
+    {
+
+  
+        let typeSelectValue = $('#typeSelect').val();
+        let dateRangeSelectValue = $('#dateRangeSelect').val();
+
+        if (!typeSelectValue || typeSelectValue.length === 0) {
+            typeSelectValue = $('#typeSelect option:first').val();
+        }
+
+        if (!dateRangeSelectValue || dateRangeSelectValue.length === 0) {
+            dateRangeSelectValue = $('#dateRangeSelect option:first').val();
+        }
+     
+
+        console.log('parametro =>', typeSelectValue);
+        console.log('periodo =>', dateRangeSelectValue);
+        console.log('dispositivo =>', idDevice);
+
+        const modal = new bootstrap.Modal(document.getElementById('observations'));
+
+        table.ajax.reload();
+
+        modal.show();
+
+    });
+
 });
-
-
-
-
-
-
 
 function validateAndDrawChart(typeSelectValue, dateRangeSelectValue, idDevice) {
     if (!typeSelectValue || typeSelectValue.length === 0) {
@@ -108,23 +183,17 @@ function validateAndDrawChart(typeSelectValue, dateRangeSelectValue, idDevice) {
     drawChart(typeSelectValue, dateRangeSelectValue, idDevice);
 }
 
-$('#typeSelect').on('select2:select select2:unselect', function () {
+$('#typeSelect').on('select2:select select2:unselect', function() {
     let typeSelectValue = $('#typeSelect').val();
-    let dateRangeSelectValue = $('#dateRangeSelect').val();    
+    let dateRangeSelectValue = $('#dateRangeSelect').val();
     validateAndDrawChart(typeSelectValue, dateRangeSelectValue, idDevice);
 });
 
-$('#dateRangeSelect').on('select2:select', function () {
+$('#dateRangeSelect').on('select2:select', function() {
     let typeSelectValue = $('#typeSelect').val();
-    let dateRangeSelectValue = $('#dateRangeSelect').val();    
+    let dateRangeSelectValue = $('#dateRangeSelect').val();
     validateAndDrawChart(typeSelectValue, dateRangeSelectValue, idDevice);
 });;
-
-
-
-
-
-
 
 function drawChart(selectedId, dateRangeSelectValue, idDevice) {
     $('#loadingSpinner').show();
@@ -136,24 +205,24 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
     });
 
     $.ajax({
-        url: 'http://10.0.0.75/api_caimanes/public/api/plot',
+        url: 'http://caimanes.katta.cl/api/plot',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({ 
-            sensor: selectedId, 
+        data: JSON.stringify({
+            sensor: selectedId,
             periodo: dateRangeSelectValue,
-            estacion: idDevice, 
+            estacion: idDevice,
         }),
         success: function(response) {
             console.log('Respuesta del servidor:', response);
-            
+
             $('#loadingSpinner').hide();
-        
+
             let statsContainer = $(".stats-container");
             statsContainer.empty();
             let notaContainer = $("#notas"); // Contenedor de notas
             notaContainer.empty(); // Limpiar notas previas
-        
+
             // Validar si la respuesta tiene datos útiles
             if (!response || response.length === 0 || !response[0].stats) {
                 console.warn("No hay datos válidos para mostrar.");
@@ -163,18 +232,17 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
                 plotChart(response);
                 return;
             }
-        
-            let statsHtml = response.map((param, index) => { 
+
+            let statsHtml = response.map((param, index) => {
                 if (!param.stats) return ""; // Si no hay estadísticas, omitir
-        
+
                 // Obtener nota de compromiso si existe
                 let compromisoNota = param.compromisos?.nota ? `<p class="compromiso-text">${param.compromisos.nota}</p>` : "";
-        
-                // Agregar compromiso al contenedor de notas
+
                 if (compromisoNota) {
                     notaContainer.append(compromisoNota);
                 }
-        
+
                 return `
                     <div class="stats-row">                       
                         <div class="stat-values">
@@ -202,14 +270,14 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
                     </div>
                 `;
             }).join("");
-        
+
             statsContainer.append(statsHtml);
-        
+
             // Actualizar detalles de la variable y fechas
             $('#plotVar').html(response.length === 1 ? (response[0].parametro || "N/A") : `${response[0].parametro || "N/A"} vs ${response[1]?.parametro || "N/A"}`);
             $('#dateMin').html(response[0].dateRange?.minDate || "—");
             $('#dateMax').html(response[0].dateRange?.maxDate || "—");
-        
+
             // Llamar a la función para graficar si hay datos válidos
             if (response[0].data && response[0].data.length > 0) {
                 plotChart(response);
@@ -217,7 +285,7 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
                 console.warn("No hay datos para graficar.");
             }
         },
-        
+
         error: function(error) {
             console.error('Error en la solicitud:', error);
             $('#loadingSpinner').hide();
@@ -226,19 +294,15 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
 }
 
 
-// Mostrar mensaje si se limpia la selección
-$('#typeSelect').on('select2:clear', function () {
+$('#typeSelect').on('select2:clear', function() {
     console.log('Selección limpia');
 });
 
-// Configuración global para idioma español
 
 
 function convertToBoolean(value) {
-return value === 0 ? true : false;
+    return value === 0 ? true : false;
 }
-
-
 
 function plotChart(dataArray) {
     Highcharts.setOptions({
@@ -268,18 +332,24 @@ function plotChart(dataArray) {
         }
     });
 
-    const colors = ['#00768e', '#ff5733'];
+    //const colors = ['#00768e', '#ff5733'];
+    const colors = ['#00768e', '#20c997'];
 
-    // Asegurar que dataArray tiene datos válidos
+
     if (!Array.isArray(dataArray) || dataArray.length === 0) {
         console.warn("No hay datos disponibles, se mostrará el mensaje de 'No hay datos'.");
-        dataArray = [{ name: "Sin datos", unidad: "", parametro: "", data: [], yAxis: 0 }];
+        dataArray = [{
+            name: "Sin datos",
+            unidad: "",
+            parametro: "",
+            data: [],
+            yAxis: 0
+        }];
     }
 
-    // Título seguro para el gráfico
-    const chartTitle = dataArray.length === 1 
-        ? (dataArray[0]?.name || "Gráfica de Parámetros") 
-        : `${dataArray[0]?.name || "Parámetro 1"} vs ${dataArray[1]?.name || "Parámetro 2"}`;
+    const chartTitle = dataArray.length === 1 ?
+        (dataArray[0]?.name || "Gráfica de Parámetros") :
+        `${dataArray[0]?.name || "Parámetro 1"} vs ${dataArray[1]?.name || "Parámetro 2"}`;
 
     Highcharts.chart('conductivityChart', {
         lang: {
@@ -303,13 +373,14 @@ function plotChart(dataArray) {
             resetZoom: 'Reiniciar zoom',
             resetZoomTitle: 'Reiniciar zoom',
             decimalPoint: ",",
-            thousandsSep: '.',
-            noData: "No hay datos disponibles"
+            thousandsSep: '.'
         },
         chart: {
             type: 'line',
             backgroundColor: 'transparent',
-            style: { fontFamily: 'Poppins, serif' },
+            style: {
+                fontFamily: 'Poppins, serif'
+            },
             zoomType: 'x',
         },
         exporting: {
@@ -321,83 +392,102 @@ function plotChart(dataArray) {
                 }
             }
         },
-        navigator: { enabled: true },
-        credits: { enabled: false },
-        title: { 
-            text: chartTitle, 
-            style: { color: 'gray', fontFamily: 'Poppins, serif', fontWeight: '300', fontSize: '13px' } 
+        navigator: {
+            enabled: true,
+            height: 50,
+            maskFill: 'rgba(200, 200, 200, 0.3)',
+            outlineColor: '#cccccc',
+            outlineWidth: 1,
+            handles: {
+                width: 12,
+                height: 15,
+                backgroundColor: '#00768e',
+                borderColor: 'white'
+            }
         },
-        subtitle: { 
-            text: dataArray[0]?.periodo || "Periodo no disponible", 
-            style: { color: 'darkgray', fontFamily: 'Poppins, serif', fontSize: '11px' } 
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: chartTitle,
+            style: {
+                color: '#949494',
+                fontFamily: 'Poppins, serif',
+                fontWeight: '300',
+                fontSize: '13px'
+            }
+        },
+        subtitle: {
+            text: dataArray[0]?.periodo || "Periodo no disponible",
+            style: {
+                color: '#949494',
+                fontFamily: 'Poppins, serif',
+                fontSize: '11px'
+            }
         },
         xAxis: {
             type: 'datetime',
-            title: { 
-                text: '', 
-                style: { color: '#00768e', fontFamily: 'Poppins, serif', fontWeight: '600', fontSize: '10px'  } 
+            labels: {
+                style: {
+                    fontFamily: 'Poppins, serif',
+                    fontSize: '10px'
+                }
             },
-            labels: { style: { fontFamily: 'Poppins, serif', fontSize: '10px' } },
             gridLineWidth: 1,
             gridLineColor: '#E0E0E0',
             gridLineDashStyle: 'dash',
-            crosshair: { width: 1, dashStyle: 'solid' },
-            lineColor: '#babbbc', // Cambia la línea del eje X a negro
-            lineWidth: 1 // Asegura que la línea sea visible
+            crosshair: {
+                width: 1,
+                dashStyle: 'solid'
+            },
+            lineColor: '#babbbc',
+            lineWidth: 1
         },
-        yAxis: dataArray.length > 0 ? [
-            dataArray[0] ? {
-                title: { 
-                    text: `${dataArray[0]?.parametro || ""} [${dataArray[0]?.unidad || ""}]`,
-                    style: { color: colors[0], fontFamily: 'Poppins, serif', fontWeight: '600' } 
+        yAxis: dataArray.map((param, index) => ({
+            title: {
+                text: `${param?.parametro || ""} [${param?.unidad || ""}]`,
+                style: {
+                    color: colors[index],
+                    fontFamily: 'Poppins, serif',
+                    fontWeight: '600'
+                }
+            },
+            labels: {
+                formatter: function() {
+                    return this.value.toFixed(param?.decimales ?? 1).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
                 },
-                labels: {
-                    formatter: function () { return this.value.toFixed(1); },
-                    style: { color: colors[0], fontFamily: 'Poppins, serif', fontSize: '10px' }
-                },
-                crosshair: { width: 1, dashStyle: 'solid' },
-                gridLineWidth: 1,
-                gridLineColor: '#E0E0E0',
-                gridLineDashStyle: 'dash',
-                min: dataArray[0]?.limite_inferior ?? undefined,
-                max: dataArray[0]?.limite_superior ?? undefined,
-                reversed: dataArray[0]?.yAxis === 0,
-                plotLines: dataArray[0]?.plotlines ?? [] // Asigna los plotLines correspondientes
-            } : null,
-        
-            dataArray[1] ? {
-                title: { 
-                    text: `${dataArray[1]?.parametro || ""} [${dataArray[1]?.unidad || ""}]`,
-                    style: { color: colors[1], fontFamily: 'Poppins, serif', fontWeight: '600' } 
-                },
-                labels: {
-                    formatter: function () { return this.value.toFixed(1); },
-                    style: { color: colors[1], fontFamily: 'Poppins, serif', fontSize: '10px' }
-                },
-                crosshair: { width: 1, dashStyle: 'solid' },
-                opposite: true,               
-                min: dataArray[1]?.limite_inferior ?? undefined,
-                max: dataArray[1]?.limite_superior ?? undefined,
-                reversed: dataArray[1]?.yAxis === 0,
-                plotLines: dataArray[1]?.plotlines ?? [] // Asigna los plotLines correspondientes
-            } : null
-        ].filter(Boolean) : [], 
+                style: {
+                    color: colors[index],
+                    fontFamily: 'Poppins, serif',
+                    fontSize: '10px'
+                }
+            },
+            crosshair: {
+                width: 1,
+                dashStyle: 'solid'
+            },
+            gridLineWidth: 1,
+            gridLineColor: '#E0E0E0',
+            gridLineDashStyle: 'dash',
+            min: param?.limite_inferior,
+            max: param?.limite_superior,
+            reversed: param?.yAxis === 0,
+            opposite: index > 0,
+            plotLines: param?.plotlines ?? []
+        })),
         tooltip: {
             shared: true,
             headerFormat: '<b>{point.x:%d-%m-%Y %H:%M}</b><br>',
-            pointFormatter: function () {
-                // Buscar la serie en dataArray por su nombre
+            pointFormatter: function() {
                 let serie = dataArray.find(s => s.name === this.series.name);
-                let unidad = serie?.unidad ? ` ${serie.unidad}` : ""; // Agregar unidad si existe
-                
-                return `<span style="color:${this.color}">●</span> 
-                        ${this.series.name}: <b>${this.y ?? "N/A"}${unidad}</b><br>`;
+                let unidad = serie?.unidad ? ` ${serie.unidad}` : "";
+                //let valor = this.y !== null ? this.y.toFixed(serie?.decimales ?? 1).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.') : "N/A";
+                let valor = this.y !== null ? String(this.y).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.') : "N/A";
+                return `<span style="color:${this.color}">●</span> ${this.series.name}: <b>${valor}${unidad}</b><br>`;
             },
-            style: { fontFamily: 'Poppins, serif' }
-        },
-        
-        lang: {
-            noData: "No hay datos disponibles"
+            style: {
+                fontFamily: 'Poppins, serif'
+            }
         },
         noData: {
             style: {
@@ -407,202 +497,21 @@ function plotChart(dataArray) {
             }
         },
         series: dataArray.map((param, index) => ({
-            name: `${param?.name || " " }`,
+            name: param?.name || " ",
             data: Array.isArray(param?.data) ? param.data : [],
-            yAxis: index, // Asigna el eje Y correspondiente (0 o 1)
+            yAxis: index,
             color: colors[index % colors.length],
             threshold: null,
-            dashStyle:'Solid',
+            dashStyle: 'Solid',
             marker: {
                 enabled: true,
-                symbol: 'circle', // Forma circular
-                lineColor: colors[index % colors.length], // Color del borde = color de la serie
-                lineWidth: 2, // Ancho del borde
-                fillColor: '#FFFFFF', // Fondo blanco
-                radius: 2  // Tamaño del marcador (puedes ajustar según prefieras)
+                symbol: 'circle',
+                lineColor: colors[index % colors.length],
+                lineWidth: 2,
+                fillColor: '#FFFFFF',
+                radius: 2
             }
         }))
     });
-}
 
-
-
-
-
-// Función para graficar
-function plotChart_old(data = { parametro: '', unidad: '', name: '', periodo: '', data: [], yAxis : 1 }) {
-
-
-
-
-
-
-Highcharts.setOptions({
-    lang: {
-        loading: 'Cargando...',
-        months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-        weekdays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-        shortMonths: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-        exportButtonTitle: "Exportar",
-        printButtonTitle: "Importar",
-        rangeSelectorFrom: "Desde",
-        rangeSelectorTo: "Hasta",
-        rangeSelectorZoom: "Periodo",
-        contextButtonTitle: 'Exportar',
-        downloadPNG: 'Descargar imagen PNG',
-        downloadJPEG: 'Descargar imagen JPEG',
-        downloadPDF: 'Descargar imagen PDF',
-        downloadSVG: 'Descargar imagen SVG',
-        downloadXLS: 'Descargar Archivo Excel',
-        viewData: 'Ver Data',
-        printChart: 'Imprimir',
-        resetZoom: 'Reiniciar zoom',
-        resetZoomTitle: 'Reiniciar zoom',
-        decimalPoint: ",",
-        thousandsSep: '.',
-        noData: "No hay datos disponibles" // Personaliza el texto
-    }
- 
-   
-});
-
-Highcharts.chart('conductivityChart', {
-    chart: {
-     
-        type: 'line', 
-        backgroundColor: 'transparent',                  
-        style: {
-            fontFamily: 'Poppins, serif' // Aplicar fuente al gráfico
-        },
-        zoomType: 'x', // Permitir zoom en el eje X
-        resetZoomButton: {
-            position: {
-                align: 'right', // Alineación derecha
-                verticalAlign: 'top', // Alineación superior
-                x: -10, // Margen desde la derecha
-                y: 10 // Margen desde la parte superior
-            },
-            theme: {
-                fill: '#f7f7f7', // Fondo del botón
-                stroke: '#cccccc', // Borde del botón
-                r: 3, // Bordes redondeados
-                style: {
-                    color: '#333333' // Color del texto
-                },
-                states: {
-                    hover: {
-                        fill: '#e6e6e6' // Fondo en hover
-                    }
-                }
-            }
-        },
-        
-    },
-    exporting: {
-        enabled: true,
-        buttons: {
-            contextButton: {
-                symbol: 'menu',
-                menuItems: ['downloadPNG', 'downloadJPEG', 'downloadPDF', 'downloadSVG']
-            }
-        }
-    },
-    navigator: {
-        enabled: true,
-        series: {
-            type: 'line',
-            color: '#00768e',
-            data: data.data || [] // Inicialmente vacío
-        }
-    },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: `${data.name && data.unidad ? `${data.name} — [ ${data.unidad} ]` : ''}`,
-        style: {
-            color: 'gray',
-            fontFamily: 'Poppins, serif',
-            fontWeight: '300',
-            fontSize: '12px'
-        }
-    },
-    subtitle: {
-        text: `${data.periodo ? data.periodo : ''}`, // Si data.name existe, se usa; si no, queda vacío
-        style: {
-            color: 'darkgray',
-            fontFamily: 'Poppins, serif',
-            fontWeight: '300',
-            fontSize: '10px'
-        }
-    },
-    xAxis: {
-        type: 'datetime',
-        title: {
-            text: '',
-            style: {
-                color: '#00768e',
-                fontFamily: 'Poppins, serif',
-                fontWeight: '600'
-            }
-        },
-        labels: {
-            style: {
-                fontFamily: 'Poppins, serif',
-                fontSize: '12px'
-            }
-        },
-        gridLineWidth: 1,
-        gridLineColor: '#E0E0E0'
-    },
-    yAxis: {
-        reversed:  convertToBoolean(data.yAxis),
-        title: {
-            text: data.parametro ? `${data.parametro} (${data.unidad})` : '',
-            style: {
-                color: '#00768e',
-                fontFamily: 'Poppins, serif',
-                fontWeight: '600'
-            }
-        },
-        labels: {
-            formatter: function () {
-                return this.value.toFixed(1); // Mostrar un decimal
-            },
-            style: {
-                fontFamily: 'Poppins, serif',
-                fontSize: '12px'
-            }
-        },
-        gridLineWidth: 1,
-        gridLineColor: '#E0E0E0'
-    },
-    tooltip: {
-        headerFormat: '<b>{series.name}</b><br>',
-        pointFormat: 'Fecha: {point.x:%d-%m-%Y %H:%M}<br>Valor: {point.y} ' + data.unidad,
-        style: {
-            fontFamily: 'Poppins, serif'
-        }
-    },
-    noData: {
-        style: {
-            fontWeight: 'bold',
-            fontSize: '16px',
-            color: '#04647c'
-        }
-    },
-    series: [{
-        name: data.name || '', // Nombre predeterminado
-        data: data.data || [], // Sin datos inicialmente
-        color: '#00768e',
-        marker: {
-            enabled: true, // Siempre mostrar los marcadores
-            symbol: 'circle', // Marcador circular
-            lineColor: '#00768e', // Borde del marcador
-            lineWidth: 2, // Ancho del borde
-            fillColor: '#FFFFFF', // Fondo blanco
-            radius: 2 // Tamaño del marcador
-        }
-    }]
-});
 }

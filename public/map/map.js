@@ -1,18 +1,5 @@
 
 
-// Variables globales
-/*const apiKey = "v1.public.eyJqdGkiOiJiMDYzNjcwYi04YTMzLTRlODItOTRmMy0zMGU0NjE2NjJjYTEifU1X7ToMqTfYhAcEqJM3ahuEmtKehaX3Xv56T5ztkXJRk4zwQVDZqigL7R2D-3iFU0cYOM1HOzMKrgD93sOH1OUYdLZrFgFmZlMYTAhxNmTplAremq4Zs8Y6XAOHJ37fI1ESshXQCkLdLBTSEekKIX8KL6x_N4Yz28PFTKNTWlW1xdedy5MyBhqt38qFKDH4XTAModJNKlPIO-x5cbYIhX9GpWd8somfT1fmdMlTIxDme7OmKiu1n8pO3SDflXXuxu1Yu_hULiWGdhaw_D_yp2FuiqQ_416bHiYgT-OYZwsgz6CiRwoRWcAuGN2Ozkshin4XwrekYN078KzrsUgqg0E.ZWU0ZWIzMTktMWRhNi00Mzg0LTllMzYtNzlmMDU3MjRmYTkx";
-const region = "us-east-1";
-const mapStyles = {
-   
-    "Standard:Light": `https://maps.geo.${region}.amazonaws.com/v2/styles/Hybrid/descriptor?key=${apiKey}`,
-    "Satellite": `https://maps.geo.${region}.amazonaws.com/v2/styles/Satellite/descriptor?key=${apiKey}`
-};
-
-let markerGroup = []; // Almacena los marcadores actuales para poder eliminarlos
-let map; // Variable global para el mapa*/
-
-
 let apiKey;
 const region = "us-east-1";
 let mapStyles;
@@ -20,14 +7,20 @@ let markerGroup = [];
 let map;
 
 // Obtener el token desde Laravel
-fetch('http://localhost/api_caimanes/public/api/map-token')
+fetch('http://caimanes.katta.cl/api/map-token')
     .then(response => response.json())
     .then(data => {
         apiKey = data.apiKey;
 
         mapStyles = {
-            "Standard:Light": `https://maps.geo.${region}.amazonaws.com/v2/styles/Hybrid/descriptor?key=${apiKey}`,
-            "Satellite": `https://maps.geo.${region}.amazonaws.com/v2/styles/Satellite/descriptor?key=${apiKey}`
+            
+            "Standard:Light": `https://maps.geo.${region}.amazonaws.com/v2/styles/Hybrid/descriptor?key=${apiKey}`,            
+            "Satellite": `https://maps.geo.${region}.amazonaws.com/v2/styles/Satellite/descriptor?key=${apiKey}`,           
+            "Street Map": `https://maps.geo.${region}.amazonaws.com/v2/styles/Standard/descriptor?key=${apiKey}&color-scheme=Light&political-view=AR`,
+
+            
+
+
         };
 
         initAll(); // Llama a la inicialización del mapa cuando el token esté listo
@@ -35,7 +28,8 @@ fetch('http://localhost/api_caimanes/public/api/map-token')
     .catch(error => console.error('Error al obtener el token:', error));
 
 
-
+    const sector = getSectorFromURL();
+    console.log("Sector encontrado:", sector);
 
 async function initAll() {
     try {
@@ -47,7 +41,7 @@ async function initAll() {
         // Crear el mapa
         map = new maplibregl.Map({
             container: 'map-container',
-            style: mapStyles['Satellite'],
+            style: mapStyles['Standard:Light'],
             center: [center.longitud, center.latitud],
             zoom: 12,
             attributionControl: false // Deshabilitar los créditos
@@ -69,16 +63,21 @@ async function initAll() {
         // Esperar a que el mapa esté completamente cargado
         map.on('load', async () => {
             console.log("Mapa inicializado correctamente.");
-
-            // Obtener los marcadores del sector 1 (o el primer sector disponible)
-            const sectorMarkers = await fetchMarkersallSector();
-            if (sectorMarkers.length > 0) {
-                console.log("Cargando marcadores para el sector 1...");
-                addMarkersToMap(map, sectorMarkers);
-            } else {
-                console.warn("No se encontraron marcadores para el sector 1.");
+        
+            try {
+                // Obtener los marcadores generales
+                const sectorMarkers = await fetchMarkersallSector();
+                
+                // Obtener los marcadores del sector específico (si existe)
+                const MarkerSectors = sector ? await fetchMarkersBySector(sector) : null;
+        
+                // Determinar qué conjunto de marcadores agregar
+                addMarkersToMap(map, MarkerSectors && MarkerSectors.length > 0 ? MarkerSectors : sectorMarkers);
+            } catch (error) {
+                console.error("Error al cargar los marcadores:", error);
             }
         });
+        
 
     } catch (error) {
         console.error("Error al inicializar el mapa:", error);
@@ -125,8 +124,7 @@ function getSectorFromURL() {
 
     return null; // Si no encuentra "sector", devuelve null
 }
-const sector = getSectorFromURL();
-console.log("Sector encontrado:", sector);
+
 
 // Solo ejecutar `loadMarkersForSector(sector)` si `sector` tiene un valor válido
 if (sector) {
@@ -164,7 +162,7 @@ async function loadMarkersForSector(sector) {
 // Obtener coordenadas dinámicas
 async function fetchCenter() {
     try {
-        const response = await axios.get(`http://10.0.0.75/api_caimanes/public/api/location`);
+        const response = await axios.get(`http://caimanes.katta.cl/api/location`);
         if (response.data && response.data.latitud && response.data.longitud) {
             return response.data;
         } else {
@@ -180,7 +178,7 @@ async function fetchCenter() {
 // Obtener marcadores desde el backend
 async function fetchMarkersBySector(id_sector) {
     try {
-        const response = await axios.get(`http://10.0.0.75/api_caimanes/public/api/location/sector/sector_publico/${id_sector}`);
+        const response = await axios.get(`http://caimanes.katta.cl/api/location/sector/sector_publico/${id_sector}`);
         if (response.data && Array.isArray(response.data)) {
             return response.data;
         } else {
@@ -196,7 +194,7 @@ async function fetchMarkersBySector(id_sector) {
 
 async function fetchMarkersallSector(id_sector) {
     try {
-        const response = await axios.get(`http://10.0.0.75/api_caimanes/public/api/estaciones`);
+        const response = await axios.get(`http://caimanes.katta.cl/api/estaciones`);
         if (response.data && Array.isArray(response.data)) {
             return response.data;
         } else {
@@ -219,8 +217,8 @@ function addMarkersToMap(map, markers) {
         console.warn("no se mostrará información.");
         $('#sectorView').html(''); // Limpiar si hay más de 25 marcadores
     } else if (totalMarkers > 0) {
-        console.log(`Total de marcadores: ${totalMarkers}`);
-        console.log(`Sectores encontrados: ${sectores.join(', ')}`);
+        //console.log(`Total de marcadores: ${totalMarkers}`);
+        //console.log(`Sectores encontrados: ${sectores.join(', ')}`);
         $('#sectorView').html(`${sectores.join(', ')} (${totalMarkers} estaciones)`);
     } else {
         console.warn("No hay marcadores disponibles, no se mostrará información.");
@@ -242,13 +240,13 @@ function addMarkersToMap(map, markers) {
     };
     
 
-    console.log(markers)
+   
     markers.forEach(marker => {
         if (marker.latitud && marker.longitud) {
             // Determinar el ícono a usar según el tipo de marcador
             let iconUrl;
             //iconUrl = icons.agua_subterranea;
-            console.log(marker.tipo);
+            //console.log(marker.tipo);
             switch (marker.tipo.toString()) {
 
                 case '1':
@@ -282,15 +280,15 @@ function addMarkersToMap(map, markers) {
 
 
             const customIcon = document.createElement('div');
-customIcon.className = 'custom-marker'; // Clase CSS para personalización
-customIcon.style.backgroundImage = `url(${iconUrl})`;
-customIcon.style.backgroundSize = 'contain'; // Evita estiramientos
-customIcon.style.backgroundRepeat = 'no-repeat'; // Evita repeticiones no deseadas
-customIcon.style.backgroundPosition = 'center'; // Asegura una buena alineación
-customIcon.style.width = '22px'; // Ancho del ícono
-customIcon.style.height = '26px'; // Altura del ícono
-customIcon.style.imageRendering = 'auto'; // Mantiene la calidad original
-customIcon.style.filter = 'drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.5))'; // Suavizado
+            customIcon.className = 'custom-marker'; // Clase CSS para personalización
+            customIcon.style.backgroundImage = `url(${iconUrl})`;
+            customIcon.style.backgroundSize = 'contain'; // Evita estiramientos
+            customIcon.style.backgroundRepeat = 'no-repeat'; // Evita repeticiones no deseadas
+            customIcon.style.backgroundPosition = 'center'; // Asegura una buena alineación
+            customIcon.style.width = '22px'; // Ancho del ícono
+            customIcon.style.height = '26px'; // Altura del ícono
+            customIcon.style.imageRendering = 'auto'; // Mantiene la calidad original
+            customIcon.style.filter = 'drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.5))'; // Suavizado
 
 // Aplicar filtro para cambiar el color del SVG a rojo
 
@@ -487,7 +485,9 @@ window.explorarEstacion = function(id) {
     console.log(`Explorar estación con ID: ${id}`);
     
 
-    window.location.href = window.location.origin + "/api_caimanes/public/estacion-publica/" + id;
+    //window.location.href = window.location.origin + "/api_caimanes/public/estacion-publica/" + id;
+    window.location.href = window.location.origin + "/estacion-publica/" + id;
+
 
 };
 
