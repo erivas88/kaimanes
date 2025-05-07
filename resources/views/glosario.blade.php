@@ -18,26 +18,26 @@
   <style>
 
     
-.hover-underline {
-  position: relative;
-  text-decoration: none;
-  color: inherit; /* Hereda el color del texto */
-}
+    .hover-underline {
+      position: relative;
+      text-decoration: none;
+      color: inherit; /* Hereda el color del texto */
+    }
 
-.hover-underline::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
-  height: 3px; /* Grosor del subrayado */
-  background-color: currentColor;
-  transition: width 0.3s ease;
-}
+    .hover-underline::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 3px; /* Grosor del subrayado */
+      background-color: currentColor;
+      transition: width 0.3s ease;
+    }
 
-.hover-underline:hover::after {
-  width: 100%;
-}
+    .hover-underline:hover::after {
+      width: 100%;
+    }
 
     </style>
     <div class="main-container">
@@ -78,58 +78,58 @@
               </div>
               <div style="padding: 10px;">
                 <dl style="display: flex; flex-direction: column; gap: 15px;">
-
                 <div style="display: flex; align-items: center; gap: 15px;">
-                    <img src="{{ asset('glosario/aguas_subterraneas.jpg') }}" style="width: 100px; height: 100px">
+                    <img src="{{ asset('glosario/agua_subterraneas_.jpg') }}" style="width: 100px; height: 100px">
                     <div>
                       <dt>
-                        <strong class="title">Aguas Subterráneas:</strong>
+                        <strong class="title">Aguas Subterráneas</strong>
                       </dt>
                       <dd class="subtitle" style="text-align:justify">
-                      Las aguas subterráneas son aquellas que se encuentran almacenadas en el subsuelo, en formaciones geológicas conocidas como acuíferos. Se originan a partir de la infiltración del agua de lluvia, ríos o lagos, que se filtra a través de capas permeables del suelo y la roca. Representan una fuente crucial de abastecimiento para el consumo humano, la agricultura y la industria, especialmente en zonas áridas donde los recursos hídricos superficiales son limitados. Su extracción debe ser gestionada de manera sostenible para evitar la sobreexplotación y la intrusión salina en zonas costeras. 
+                      Las aguas subterráneas son aquellas que se encuentran almacenadas en el subsuelo, en formaciones geológicas conocidas como acuíferos. Se originan a partir de la infiltración del agua de lluvia, ríos o lagos, que se filtra a través de capas permeables del suelo y la roca. Representan una fuente crucial de abastecimiento para el consumo humano, la agricultura y la industria, especialmente en zonas áridas donde los recursos hídricos superficiales son limitados. 
+                    </dd>
+                    </div>
+                  </div>
+
+                  <div style="display: flex; align-items: center; gap: 15px;">
+                    <img src="{{ asset('glosario/agua_superficial_.jpg') }}" style="width: 100px; height: 100px">
+                    <div>
+                      <dt>
+                        <strong class="title">Aguas Superficiales</strong>
+                      </dt>
+                      <dd class="subtitle" style="text-align:justify">
+                      Las aguas superficiales son aquellas que fluyen o se almacenan en la superficie terrestre, como ríos, lagos, lagunas y embalses. Estas fuentes de agua dependen del régimen de precipitaciones, el deshielo de glaciares y el aporte de manantiales. Son fundamentales para el equilibrio ecológico y el abastecimiento de agua para diversas actividades humanas, incluyendo el riego, la generación de energía hidroeléctrica y el consumo doméstico.
+                    </dd>
+                    </div>
+                  </div>
+
+                  <div style="display: flex; align-items: center; gap: 15px;">
+                    <img src="{{ asset('glosario/piscina_tipay.jpg') }}" style="width: 100px; height: 100px">
+                    <div>
+                      <dt>
+                        <strong class="title">Reservorios </strong>
+                      </dt>
+                      <dd class="subtitle" style="text-align:justify">
+                      Los reservorios son cuerpos de agua artificiales o naturales utilizados para almacenar y regular el suministro de agua para distintos fines, como el consumo humano, el riego agrícola, la producción de energía y el control de inundaciones. Pueden formarse mediante la construcción de represas en ríos o mediante la adecuación de lagunas y embalses naturales. 
                     </dd>
                     </div>
                   </div>
 
 
                   <div style="display: flex; align-items: center; gap: 15px;">
-                    <img src="{{ asset('glosario/agua_superficial.jpg') }}" style="width: 100px; height: 100px">
+                    <img src="{{ asset('glosario/conductividad_.jpg') }}" style="width: 100px; height: 100px">
                     <div>
                       <dt>
-                        <strong class="title">Aguas Superficiales:</strong>
+                        <strong class="title">Conductividad</strong>
                       </dt>
                       <dd class="subtitle" style="text-align:justify">
-                      Las aguas superficiales son aquellas que fluyen o se almacenan en la superficie terrestre, como ríos, lagos, lagunas y embalses. Estas fuentes de agua dependen del régimen de precipitaciones, el deshielo de glaciares y el aporte de manantiales. Son fundamentales para el equilibrio ecológico y el abastecimiento de agua para diversas actividades humanas, incluyendo el riego, la generación de energía hidroeléctrica y el consumo doméstico. Sin embargo, están más expuestas a la contaminación y a variaciones estacionales que pueden afectar su disponibilidad.
-                    </dd>
-                    </div>
-                  </div>
-
-
-                  <div style="display: flex; align-items: center; gap: 15px;">
-                    <img src="{{ asset('glosario/reservorio.jpg') }}" style="width: 100px; height: 100px">
-                    <div>
-                      <dt>
-                        <strong class="title">Reservorios:</strong>
-                      </dt>
-                      <dd class="subtitle" style="text-align:justify">
-                      Los reservorios son cuerpos de agua artificiales o naturales utilizados para almacenar y regular el suministro de agua para distintos fines, como el consumo humano, el riego agrícola, la producción de energía y el control de inundaciones. Pueden formarse mediante la construcción de represas en ríos o mediante la adecuación de lagunas y embalses naturales. Su gestión eficiente es clave para garantizar el acceso al agua en épocas de sequía y para reducir los riesgos de escasez hídrica, asegurando un uso sostenible del recurso a largo plazo.
-                    </dd>
-                    </div>
-                  </div>
-
-                  <div style="display: flex; align-items: center; gap: 15px;">
-                    <img src="{{ asset('glosario/ce.jpg') }}" style="width: 100px; height: 100px">
-                    <div>
-                      <dt>
-                        <strong class="title">Conductividad:</strong>
-                      </dt>
-                      <dd class="subtitle" style="text-align:justify">
-                      La medición de la conductividad eléctrica permite evaluar la cantidad de sales disueltas en el agua de riego y prevenir problemas de salinización que pueden afectar los cultivos. Según la Norma Chilena NCh 1333 (1978), el agua con una conductividad igual o inferior a 750 µS/cm no presenta riesgos para la mayoría de los cultivos, mientras que valores entre 750 y 1500 µS/cm pueden afectar a especies sensibles a la salinidad. Cuando la conductividad supera los 7500 µS/cm, el agua se considera inadecuada para el riego sin medidas especiales de manejo. Un monitoreo constante de la calidad del agua permite tomar decisiones informadas, como la mezcla de fuentes hídricas o el lavado de sales en el suelo, asegurando la sostenibilidad del riego y la conservación de los suelos agrícolas
+                      La medición de la conductividad eléctrica permite evaluar la cantidad de sales disueltas en el agua de riego y prevenir problemas de salinización que pueden afectar los cultivos. 
+                      Un monitoreo constante de la calidad del agua permite tomar decisiones informadas, asegurando la sostenibilidad del riego y la conservación de los suelos agrícolas
                        </dd>
                     </div>
                   </div>
+
                   <div style="display: flex; align-items: center; gap: 15px;">
-                    <img src="{{ asset('glosario/ph_1.jpg') }}" style="width: 100px; height: 100px">
+                    <img src="{{ asset('glosario/ph_medicion.jpg') }}" style="width: 100px; height: 100px">
                     <div>
                       <dt>
                         <strong class="title">pH:</strong>
@@ -139,21 +139,21 @@
                       </dd>
                     </div>
                   </div>
+
                   <div style="display: flex; align-items: center; gap: 15px;">
-                    <img src="{{ asset('glosario/caudal.jpg') }}" style="width: 100px; height: 100px">
+                    <img src="{{ asset('glosario/caudal_medicion.jpg') }}" style="width: 100px; height: 100px">
                     <div>
                       <dt>
                         <strong class="title">Caudal:</strong>
                       </dt>
                       <dd class="subtitle" style="text-align:justify">
-                      El caudal es el volumen de agua que fluye por un cauce o tubería en un tiempo determinado (L/s o m³/s) y es un factor clave en la gestión del riego. Su correcta regulación permite distribuir el agua de manera eficiente, evitando déficit hídrico en los cultivos o desperdicio del recurso. Además, influye en la calidad del agua, ya que un caudal bajo puede aumentar la concentración de sales y contaminantes, mientras que un caudal excesivo puede generar erosión y pérdida de suelo fértil. En Chile, la DGA establece caudales ecológicos mínimos para proteger los ecosistemas y garantizar un uso sustentable del agua, asegurando un equilibrio entre la demanda agrícola y la conservación del recurso hídrico
+                      El caudal es el volumen de agua que fluye por un cauce o tubería en un tiempo determinado (L/s o m³/s) y es un factor clave en la gestión del riego.  En Chile, la DGA establece caudales ecológicos mínimos para proteger los ecosistemas y garantizar un uso sustentable del agua, asegurando un equilibrio entre la demanda agrícola y la conservación del recurso hídrico
                       </dd>
                     </div>
                   </div>
 
-
                   <div style="display: flex; align-items: center; gap: 15px;">
-                    <img src="{{ asset('glosario/nf_2.jpg') }}" style="width: 100px; height: 100px">
+                    <img src="{{ asset('glosario/nivel_freatico.png') }}" style="width: 100px; height: 100px">
                     <div>
                       <dt>
                         <strong class="title">Nivel Freático:</strong>
@@ -174,6 +174,7 @@
                       Se refiere a la medida de la altura de la superficie del agua en un cuerpo hídrico, como ríos, lagos, embalses o canales. Esta medición se realiza utilizando escalas limnimétricas, que son dispositivos graduados instalados verticalmente o en taludes para proporcionar una lectura visual directa del nivel del agua. Estas escalas están fabricadas con materiales resistentes a la corrosión, como aluminio fundido o acero esmaltado, y presentan marcas en centímetros para facilitar la precisión en la observación. El monitoreo constante del nivel limnimétrico es esencial para la gestión de recursos hídricos, permitiendo anticipar crecidas, gestionar embalses y garantizar un suministro adecuado de agua para diversas actividades. Además, estas mediciones son fundamentales para la calibración de modelos hidrológicos y la planificación de infraestructuras relacionadas con el agua </dd>
                     </div>
                   </div>
+
                   <div style="display: flex; align-items: center; gap: 15px;">
                     <img src="{{ asset('glosario/sd.jpg') }}" style="width: 120px !important ; height: 100px">
                     <div>
@@ -181,10 +182,11 @@
                         <strong class="title">Desviación estándar:</strong>
                       </dt>
                       <dd class="subtitle" style="text-align:justify">
-                      La desviación estándar es una medida que nos indica cuánto varían los valores de un conjunto de datos con respecto a su promedio. Si la desviación estándar es baja, significa que los datos están muy próximos entre sí y al valor promedio, mientras que una desviación alta indica que los valores están más dispersos. En el análisis de datos ambientales, como mediciones de calidad del agua o monitoreo del aire, se usa para evaluar la estabilidad de los parámetros físico-químicos y detectar anomalías. La desviación estándar ayuda a interpretar mejor los datos y a tomar decisiones informadas en la gestión ambiental
+                      La desviación estándar es una medida que nos indica cuánto varían los valores de un conjunto de datos con respecto a su promedio. Si la desviación estándar es baja, significa que los datos están muy próximos entre sí y al valor promedio, mientras que una desviación alta indica que los valores están más dispersos. 
                       </dd>
                     </div>
                   </div>
+
                   <div style="display: flex; align-items: center; gap: 15px;">
                     <img src="{{ asset('glosario/dga.jpg') }}" style="width: 100px; height: 100px">
                     <div>
@@ -196,6 +198,7 @@
                       </dd>
                     </div>
                   </div>
+
                 </dl>
               </div>
             </div>

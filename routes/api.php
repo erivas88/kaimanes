@@ -8,6 +8,8 @@ use App\Http\Controllers\LeftMenuController;
 use App\Http\Controllers\LeftOpenController;
 use App\Http\Controllers\LeftOpenMenuController;
 use App\Http\Controllers\TableController;
+use Carbon\Carbon;
+
 
 Route::post('/api/table', [TableController::class, 'show']);
 Route::post('/api/plot', [PlotController::class, 'store']);
@@ -20,7 +22,10 @@ Route::get('/api/estaciones', [LocationController::class, 'getAllEstaciones']);
 Route::get('/api/map-token', function () {
     return response()->json(['apiKey' => config('aws.map_api_key')]);
 });
-
+Route::get('api/test-carbon', function () {
+    $ip = Request::ip();
+    return $ip ;
+});
 
 
 

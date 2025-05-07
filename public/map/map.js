@@ -233,11 +233,19 @@ function addMarkersToMap(map, markers) {
     const bounds = new maplibregl.LngLatBounds();
 
     // Definir íconos personalizados
-    const icons = {
+    const icons_bad = {
         agua_subterranea: '/api_caimanes/public/images/icons/markers/pin-agua-subterranea.png',
         aguas_superficiales: '/api_caimanes/public/images/icons/markers/pin-agua-superficial.png',
         reservorios: '/api_caimanes/public/images/icons/markers/pin-reservorio.svg'
     };
+
+
+   const icons = {
+        agua_subterranea: '/images/icons/markers/pin-agua-subterranea.png',
+        aguas_superficiales: '/images/icons/markers/pin-agua-superficial.png',
+        reservorios: '/images/icons/markers/pin-reservorio.svg'
+    };
+
     
 
    

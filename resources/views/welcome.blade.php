@@ -92,6 +92,10 @@
                </div>
             </div>
          </div>
+
+
+        
+
       </div>
       <!-- Bootstrap JS -->
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -101,5 +105,12 @@
       <script src="https://unpkg.com/maplibre-gl-minimap/dist/maplibre-gl-minimap.js"></script>
       <script src="{{ asset('map/map.js') }}"></script>
       <script src="{{ asset('lst/lst.js') }}"></script>
+
+      <script>
+       $(document).ready(function () {
+       $('#welcome').modal('show');
+       console.log('hola')
+   });
+      </script>
    </body>
 </html>

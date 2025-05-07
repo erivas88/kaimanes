@@ -11,14 +11,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     allowClear: true,
                     multiple: true,
                     minimumResultsForSearch: Infinity,
-                    maximumSelectionLength: 2,
+                    maximumSelectionLength: 1,
                     data: response.parametros.map(item => ({
                         id: item.sensor,
                         text: item.tipo
                     })),
                     language: {
                         noResults: () => "Sin parámetros asociados",
-                        maximumSelected: () => "Solo puedes seleccionar 2 parámetros"
+                        maximumSelected: () => "Solo puedes seleccionar 1 parámetro"
                     },
                     escapeMarkup: markup => markup
                 }).prop('disabled', false);

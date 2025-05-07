@@ -3,6 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
       <title>Sistema de Monitoreo</title>
       <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
       <!-- Bootstrap CSS -->
@@ -15,26 +16,24 @@
    </head>
    <style>
       .hover-underline {
-  position: relative;
-  text-decoration: none;
-  color: inherit; /* Hereda el color del texto */
-}
-
-.hover-underline::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
-  height: 3px; /* Grosor del subrayado */
-  background-color: currentColor;
-  transition: width 0.3s ease;
-}
-
-.hover-underline:hover::after {
-  width: 100%;
-}
-</style>
+      position: relative;
+      text-decoration: none;
+      color: inherit; /* Hereda el color del texto */
+      }
+      .hover-underline::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 3px; /* Grosor del subrayado */
+      background-color: #04647c;
+      transition: width 0.3s ease;
+      }
+      .hover-underline:hover::after {
+      width: 100%;
+      }
+   </style>
    <body>
       <div class="main-container">
          <!-- Header -->
@@ -49,7 +48,6 @@
                <a href="{{ url('/glosary') }}" class="text-dark text-decoration-none mx-2  title_pop hover-underline">Glosario</a>      
             </nav>
          </div>
-
          <nav class="d-flex align-items-center px-4 py-3" style="background: linear-gradient(to right, #02697e, #3e98a6);">
             <a href="{{ url('/') }}" class="text-white text-decoration-none mx-1 fw-bold">Sistema de Mediciones en Linea de Aguas - Valle Pupío</a>
          </nav>
@@ -64,7 +62,7 @@
                            <h5 class="fw-bold title_pop">  Seleccionar </h5>
                            <hr style="width: 100%">
                         </div>
-                     </a>                     
+                     </a>
                      <div style="background-color: #f5f5f5">
                         {!! $dropdown !!}
                      </div>
@@ -82,9 +80,7 @@
                            <label><input type="radio" name="map-style" value="Satellite" checked> Satelite</label>
                         </div>
                         <style>
-
-                           </style>
-                       
+                        </style>
                         <div id="map-legend">
                            <div class="legend-item">
                               <span class="icon-agua-superficial_alt" ></span>&nbsp; Agua Superficial
@@ -98,17 +94,16 @@
                         </div>
                      </div>
                      <p class="mt-3 text-muted">
-                        <br>
-                        <i class="fas fa-exclamation-triangle" style="color: #ce7d27" aria-hidden="true"></i> 
-                        <span class="title_pop"  style="color: #555555; font-size: 12px" >En su mayoría, los datos se entregan cada 1 hora y pueden sufrir modificaciones.</span>
+                        <br>                       
+                        <!-- <span class="title_pop"  style="color: #555555; font-size: 12px" >En su mayoría, los datos se entregan cada 1 hora y pueden sufrir modificaciones.</span>-->
+                        <span class="title_pop"  style="color: #555555; font-size: 12px" > Los datos son entregados con una frecuencia de una hora, lo que asegura una actualización constante y puntual de la información.</span>
                      </p>
                   </div>
                </div>
             </div>
          </div>
-         <style>
-         </style>
-         <!-- Footer -->
+
+        
          <div class="footer text-center mt-4 color_mlp">
             <div class="row align-items-center pdd">
                <div class="col-lg-3 d-flex justify-content-center">
@@ -137,6 +132,78 @@
                </div>
             </div>
          </div>
+         <style>
+            .parrafos{
+            font-size: 15px; 
+            text-align: justify !important;
+            line-height: 1.8; 
+            margin-bottom: 15px;
+            color : #4a4a4a !important;
+            }
+            .parrafo_red{
+            font-size: 22px !important; 
+            color: #C0392B !important;
+            }
+            .modal-lgx {
+            max-width: 960px;
+            }
+         </style>
+         <div class="modal fade" id="welcome" tabindex="-1" aria-labelledby="miModalLabel">
+            <div class="modal-dialog modal-lgx modal-dialog-centered">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <div style="margin-right: auto; display: flex; align-items: center;">
+                        <button type="button" data-bs-dismiss="modal" aria-label="Cerrar" style="color: red; font-size: 25px; border: none; background: transparent;">×</button>
+                        <span style="margin-left: 5px; font-size: 14px; font-weight: bold">Cerrar</span>
+                     </div>
+                  </div>
+                  <div class="modal-body" style="font-weight: normal !important; font-size: 12px;">
+                     <div class="d-flex flex-wrap">
+                        <div class="col-lg-8" style="padding: 10px 20px 10px 10px;">
+                           <span class="parrafo_red" style="font-size: 20px;">
+                           Bienvenido al sistema de monitoreo de aguas <br><b>Valle Pupío</b>
+                           </span>
+                           <br><br><br>
+                           <p class="parrafos">
+                              <b>Como parte del Acuerdo Marco de Entendimiento y Cooperación Recíproca entre Minera Los Pelambres y Habitantes del Valle de Pupío</b>, 
+                              se estableció la habilitación de un Sistema de Monitoreo en Línea, de acceso público, de la cantidad y calidad de las aguas en distintos puntos del Valle.
+                           </p>
+                           <br>
+                           <p class="parrafos">
+                              Este sitio web busca asegurar el acceso a la información por parte de la comunidad, incluyendo los distintos parámetros a través de los cuales 
+                              se evalúa el estado del recurso hídrico.
+                           </p>
+                        </div>
+                        <div class="col-lg-4 d-flex" style="padding-left: 15px;">
+                           <div class="w-100">
+                              <img src="{{ asset('images/valle-pupio.jpg') }}" class="img-fluid" style="max-width: 100%; height: auto; border-radius: 1px;">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="modal-footer">
+                     <button 
+                        type="button" 
+                        data-bs-dismiss="modal"
+                        class="me-auto" 
+                        style="
+                        background: linear-gradient(45deg, #00768e, #3f8f99);
+                        width: 150px; 
+                        color: white;
+                        padding: 8px 18px;
+                        font-size: 14px;
+                        line-height: 1.2;
+                        border: none;
+                        border-bottom-right-radius: 10px; 
+                        height: 42px;     
+                        transform: scale(1.0);
+                        cursor: pointer;">
+                     Ingresar
+                     </button>
+                  </div>
+               </div>
+            </div>
+         </div>
       </div>
       <!-- Bootstrap JS -->
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -144,14 +211,7 @@
       <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>   
       <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.min.js"></script>
       <script src="https://unpkg.com/maplibre-gl-minimap/dist/maplibre-gl-minimap.js"></script>
-      <script src="{{ asset('map/map.js') }}"></script>    
-      <script>
-         document.addEventListener("DOMContentLoaded", function () {
-         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-         return new bootstrap.Tooltip(tooltipTriggerEl);
-         });
-         });
-      </script>
+      <script src="{{ asset('map/map.js') }}"></script> 
+      
    </body>
 </html>

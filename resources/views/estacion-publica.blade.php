@@ -85,7 +85,7 @@
                <div class="col-md-3">
                   <div class="panel">
                      <div style="background-color: #f5f5f5; padding: 15px 10px 0 10px;">
-                        <h5 class="fw-bold title_pop">Seleccionar  :    {!! $is_dga !!}</h5>
+                        <h5 class="fw-bold title_pop">Seleccionar  : </h5>
                         <hr style="width: 100%;" />
                      </div>
                      <div style="background-color: #f5f5f5;">
@@ -143,15 +143,14 @@
                            <div class="col-lg-6">
                               <div>
                                  <!--<i class="fas fa-map-marker-alt gradient-icon"></i>-->
-                                 <label for="typeSelect" class="selectOption"><i  class="fas fa-leaf gradient-icon"></i>&nbsp;Tipo de parámetro (Max. 2 Opciones)</label>
+                                 <label for="typeSelect" class="selectOption"><i  class="fas fa-leaf gradient-icon"></i>&nbsp;Tipo de parámetro</label>
                                  <select id="typeSelect" style="width: 100%;"> </select>
                               </div>
                            </div>
                         </div>
                         <div style="margin-left: 0px; margin-right: 10px;">
                            <br />
-                           <div id="conductivityChart" style="width: 100%; height: 550px; padding: 0px; position: relative;">
-                              <!-- Spinner de carga -->
+                           <div id="conductivityChart" style="width: 100%; height: 550px; padding: 0px; position: relative;">             
                               <div id="loadingSpinner" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10;">
                                  <div style="border: 4px solid #f3f3f3; border-radius: 50%; border-top: 4px solid #3498db; width: 40px; height: 40px; animation: spin 1s linear infinite;"></div>
                               </div>
@@ -197,7 +196,7 @@
                <div class="col-lg-3">
                   <div class="section">
                      <p class="small-text jjtxt">
-                        Este desarrollo ha sido implementado por <span style="font-weight: bold;">GP Consultores</span>, a través de su equipo especializado en soluciones de monitoreo web: <b>gp@gpconsultores.cl<b
+                        Este desarrollo ha sido implementado por <span style="font-weight: bold;">GP Consultores</span>, a través de su equipo especializado en soluciones de monitoreo web: <b>gp@gpconsultores.cl</b>
                      </p>
                      <p></p>
                   </div>
@@ -247,6 +246,26 @@
                </div>
             </div>
          </div>
+
+
+         <div class="modal fade" id="welcome" tabindex="-1" aria-labelledby="miModalLabel">
+            <div class="modal-dialog modal-lg">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h5 class="modal-title" id="miModalLabel">Observaciones</h5>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                  </div>
+                  <div class="modal-body" style="font-weight: normal !important; font-size: 12px";>
+                    
+                     
+                  </div>
+                  <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+
       </div>
       <!-- Bootstrap JS -->
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

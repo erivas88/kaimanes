@@ -1,5 +1,5 @@
 body {
-  background: url("../images/background.jpg") no-repeat center center fixed;
+  background: url("../images/caimanes_city.jpeg") no-repeat center center fixed;
   background-size: 100%;
   background-position: center top;
   margin: 0;
@@ -10,15 +10,27 @@ body {
   justify-content: center;
   font-family: "Poppins", serif !important;
 }
-.main-container {
+.main-container{
   background: rgba(255, 255, 255, 0.95);
   border-radius: 0px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  max-width: 1250px;
+  max-width: 1350px;
   width: 100%;
   display: flex;
   flex-direction: column;
 }
+
+.main-container_st {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 0px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 1350px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
 .header, .footer {
   background-color: #006d6d;
   color: white;
