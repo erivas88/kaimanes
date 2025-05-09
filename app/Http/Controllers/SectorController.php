@@ -14,6 +14,7 @@ class SectorController extends Controller
     public function glosary($id = null)
     {
         // Obtener los sectores y generar el dropdown
+        contarVisita();
         $sectores = $this->getsSectores();
         $dropdown = $this->generateDropdownHTML($sectores, $id);
 
@@ -27,6 +28,7 @@ class SectorController extends Controller
     public function show($id = null)
     {
     // Obtener los sectores y estaciones
+       contarVisita();
         $sectores = $this->getsSectores();
 
         // Generar el dropdown con todos los sectores cerrados si $id es nulo

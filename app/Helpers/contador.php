@@ -9,12 +9,10 @@ function contarVisita()
     $fechaHoy = date('Y-m-d');
     $ip = Request::ip();
 
-    // Registrar visita total
     $visita = Visita::firstOrNew(['fecha' => $fechaHoy]);
     $visita->total = ($visita->total ?? 0) + 1;
     $visita->save();
 
-    // Registrar IP si no existe
     IpVisita::firstOrCreate([
         'fecha' => $fechaHoy,
         'ip' => $ip,

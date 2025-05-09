@@ -9,7 +9,8 @@ use App\Models\Estacion;
 class EstacionPublicaController extends Controller
 {
     public function show($id_estacion)
-    {
+    {   
+        contarVisita();
         $estacion = DB::select("CALL GetEstacionById(?)", [$id_estacion]);
 
         if (empty($estacion)) {
@@ -32,7 +33,8 @@ class EstacionPublicaController extends Controller
 
     public function getLeftMenu($idDevice = null,$is_dga = null)
     {
-        try {
+        try 
+        {
            
             $sectores = $this->getsSectores();      
             return $this->generateDropdownHTML($sectores, $idDevice,$is_dga);
