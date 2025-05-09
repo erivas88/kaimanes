@@ -165,7 +165,7 @@
                   </div>                  
                   
                   <div style="display: flex; align-items: center; gap: 15px;">
-                    <img src="{{ asset('glosario/limini_2.jpg') }}" style="width: 120px !important; height: 100px">
+                    <img src="{{ asset('glosario/regla.jpg') }}" style="width: 120px !important; height: 100px">
                     <div>
                       <dt>
                         <strong class="title">Nivel o Altura Limnimétrica:</strong>
