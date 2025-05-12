@@ -13,7 +13,7 @@ class DataProcessor
     foreach ($results as $row)
     {
         $milliseconds = self::convertToMilliseconds($row->fecha_hora);
-        $value = self::convertToFloat($row->valor);       
+        $value = ($row->valor === '' || is_null($row->valor)) ? '' : self::convertToFloat($row->valor);     
         $series['name'] = $row->sensor;
         $series['showInNavigator'] = true;
         $series['parametro'] = $row->sensor;
