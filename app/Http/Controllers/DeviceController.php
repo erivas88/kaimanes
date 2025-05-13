@@ -55,7 +55,7 @@ class DeviceController extends Controller
         return [
             ['id_periodo' => 1, 'descripcion' => 'Hoy'],
             ['id_periodo' => 2, 'descripcion' => 'Últimos 7 Días'],
-            ['id_periodo' => 3, 'descripcion' => 'Todo']
+          
         ];
     }
 }
