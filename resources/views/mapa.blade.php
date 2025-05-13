@@ -27,7 +27,7 @@
       bottom: 0;
       width: 0;
       height: 3px; /* Grosor del subrayado */
-      background-color: #04647c;
+      background-color: #318e9d;
       transition: width 0.3s ease;
       }
       .hover-underline:hover::after {
@@ -104,34 +104,7 @@
          </div>
 
         
-         <div class="footer text-center mt-4 color_mlp">
-            <div class="row align-items-center pdd">
-               <div class="col-lg-3 d-flex justify-content-center">
-                  <img src="{{ asset('images/antofagasta-mineralsWT.png') }}" style="max-width: 70%; height: auto; padding-top: 10px;" alt="Logo Los Pelambres" class="logo">
-               </div>
-               <div class="col-lg-3 d-flex flex-column align-items-start">
-                  <span class="text-line txt small-text pdd">
-                  <span style="font-weight: bold; "><i class="fas fa-mobile-alt"></i> &nbsp; Teléfono:</span> +56 2 3456 7890
-                  </span>
-                  <span class="text-line txt small-text pdd">
-                  <span style="font-weight: bold;"><i class="fas fa-envelope"></i>&nbsp; Email:</span> comunicacionesexternas@pelambres.cl
-                  </span>
-                  <span class="text-line txt small-text pdd">
-                  <span style="font-weight: bold;"><i class="fas fa-globe"></i>&nbsp; Web:</span> www.aminerals.com
-                  </span>
-               </div>
-               <div class="col-lg-3">
-                  <div class="section">
-                     <p class="small-text jjtxt">Este desarrollo ha sido implementado por <span style="font-weight: bold">GP Consultores</span>, a través de su equipo especializado en soluciones de monitoreo web.
-                        gp@gpconsultores.cl
-                     <p>
-                  </div>
-               </div>
-               <div class="col-lg-3 recentra">
-                  <img src="{{ asset('images/gp-blanco.png') }}" style="max-width: 65%; height: auto; padding-top: 10px;" alt="Logo Los Pelambres" class="logo">
-               </div>
-            </div>
-         </div>
+         @include('layouts.partials.footer')
          <style>
             .parrafos{
             font-size: 15px; 

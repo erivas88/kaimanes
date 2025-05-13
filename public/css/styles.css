@@ -627,6 +627,15 @@ body {
   font-weight: normal;
   color : #666 !important;
 }
+
+.subtitle_glosario {
+  font-size: 13px;
+  margin-left: 10px;
+  font-weight: normal;
+  color: #666 !important;
+  line-height: 1.8; /* Pequeño interlineado */
+}
+
 .detail-row {
   display: flex;
   align-items: center;
