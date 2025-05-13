@@ -87,7 +87,7 @@
                <div class="col-md-3">
                   <div class="panel">
                      <div style="background-color: #f5f5f5; padding: 15px 10px 0 10px;">
-                        <h5 class="fw-bold title_pop">Seleccionar  : </h5>
+                        <h5 class="fw-bold title_pop">Seleccionar  </h5>
                         <hr style="width: 100%;" />
                      </div>
                      <div style="background-color: #f5f5f5;">
