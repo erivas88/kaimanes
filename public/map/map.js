@@ -29,11 +29,11 @@ fetch('http://caimanes.katta.cl/api/map-token')
 
 
     const sector = getSectorFromURL();
-    console.log("Sector encontrado:", sector);
+    //console.log("Sector encontrado:", sector);
 
 async function initAll() {
     try {
-        console.log('Inicializando mapa y cargando marcadores...');
+        //console.log('Inicializando mapa y cargando marcadores...');
 
         // Obtener el centro del mapa
         const center = await fetchCenter();
@@ -62,7 +62,7 @@ async function initAll() {
 
         // Esperar a que el mapa esté completamente cargado
         map.on('load', async () => {
-            console.log("Mapa inicializado correctamente.");
+            //console.log("Mapa inicializado correctamente.");
         
             try {
                 // Obtener los marcadores generales
@@ -104,7 +104,7 @@ async function initializeMap() {
         map.addControl(new maplibregl.ScaleControl({ unit: 'metric' }), 'bottom-right');
 
         map.on('load', () => {
-            console.log("Mapa inicializado correctamente.");
+            //console.log("Mapa inicializado correctamente.");
             resolve(); // Indicar que la inicialización está completa
         });
     });
@@ -130,7 +130,7 @@ function getSectorFromURL() {
 if (sector) {
     var sector_route = loadMarkersForSector(sector);
 } else {
-    console.log("No se encontró sector en la URL. No se cargarán marcadores.");
+    //console.log("No se encontró sector en la URL. No se cargarán marcadores.");
 }
 
 
@@ -139,11 +139,11 @@ if (sector) {
 
 async function loadMarkersForSector(sector) {
     try {
-        console.log(`Cargando marcadores para el sector: ${sector}`);
+        //console.log(`Cargando marcadores para el sector: ${sector}`);
 
         // Esperar a que `fetchMarkersBySector(sector)` devuelva los datos
         const sector_route = await fetchMarkersBySector(sector);
-        console.log("Marcadores obtenidos:", sector_route);
+        //console.log("Marcadores obtenidos:", sector_route);
 
         // Verificar si `map` está inicializado antes de agregar marcadores
         if (!map) {
@@ -382,12 +382,9 @@ function addMarkersToMap(map, markers) {
             label.style.fontSize = '14px';
             label.style.color = 'black';
             //label.style.maxWidth = '120px'; // Limita el ancho para dividir etiquetas largas en múltiples líneas
-            label.style.wordWrap = 'break-word'; // Permite dividir palabras largas
-            
-
+            label.style.wordWrap = 'break-word'; // Permite dividir palabras largas          
             label.style.lineHeight = '10px'; // Reduce el espacio entre líneas
-            label.style.padding = '2px 4px'; // Ajusta el espacio interno para un diseño más compacto
-            
+            label.style.padding = '2px 4px'; // Ajusta el espacio interno para un diseño más compacto         
 
 
             // Agregar la etiqueta al marcador
@@ -425,7 +422,6 @@ function addMarkersToMap_old(map, markers) {
                     `)
                 )
                 .addTo(map);
-
             markerGroup.push(newMarker); // Almacenar el marcador
             bounds.extend([marker.longitud, marker.latitud]);
         }
@@ -481,16 +477,16 @@ function addMarkersToMap_old(map, markers) {
 
 $(document).on("click", ".accordion-button", async function () {
     let idSector = $(this).attr("id-sector"); // Obtener el valor del atributo id-sector
-    console.log("ID Sector:", idSector);
+    //console.log("ID Sector:", idSector);
     const markers = await fetchMarkersBySector(idSector);
-    console.log(markers);
+    //console.log(markers);
     addMarkersToMap(map, markers); // Usar la variable global `map`
 });
 
 
 
 window.explorarEstacion = function(id) {
-    console.log(`Explorar estación con ID: ${id}`);
+    //console.log(`Explorar estación con ID: ${id}`);
     
 
     //window.location.href = window.location.origin + "/api_caimanes/public/estacion-publica/" + id;
