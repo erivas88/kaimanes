@@ -843,7 +843,7 @@ body {
 }
 .stat-value {
   font-size: 16px;
-  font-weight: bold;
+  font-weight: bold !important;
   margin: 0;
 }
 .stat-label {
