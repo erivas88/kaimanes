@@ -351,6 +351,25 @@ function plotChart(dataArray) {
         (dataArray[0]?.name || "Gráfica de Parámetros") :
         `${dataArray[0]?.name || "Parámetro 1"} vs ${dataArray[1]?.name || "Parámetro 2"}`;
 
+
+     // Define a custom symbol path
+    Highcharts.SVGRenderer.prototype.symbols.doublearrow = function (
+        x, y, w, h
+    ) {
+        return [
+        // right arrow
+            'M', x + w / 2 + 1, y,
+            'L', x + w / 2 + 1, y + h,
+            x + w + w / 2 + 1, y + h / 2,
+            'Z',
+            // left arrow
+            'M', x + w / 2 - 1, y,
+            'L', x + w / 2 - 1, y + h,
+            x - w / 2 - 1, y + h / 2,
+            'Z'
+        ];
+    };
+
     Highcharts.chart('conductivityChart', {
         lang: {
             loading: 'Cargando...',
@@ -398,9 +417,17 @@ function plotChart(dataArray) {
             maskFill: 'rgba(200, 200, 200, 0.3)',
             outlineColor: '#cccccc',
             outlineWidth: 1,
-            handles: {
+            /*handles: {
                 width: 12,
                 height: 15,
+                backgroundColor: '#00768e',
+                borderColor: 'white'
+            }*/
+            handles: {
+                symbols: ['doublearrow', 'doublearrow'],
+                lineWidth: 1,
+                width: 9,
+                height: 17,
                 backgroundColor: '#00768e',
                 borderColor: 'white'
             }
