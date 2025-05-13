@@ -379,7 +379,7 @@ function addMarkersToMap(map, markers) {
             label.style.left = '50%';
             label.style.right = '50%';
             label.style.transform = 'translateX(-50%,0)';
-            label.style.fontSize = '12px';
+            label.style.fontSize = '14px';
             label.style.color = 'black';
             //label.style.maxWidth = '120px'; // Limita el ancho para dividir etiquetas largas en múltiples líneas
             label.style.wordWrap = 'break-word'; // Permite dividir palabras largas
