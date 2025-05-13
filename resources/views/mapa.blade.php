@@ -13,6 +13,16 @@
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
       <script src="https://kit.fontawesome.com/e5291bc371.js" crossorigin="anonymous"></script>
       <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-8HDCBQ80LW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8HDCBQ80LW');
+</script>
+
    </head>
    <style>
       .hover-underline {
@@ -184,7 +194,8 @@
       <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>   
       <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.min.js"></script>
       <script src="https://unpkg.com/maplibre-gl-minimap/dist/maplibre-gl-minimap.js"></script>
-      <script src="{{ asset('map/map.js') }}"></script> 
+      <script src="{{ asset('map/map.js') }}"></script>
+      <script src="{{ asset('utils/utils.js') }}"></script> 
       
    </body>
 </html>
