@@ -42,8 +42,8 @@ document.addEventListener('DOMContentLoaded', function() {
             typeSelectValue = response.parametros.length > 0 ? response.parametros[0].sensor : null;
             dateRangeSelectValue = response.periodos.length > 0 ? response.periodos[0].id_periodo : null;
 
-            console.log('Valor inicial de #typeSelect:', typeSelectValue);
-            console.log('Valor inicial de #dateRangeSelect:', dateRangeSelectValue);
+           // console.log('Valor inicial de #typeSelect:', typeSelectValue);
+           // console.log('Valor inicial de #dateRangeSelect:', dateRangeSelectValue);
             drawChart([typeSelectValue], [dateRangeSelectValue], idDevice);
 
          } else {
@@ -146,9 +146,9 @@ document.addEventListener('DOMContentLoaded', function() {
          dateRangeSelectValue = $('#dateRangeSelect option:first').val();
       }
 
-      console.log('parametro =>', typeSelectValue);
-      console.log('periodo =>', dateRangeSelectValue);
-      console.log('dispositivo =>', idDevice);
+      //console.log('parametro =>', typeSelectValue);
+      //console.log('periodo =>', dateRangeSelectValue);
+      //console.log('dispositivo =>', idDevice);
 
       const modal = new bootstrap.Modal(document.getElementById('observations'));
 
@@ -192,11 +192,11 @@ $('#dateRangeSelect').on('select2:select', function() {
 function drawChart(selectedId, dateRangeSelectValue, idDevice) {
    $('#loadingSpinner').show();
 
-   console.log('Datos enviados:', {
+   /*console.log('Datos enviados:', {
       sensor: selectedId,
       periodo: dateRangeSelectValue,
       estacion: idDevice,
-   });
+   });*/
 
    $.ajax({
       url: 'http://caimanes.katta.cl/api/plot',
@@ -209,7 +209,7 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
       }),
       success: function(response)
       {
-         console.log('Respuesta del servidor:', response);
+         //console.log('Respuesta del servidor:', response);
 
          $('#loadingSpinner').hide();
 
@@ -238,7 +238,7 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
 
             if (compromisoNota) {
                notaContainer.append(compromisoNota);
-               console.log(compromisoNota);
+              // console.log(compromisoNota);
             }
 
             return `
@@ -292,7 +292,7 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
 }
 
 $('#typeSelect').on('select2:clear', function() {
-   console.log('Selección limpia');
+   //console.log('Selección limpia');
 });
 
 function convertToBoolean(value) {
