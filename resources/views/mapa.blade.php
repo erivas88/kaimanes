@@ -44,7 +44,7 @@
                alt="Logo Los Pelambres" class="logo">
             </a>
             <nav class="d-flex">
-               <a href="{{ url('/') }}" class="text-dark text-decoration-none mx-2 title_pop hover-underline">Mapa</a>
+               <a href="{{ url('/') }}" class="text-dark text-decoration-none mx-2 title_pop hover-underline x">Mapa</a>
                <a href="{{ url('/glosary') }}" class="text-dark text-decoration-none mx-2  title_pop hover-underline">Glosario</a>      
             </nav>
          </div>
@@ -59,7 +59,7 @@
                         data-bs-placement="left"
                         title="Selecciona un sector para visualizar las estaciones">
                         <div  style="background-color: #f5f5f5; padding: 15px 10px 0 10px;">
-                           <h5 class="fw-bold title_pop">  Seleccionar </h5>
+                           <h5 class="fw-bold title_pop"> Seleccionar </h5>
                            <hr style="width: 100%">
                         </div>
                      </a>
