@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
    $.ajax({
-      url: `http://caimanes.katta.cl/api/info_device/${idDevice}`,
+      url: `http://monitoreocaimanes.gptelemetria.cl/api/info_device/${idDevice}`,
       method: 'GET',
       dataType: 'json',
       success: function(response) {
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
       },
       "lengthChange": false,
       ajax: {
-         url: "http://caimanes.katta.cl/api/table",
+         url: "http://monitoreocaimanes.gptelemetria.cl/api/table",
          type: "POST",
          data: function(d) {
             d.device = idDevice;
@@ -199,7 +199,7 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
    });*/
 
    $.ajax({
-      url: 'http://caimanes.katta.cl/api/plot',
+      url: 'http://monitoreocaimanes.gptelemetria.cl/api/plot',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({
