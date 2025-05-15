@@ -11,30 +11,22 @@ class DeviceController extends Controller
     public function getInfoDevice($idDevice)
     {
         try {
-            // Llamar al procedimiento almacenado para obtener los sensores de la estación
-            $sensores = DB::select('CALL GetSensoresByEstacion(?)', [$idDevice]);
 
-            // Llamar al procedimiento almacenado para obtener la información de la estación
-            $estacion = DB::select('CALL GetEstacionById(?)', [$idDevice]);
-
-            // Si la estación no existe, devolver error
+            $sensores = DB::select('CALL GetSensoresByEstacion(?)', [$idDevice]);           
+            $estacion = DB::select('CALL GetEstacionById(?)', [$idDevice]);          
             if (empty($estacion)) {
                 return response()->json([
                     'success' => false,
                     'message' => 'No se encontró la estación'
                 ], 404);
             }
-
-            // Usar el servicio para formatear los sensores
-            $formattedSensores = SensorService::formatSensors($sensores);
-
-            // Formatear la salida en el array selector
+        
+            $formattedSensores = SensorService::formatSensors($sensores); 
             $selector = [
                 'parametros' => $formattedSensores,
                 'periodos' => $this->fillPeriodos(),
-                'estacion' => $estacion[0] // Solo devolver el primer resultado
+                'estacion' => $estacion[0] 
             ];
-
             return response()->json(
                 
                 $selector
@@ -49,7 +41,6 @@ class DeviceController extends Controller
         }
     }
 
-    // Función para devolver los períodos predefinidos
     private function fillPeriodos()
     {
         return [

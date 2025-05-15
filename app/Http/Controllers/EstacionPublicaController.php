@@ -48,8 +48,13 @@ class EstacionPublicaController extends Controller
     private function getStations($sector)
     {
         try {
-            $estaciones = Estacion::where('sector', $sector)->orderBy('nombre')->get();
-            return ['submenu' => json_decode(json_encode($estaciones), true)]; // Convertir stdClass a array
+            //$estaciones = Estacion::where('sector', $sector)->orderBy('nombre')->get();
+               $estaciones = Estacion::where('sector', $sector)
+                 ->where('enable_site', '1')
+                 ->orderBy('nombre')
+                 ->get();
+
+            return ['submenu' => json_decode(json_encode($estaciones), true)];
         } catch (\Exception $e) {
             return ['submenu' => []];
         }

@@ -7,7 +7,7 @@ let markerGroup = [];
 let map;
 
 // Obtener el token desde Laravel
-fetch('http://caimanes.katta.cl/api/map-token')
+fetch('http://monitoreocaimanes.gptelemetria.cl/api/map-token')
     .then(response => response.json())
     .then(data => {
         apiKey = data.apiKey;
@@ -162,7 +162,7 @@ async function loadMarkersForSector(sector) {
 // Obtener coordenadas dinámicas
 async function fetchCenter() {
     try {
-        const response = await axios.get(`http://caimanes.katta.cl/api/location`);
+        const response = await axios.get(`http://monitoreocaimanes.gptelemetria.cl/api/location`);
         if (response.data && response.data.latitud && response.data.longitud) {
             return response.data;
         } else {
@@ -178,7 +178,7 @@ async function fetchCenter() {
 // Obtener marcadores desde el backend
 async function fetchMarkersBySector(id_sector) {
     try {
-        const response = await axios.get(`http://caimanes.katta.cl/api/location/sector/sector_publico/${id_sector}`);
+        const response = await axios.get(`http://monitoreocaimanes.gptelemetria.cl/api/location/sector/sector_publico/${id_sector}`);
         if (response.data && Array.isArray(response.data)) {
             return response.data;
         } else {
@@ -194,7 +194,7 @@ async function fetchMarkersBySector(id_sector) {
 
 async function fetchMarkersallSector(id_sector) {
     try {
-        const response = await axios.get(`http://caimanes.katta.cl/api/estaciones`);
+        const response = await axios.get(`http://monitoreocaimanes.gptelemetria.cl/api/estaciones`);
         if (response.data && Array.isArray(response.data)) {
             return response.data;
         } else {

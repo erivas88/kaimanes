@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Estacion;
+
 
 class LeftMenuController extends Controller
 {
@@ -54,7 +56,13 @@ class LeftMenuController extends Controller
     private function getStations($sector)
     {
         try {
-            $estaciones = DB::select("SELECT * FROM estaciones WHERE sector = ? ORDER BY nombre", [$sector]);
+            //$estaciones = DB::select("SELECT * FROM estaciones WHERE sector = ? ORDER BY nombre", [$sector]);
+
+              $estaciones = Estacion::where('sector', $sector)
+                 ->where('enable_site', '1')
+                 ->orderBy('nombre')
+                 ->get();
+
 
             return ['submenu' => $estaciones]; // Formato correcto para la estructura del menú
         } catch (\Exception $e) {
