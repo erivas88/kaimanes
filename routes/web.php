@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\DB;
 use App\Models\IpVisita;
 
 
+
+
+Route::get('/inicio', function ()
+{
+    //contarVisita();
+    //return redirect('/sector/');
+     return view('inicio');
+});
+
+
 Route::get('/', function ()
 {
     contarVisita();
