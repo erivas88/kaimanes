@@ -163,8 +163,7 @@
                               <p id="notas" class="notas_view"></p>
                               <p class="ultima-nota" style="font-size: 13px; color: #949494; margin-bottom: 20px; line-height: 170%; font-family: 'Poppins', serif; text-align: justify; padding: 20px;">
                                  <i class="fas fa-info-circle" style="color: #07798f;"></i>
-                                 Nota: la información de monitoreo disponible está sujeta a las condiciones de conectividad y telecomunicaciones en la zona. La realización de mantenciones en los equipos y/o algún otro evento
-                                 pueden alterar momentáneamente los registros, provocando imprecisiones en la información. Para mayores detalles ver sección "Observaciones".
+                                   Nota: la información de monitoreo disponible está sujeta a las condiciones de conectividad y telecomunicaciones en la zona. La ejecución de mantenciones en los equipos y/o algún otro evento pueden alterar momentáneamente los registros. Para mayores detalles ver sección "Observaciones"
                               </p>
                               <p style="font-size: 14px; font-weight: normal; margin-bottom: 10px; text-align: justify; padding: 10px; font-family: 'Poppins', serif; text-align: center; color: #949494;">
                                  Detalles de la variable <span id="plotVar"> </span> en el rango: <span id="dateMin">2024-12-31 00:00:00</span> al <span id="dateMax">2024-12-31 00:00:00</span>
