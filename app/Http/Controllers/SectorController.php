@@ -65,8 +65,11 @@ class SectorController extends Controller
     private function getStations($sector)
     {
         try {
-
-            $estaciones = Estacion::where('sector', $sector)->orderBy('nombre')->get();    
+            $estaciones = Estacion::where('sector', $sector)
+                            ->where('enable_site', '1')
+                            ->orderBy('nombre')
+                            ->get();
+            /*$estaciones = Estacion::where('sector', $sector)->orderBy('nombre')->get(); */   
             return ['submenu' => $estaciones->toArray()]; 
         } catch (\Exception $e) {
             return ['submenu' => []];

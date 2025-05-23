@@ -27,7 +27,8 @@ class EstacionPublicaController extends Controller
         return view('estacion-publica', [
             'estacion' => $estacion[0],
             'is_dga' => $is_dga,
-            'side' => $side
+            'side' => $side,
+            'gato' =>'little'
         ]);
     }
 
@@ -49,7 +50,7 @@ class EstacionPublicaController extends Controller
     {
         try {
             //$estaciones = Estacion::where('sector', $sector)->orderBy('nombre')->get();
-               $estaciones = Estacion::where('sector', $sector)
+              $estaciones = Estacion::where('sector', $sector)
                  ->where('enable_site', '1')
                  ->orderBy('nombre')
                  ->get();

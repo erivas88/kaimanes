@@ -15,8 +15,8 @@ $(document).ready(function() {
     }
  
     $('#welcome .modal-footer button[data-bs-dismiss="modal"]').on('click', function() {
-       localStorage.setItem('modalLastShown', today);
-       console.log('Fecha guardada al hacer clic en Ingresar:', today);
+       /*localStorage.setItem('modalLastShown', today);
+       console.log('Fecha guardada al hacer clic en Ingresar:', today);*/
     });
 
 

@@ -22,7 +22,20 @@ Route::get('/inicio', function ()
 Route::get('/', function ()
 {
     contarVisita();
+    //return redirect('/sector/');
+    return view('inicio');
+});
+
+
+Route::get('/mapa', function ()
+{
+    //contarVisita();
+    //return redirect('/sector/');
+    //return view('inicio');
+    contarVisita();
     return redirect('/sector/');
+     //return view('mapa');
+
 });
 
 Route::get('/estacion-publica/{id_estacion}', function ($id_estacion)

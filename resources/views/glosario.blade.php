@@ -119,9 +119,8 @@
                         <strong class="title">Conductividad</strong>
                       </dt>
                       <dd class="subtitle_glosario" style="text-align:justify">
-                      La medición de la conductividad eléctrica permite evaluar la cantidad de sales disueltas en el agua de riego y prevenir problemas de salinización que pueden afectar los cultivos. 
-                      Un monitoreo constante de la calidad del agua permite tomar decisiones informadas, asegurando la sostenibilidad del riego y la conservación de los suelos agrícolas
-                       </dd>
+                      La medición de la conductividad eléctrica permite evaluar la cantidad de sales disueltas en el agua de riego. Un monitoreo constante de la calidad del agua permite tomar decisiones informadas, asegurando la sostenibilidad del riego y la conservación de los suelos agrícolas. 
+                    </dd>
                     </div>
                   </div>
 
@@ -131,8 +130,9 @@
                       <dt>
                         <strong class="title">pH</strong>
                       </dt>
-                      <dd class="subtitle_glosario" style="text-align:justify">
-                      La calidad del agua en está sujeta a regulaciones que incluyen parámetros físico-químicos clave como el pH. Este indicador de acidez/alcalinidad es fundamental, pues mantener el pH en rangos adecuados ayuda a asegurar la potabilidad del agua, la productividad agrícola y la salud de los ecosistemas acuáticos.  Chile cuenta con normativas técnicas que fijan rangos aceptables de pH según el uso del agua. La principal es la Norma Chilena Oficial NCh 1333 (Of.1978) EL Agua de riego agrícola, Debe tener un pH entre 5,5 u.pH y 9,0 u.pH.
+                      <dd class="subtitle_glosario" style="text-align:justify">                      
+                        La calidad del agua está sujeta a regulaciones que incluyen parámetros físico-químicos clave como el pH. Este indicador de acidez/alcalinidad es fundamental, pues mantener el pH en rangos adecuados ayuda a asegurar la potabilidad del agua, la productividad agrícola y la salud de los ecosistemas acuáticos. Chile cuenta con normativas técnicas que fijan rangos aceptables de pH según el uso del agua.
+
                       </dd>
                     </div>
                   </div>
@@ -144,7 +144,7 @@
                         <strong class="title">Caudal</strong>
                       </dt>
                       <dd class="subtitle_glosario" style="text-align:justify">
-                      El caudal es el volumen de agua que fluye por un cauce o tubería en un tiempo determinado (L/s o m³/s) y es un factor clave en la gestión del riego.  En Chile, la DGA establece caudales ecológicos mínimos para proteger los ecosistemas y garantizar un uso sustentable del agua, asegurando un equilibrio entre la demanda agrícola y la conservación del recurso hídrico
+                        El caudal es el volumen de agua que fluye por un cauce o tubería en un tiempo determinado (L/s o m³/s) y es un factor clave en la gestión del riego.
                       </dd>
                     </div>
                   </div>
