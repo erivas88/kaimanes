@@ -122,7 +122,7 @@
                               </div>
                               <div class="row detail-row">
                                  <div class="col-4 title">Coordenadas:</div>
-                                 <div class="col-7 subtitle" id="coordenadaStation">[{{ $estacion->utm_north }} ; {{ $estacion->utm_east }} ; {{ $estacion->utm_datum }}]</div>
+                                 <div class="col-7 subtitle" id="coordenadaStation">{{ $estacion->utm_north }} ; {{ $estacion->utm_east }} ; {{ $estacion->utm_datum }}</div>
                               </div>
                            </div>
                         </div>
