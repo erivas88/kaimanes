@@ -28,7 +28,7 @@
                         Con el objetivo de mantener informada a la comunidad, <strong>Minera Los Pelambres</strong> implementó dos sitios web en los que los vecinos pueden encontrar información en línea respecto a agua y aire en la localidad.
                      </p>
                      <br>
-                     <a href="{{ url('/mapa') }}" class="custom-button-green" target="_blank" >
+                     <a href="{{ url('/mapa') }}" class="custom-button-green"  >
                         <i class="fas fa-wind icono-viento"></i>
                         <span class="texto-boton">
                         Ir al Sistema de Monitoreo de <br><strong> Calidad del Aire</strong>
