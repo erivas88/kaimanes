@@ -1,201 +1,336 @@
+/* Fuente base */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Sección izquierda */
 .left-section {
-      /*background-image: url('portada-home.jpg'); /* Reemplaza con tu imagen */
-      background-image: url('../images/portada-home.jpg');
-      background-size: cover;
-      background-position: center;
-      color: white;
-      padding: 5rem;
-      height: 100vh;
-    }
-
-    .left-section h1 {
-      font-weight: bold;
-    }
-
-    .overlay {
-     /* 85, 51, 119*/
-      background-color: rgba(0,118,142,0.4);
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size : 44px;
-      font-family: "Poppins", serif;
-    }
-
-    .right-section {
-      padding: 5rem 3rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      height: 100vh;
-    }
-
-    .btn-custom {
-      text-align: left;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .texto_welcome
-    {
-      text-align: justify;
-      color: #676465;
-      font-size: 21px !important;
-      font-family: "Poppins", serif;
-
-    }
-
-.custom-button_green
-{
-  display: inline-flex;
-  align-items: center;
-  gap: 8px; 
-  background: linear-gradient(45deg, #00768e, #3f8f99);
+  background-image: url('../images/portada-home.jpg'); /* Asegúrate que la ruta sea correcta */
+  background-size: cover;
+  background-position: center;
   color: white;
-  text-decoration: none;
-  padding: 14px 20px; 
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 16px;
+  padding: 5rem;
+  height: 100vh;
+}
+
+.left-section h1 {
+  font-weight: bold;
+  font-size: 48px;
+  line-height: 1.2;
+}
+
+.left-section h2 {
   font-weight: 300;
-  transition: background-color 0.3s ease;
-  width: 100%;
-  height: 80px !important;
-  border-bottom-right-radius: 17px; /* Esquina inferior derecha redondeada */
-  font-family: "Poppins", serif;
+  font-size: 28px;
 }
 
-
-.custom-button_green:hover {
-  background-color: #247f75; /* Cambio al pasar el mouse */
+/* Overlay de color */
+.overlay {
+  background-color: rgba(0, 118, 142, 0.4);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44px;
+  text-align: center;
+  padding: 20px;
 }
+
+/* Sección derecha */
+.right-section {
+  padding: 5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
+
+/* Texto de bienvenida */
+.texto_welcome {
+  text-align: justify;
+  color: #676465;
+  font-size: 21px;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.5;
+}
+
+/* Botones personalizados */
 
 
 .custom-button_blue {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background-color: #279989; /* Color de fondo */
-  color: white;
-  text-decoration: none;
-  padding: 14px 20px; 
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 16px;
-  font-weight: 300;
-  transition: background-color 0.3s ease;
-  width: 100%;
-  border-bottom-right-radius: 15px; /* Esquina inferior derecha redondeada */
-  font-family: "Poppins", serif;
+  background-color: #279989;
 }
+
 .custom-button_blue:hover {
-  
-  background-color: #207a70; 
-  
+  background-color: #207a70;
 }
-
-
-
-
-.custom-button_orange:hover {
-
-   background-color: #c8875d
-}
-
-
 
 .custom-button_orange {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background-color: #da9f77; /* Color de fondo */
-  color: white;
-  text-decoration: none;
-  padding: 10px 20px; 
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 16px;
-  font-weight: 300;
-  transition: background-color 0.3s ease;
-  width: 100%;
-  font-family: "Poppins", serif;
-  border-bottom-right-radius: 15px; /* Esquina inferior derecha redondeada */
+  background-color: #da9f77;
 }
 
-
-
-
-
-.custom-button_ .icon {
-  margin-left: auto;
+.custom-button_orange:hover {
+  background-color: #c8875d;
 }
 
-
-.icono-viento {
-  font-size: 26px;
-}
-
-.texto-boton {
-  padding-top: 5px;;
-  display: flex;
-  flex-direction: column;
-  line-height: 1.5;
-  font-size: 14px;
-}
-
-.custom-button_green .icon {
-  margin-left: auto;
-}
-
-.calidad{
-   font-weight: bold;
-}
-
-
-.footer {
-
- 
-   background: linear-gradient(45deg, #00768e, #3f8f99);
-  color: white;
-  padding: 15px 0;
-  font-size: 14px;
-  margin-top: 0px;
-}
-
-.footer p {
+/* Texto dentro de los botones */
+.texto-boton p {
   margin: 0;
+  font-size: 14px;
+  line-height: 1.3;
 }
 
+.calidad {
+  font-weight: bold;
+}
 
-.logo {
+/* Íconos */
+.icono-viento {
+  font-size: 24px;
+}
+
+/* Footer original (colores y estilo sin cambios) */
+.footer {
+  
+  background: linear-gradient(45deg, #00768e, #3f8f99);
+  color: white;
+  padding: 20px 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer .text-line {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.footer .logo {
   max-width: 100%;
   height: auto;
-  padding: 15px;
-  margin-top: 0;
-  ;
- /* Asegura que la imagen no tenga espacio extra */
 }
 
+.footer .small-text {
+  font-size: 11px;
+  color: #ccc;
+}
+
+.footer .jjtxt {
+  margin-top: 15px;
+  text-align: left;
+  font-size: 11px;
+}
 
 .recentra {
   display: flex;
-  justify-content: center;
- /* Centra horizontalmente */
   align-items: center;
- /* Cen
- tra verticalmente */
+  justify-content: center;
 }
 
+/* Responsive */
+@media (max-width: 991px) {
+  .left-section,
+  .right-section {
+    height: auto;
+    padding: 3rem 2rem;
+  }
 
-.jjtxt{
+  .overlay {
+    font-size: 32px;
+  }
+
+  .custom-button_green,
+  .custom-button_blue,
+  .custom-button_orange {
+    height: auto;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .texto_welcome {
+    font-size: 18px;
+  }
+
+  .footer .logo {
+    height: 60px;
+  }
+}
+
+      .footer {
+  background-color: #217d91; /* o el azul exacto del footer original */
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+}
+
+.footer .small-text {
+  font-size: 11px;
+  color: #fff; 
   text-align: justify;
-  line-height: 20px;
 }
 
-.pdd{
-  padding-top: 10px;
+.footer .logo {
+  height: auto;
 }
 
-.small-text {
-  font-size: 10px;
-  font-family: "Poppins", serif;
- /* Ajusta según lo necesario */
+
+.custom-button-orange {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #da9f77;
+  color: white;
+  text-decoration: none;
+  padding: 16px 20px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  transition: background-color 0.3s ease;
+  border-bottom-right-radius: 15px;
+  border-radius: 0 0 15px 0;
+  min-width: 400px; /* fuerza un ancho mínimo común */
+  max-width: 100%;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  align-items: center; /* centra verticalmente */
+  gap: 12px;
+  background-color: #da9f77;
+  color: white;
+  padding: 16px 20px;
+  border-radius: 0 0 15px 0;
+  min-width: 400px;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
 }
+
+.custom-button-orange:hover {
+  background-color: #c07f5c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+.custom-button-orange .icono-viento {
+  font-size: 24px;
+}
+
+.custom-button-orange .texto-boton {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.texto-boton {
+  display: inline-block;
+  line-height: 1.3;
+}
+
+.icono-viento {
+  font-size: 24px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start; /* o center si usas padding igual en texto */
+  margin-top: 2px; /* si aún se ve desajustado */
+}
+
+
+
+
+/**************************/
+
+
+.custom-button-green {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #279989;
+  color: white;
+  text-decoration: none;
+  padding: 16px 20px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border-bottom-right-radius: 15px;
+  border-radius: 0 0 15px 0;
+  min-width: 400px;
+  max-width: 100%;
+  box-sizing: border-box;
+  width: 100%; 
+  font-family: 'Poppins', sans-serif;
+}
+
+.custom-button-green:hover {
+  background-color: #1f7f76; /* tono más oscuro al pasar el mouse */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.custom-button-green .icono-viento {
+  font-size: 24px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-button-green .texto-boton {
+  font-size: 14px;
+  line-height: 1.4;
+  display: inline-block;
+}
+
+
+
+.custom-button-blue {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #537898;
+  color: white;
+  text-decoration: none;
+  padding: 16px 20px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border-bottom-right-radius: 15px;
+  border-radius: 0 0 15px 0;
+  min-width: 400px;
+  max-width: 100%;
+  box-sizing: border-box;
+  width: 100%;
+   font-family: 'Poppins', sans-serif;
+}
+
+.custom-button-blue:hover {
+  background-color: #3f5e78; /* tono más oscuro al pasar el mouse */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.custom-button-blue .icono-viento {
+  font-size: 24px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-button-blue .texto-boton {
+  font-size: 14px;
+  line-height: 1.4;
+  display: inline-block;
+}
+
+
+
+
+
+
+
+
+
+

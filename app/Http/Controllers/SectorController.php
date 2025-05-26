@@ -28,9 +28,8 @@ class SectorController extends Controller
     public function show($id = null)
     {
     // Obtener los sectores y estaciones
-       contarVisita();
+        contarVisita();
         $sectores = $this->getsSectores();
-
         // Generar el dropdown con todos los sectores cerrados si $id es nulo
         $dropdown = $this->generateDropdownHTML($sectores, $id);
 
@@ -98,8 +97,7 @@ class SectorController extends Controller
             $html .= '<span class="' . htmlspecialchars($menu['icon']) . '"></span> &nbsp; ' . htmlspecialchars($menu['sector']);
             $html .= '</button>';
             $html .= '</h2>';
-
-            // Contenido del acordeón (con `show` si `$isOpen` es true)
+      
             $html .= '<div id="' . $collapseId . '" class="accordion-collapse collapse' . ($isOpen ? ' show' : '') . '" aria-labelledby="' . $headingId . '" data-bs-parent="#accordionExample">';
             $html .= '<div class="accordion-body" style="background-color: #f5f5f5;">';
 
@@ -127,7 +125,6 @@ class SectorController extends Controller
             $html .= '</div>'; // Fin de .list-group-container
             $html .= '</div>'; // Fin de .accordion-body
             $html .= '</div>'; // Fin de .accordion-collapse
-
             $html .= '</div>'; // Fin de .accordion-item
         }
 
