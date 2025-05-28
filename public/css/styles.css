@@ -982,7 +982,7 @@ body {
 .legend-circle {
   width: 14px;
   height: 14px;
-  border-radius: 50%;
+  border-radius: 50%; /*important*/
   display: inline-block;
   margin-right: 8px;
   border: 2px solid white;
