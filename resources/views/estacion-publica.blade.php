@@ -138,7 +138,7 @@
                         <div class="row">
                            <div class="col-lg-6">
                               <div>
-                                 <label for="dateRangeSelect" class="selectOption"><i style="color: #60d1cc;" class="fas fa-calendar-alt gradient-icon"></i>&nbsp;Periodo de tiempo</label>
+                                 <label for="dateRangeSelect" class="selectOption"><i style="color: #60d1cc; font-size:normal" class="fas fa-calendar-alt gradient-icon"></i>&nbsp;Periodo de tiempo</label>
                                  <select id="dateRangeSelect" style="width: 100%;"> </select>
                               </div>
                            </div>

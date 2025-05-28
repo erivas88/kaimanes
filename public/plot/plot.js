@@ -529,7 +529,7 @@ function plotChart(dataArray) {
             lineColor: colors[index % colors.length],
             lineWidth: 2,
             fillColor: '#FFFFFF',
-            radius: 2
+            radius: 3
          }
       }))
    });
