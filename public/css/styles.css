@@ -670,6 +670,14 @@ body {
   display: flex;
   align-items: center;
 }
+.title_legend {
+
+   font-size: 14px; 
+   color: #333;  
+   align-items: center;
+   font-weight: 600;
+
+}
 /* Subtítulos con color optimizado */
 
 /* Iconos FontAwesome dentro del título */
@@ -745,6 +753,7 @@ body {
   white-space: nowrap;
   color: white !important;
   font-size: 13px;
+  font-weight: 600;
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice:hover {
   background: linear-gradient(135deg, #25808c, #349ba7);
@@ -985,6 +994,7 @@ body {
   font-weight: normal;
   display: block;
   margin-bottom: 5px;
+  font-weight: 600;
 }
 .ver-estacion-btn:hover {
   background: linear-gradient(135deg, #005f73, #0097a3);

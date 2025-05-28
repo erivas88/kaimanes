@@ -431,12 +431,16 @@ function plotChart(dataArray) {
       title: {
          text: chartTitle,
          style: {
-            color: '#949494',
+            color: '#1f8293',
             fontFamily: 'Poppins, serif',
-            fontWeight: '300',
+            fontWeight: '600',
             fontSize: '13px'
-         }
+         },
+      
       },
+      legend: {
+  enabled: false
+},
       subtitle: {
          text: dataArray[0]?.periodo || "Periodo no disponible",
          style: {
