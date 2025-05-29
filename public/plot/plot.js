@@ -267,7 +267,7 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
 				        </div>
 				    `;*/
 
-				return `
+return `
     <div class="row justify-content-start">
         <div class="col-custom mb-3">
             <div class="stat-item">
@@ -310,12 +310,13 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
                 <div class="stat-icon"><i class="fas fa-leaf"></i></div>
                 <div class="stat-text">
                     <p class="stat-label">Parámetro</p>
-                    <p class="stat-value">${param.parametro || "N/A"} (${param.unidad || "N/A"})</p>
+                    <p class="stat-value">${cleanParametro(param.parametro)}</p>
                 </div>
             </div>
         </div>
     </div>
 `;
+
 
 			}).join("");
 
@@ -339,6 +340,19 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
 			$('#loadingSpinner').hide();
 		}
 	});
+}
+
+
+function cleanParametro(nombre) {
+    if (!nombre) return "N/A";
+
+    const lower = nombre.toLowerCase();
+
+    if (lower.includes("nivel")) return "Nivel";
+    if (lower.includes("conductividad")) return "Conductividad";
+
+    // Por defecto devolver solo la primera palabra
+    return nombre.split(" ")[0];
 }
 
 $('#typeSelect').on('select2:clear', function() {
