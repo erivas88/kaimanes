@@ -622,7 +622,7 @@ function plotChart(dataArray) {
                 fillColor: '#FFFFFF',
                 radius: 3
             },
-            connectNulls: true // <<< AGREGA ESTO
+            connectNulls: true 
         }))
     });
 
