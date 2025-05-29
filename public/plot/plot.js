@@ -370,11 +370,11 @@ function generarBreaksDesdeDatos(data, umbralEnMilisegundos = 3 * 60 * 60 * 1000
         const delta = actual - anterior;
 
         if (delta > umbralEnMilisegundos) {
-            breaks.push({
-                from: anterior + 1,
-                to: actual - 1,
-                breakSize: 0
-            });
+           breaks.push({
+  from: anterior + 1,
+  to: actual - 1,
+  breakSize: 60 * 60 * 1000 // 1 hora visualmente
+});
         }
     }
 
