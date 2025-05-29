@@ -59,7 +59,7 @@
             <img src="{{ asset('images/image.png') }}" style="max-width: 150px; height: auto; float: left; margin-right: 15px; padding: 10px 0;" alt="Logo Los Pelambres" class="logo" />
             </a>
             <nav class="d-flex">
-               <a href="{{ url('/') }}" class="text-dark text-decoration-none mx-2 title_pop hover-underline">Mapa</a>
+               <a href="{{ url('/mapa') }}" class="text-dark text-decoration-none mx-2 title_pop hover-underline">Mapa</a>
                <a href="{{ url('/glosary') }}" class="text-dark text-decoration-none mx-2 title_pop hover-underline">Glosario</a>
             </nav>
          </div>
@@ -163,7 +163,7 @@
                                  <i class="fas fa-solid fa-bookmark" style="color: #07798f;"></i>
                                  <span class="title_legend">Nota : </span>  <span class="subtitle">la información de monitoreo disponible está sujeta a las condiciones de conectividad y telecomunicaciones en la zona. sLa ejecución de mantenciones en los equipos y/o algún otro evento pueden alterar momentáneamente los registros. Para mayores detalles ver sección "Observaciones"</span>
                               </p>
-                              <p style="font-size: 14px; font-weight: normal; margin-bottom: 10px; text-align: justify; padding: 10px; font-family: 'Poppins', serif; text-align: center; color: #949494;">
+                              <p style="font-size: 14px; font-weight: normal; margin-bottom: 10px; text-align: justify; padding: 10px; font-family: 'Poppins', serif; text-align: center; color: #949494;" class="title_legend">
                                  Detalles de la variable <span id="plotVar"> </span> en el rango: <span id="dateMin">2024-12-31 00:00:00</span> al <span id="dateMax">2024-12-31 00:00:00</span>
                               </p>
 
