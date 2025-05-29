@@ -14,7 +14,6 @@
       <script src="https://kit.fontawesome.com/e5291bc371.js" crossorigin="anonymous"></script>
    </head>
    <style>
-      
       .hover-underline {
       position: relative;
       text-decoration: none;
@@ -33,7 +32,6 @@
       .hover-underline:hover::after {
       width: 100%;
       }
- 
       .notas_view {
       font-size: 13px !important;
       color: #666;
@@ -87,7 +85,7 @@
                <div class="col-md-3">
                   <div class="panel">
                      <div style="background-color: #f5f5f5; padding: 15px 10px 0 10px;">
-                        <h5 class="fw-bold title_pop">Seleccionar </h5>         
+                        <h5 class="fw-bold title_pop">Seleccionar </h5>
                         <hr style="width: 100%;" />
                      </div>
                      <div style="background-color: #f5f5f5;">
@@ -152,7 +150,7 @@
                         </div>
                         <div style="margin-left: 0px; margin-right: 10px;">
                            <br />
-                           <div id="conductivityChart" style="width: 100%; height: 550px; padding: 0px; position: relative;">             
+                           <div id="conductivityChart" style="width: 100%; height: 550px; padding: 0px; position: relative;">
                               <div id="loadingSpinner" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10;">
                                  <div style="border: 4px solid #f3f3f3; border-radius: 50%; border-top: 4px solid #3498db; width: 40px; height: 40px; animation: spin 1s linear infinite;"></div>
                               </div>
@@ -163,14 +161,16 @@
                               <p id="notas" class="notas_view"></p>
                               <p class="ultima-nota" style="font-size: 13px; color: #949494; margin-bottom: 20px; line-height: 170%; font-family: 'Poppins', serif; text-align: justify; padding: 20px;">
                                  <i class="fas fa-solid fa-bookmark" style="color: #07798f;"></i>
-                                 
-                                   <span class="title_legend">Nota : </span>  <span class="subtitle">la información de monitoreo disponible está sujeta a las condiciones de conectividad y telecomunicaciones en la zona. sLa ejecución de mantenciones en los equipos y/o algún otro evento pueden alterar momentáneamente los registros. Para mayores detalles ver sección "Observaciones"</span>
+                                 <span class="title_legend">Nota : </span>  <span class="subtitle">la información de monitoreo disponible está sujeta a las condiciones de conectividad y telecomunicaciones en la zona. sLa ejecución de mantenciones en los equipos y/o algún otro evento pueden alterar momentáneamente los registros. Para mayores detalles ver sección "Observaciones"</span>
                               </p>
                               <p style="font-size: 14px; font-weight: normal; margin-bottom: 10px; text-align: justify; padding: 10px; font-family: 'Poppins', serif; text-align: center; color: #949494;">
                                  Detalles de la variable <span id="plotVar"> </span> en el rango: <span id="dateMin">2024-12-31 00:00:00</span> al <span id="dateMax">2024-12-31 00:00:00</span>
                               </p>
+
                               <div class="stats-container" style="display: flex; justify-content: space-around; margin-top: 10px; padding: 10px; font-family: 'Poppins';">
+                              
                               </div>
+                                                         
                            </div>
                         </div>
                      </div>
@@ -180,7 +180,6 @@
          </div>
          <!-- Footer -->
          @include('layouts.partials.footer')
-
          <div class="modal fade" id="observations" tabindex="-1" aria-labelledby="miModalLabel">
             <div class="modal-dialog modal-lg">
                <div class="modal-content">
@@ -201,7 +200,6 @@
                         .dataTables_empty {
                         text-align: center;
                         }
-                       
                      </style>
                      <table class="table" id="tableObservations" style="width:100%">
                         <thead>
@@ -221,8 +219,6 @@
                </div>
             </div>
          </div>
-
-
          <div class="modal fade" id="welcome" tabindex="-1" aria-labelledby="miModalLabel">
             <div class="modal-dialog modal-lg">
                <div class="modal-content">
@@ -231,8 +227,6 @@
                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                   </div>
                   <div class="modal-body" style="font-weight: normal !important; font-size: 12px";>
-                    
-                     
                   </div>
                   <div class="modal-footer">
                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -240,7 +234,6 @@
                </div>
             </div>
          </div>
-
       </div>
       <!-- Bootstrap JS -->
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -1054,3 +1054,110 @@ body {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4) !important;
   cursor: pointer !important;
 }
+
+                                .stat-item {
+      background-color: transparent;
+
+      /*box-shadow: 0 2px 4px rgba(0,0,0,0.1);*/
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      width: 230px;
+    }
+
+    .stat-icon {
+      background-color: #c5f2da;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      color: green;
+      font-size: 1.1rem;
+    }
+
+    .stat-text .stat-label {
+      margin: 0;    
+      color: #4a4a4a;
+    }
+
+    .stat-text .stat-value {
+      font-size: 1.0rem;
+      font-weight: bold;
+      color: #04647c;
+      margin: 0;
+    }
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+
+
+     
+    /* Personaliza una columna para que haya 5 por fila */
+    .col-custom {
+      flex: 0 0 20%;
+      max-width: 20%;
+    }
+
+    @media (max-width: 992px) {
+      .col-custom {
+        flex: 0 0 33.33%;
+        max-width: 33.33%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .col-custom {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .col-custom {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
+
+    .stat-item {
+      background-color: transparent;
+      border-radius: 0;
+     /*box-shadow: 0 2px 4px rgba(0,0,0,0.1);*/
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    .stat-icon {
+      background-color: #208393C0;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      color: white;
+      font-size: 0.8rem;
+    }
+
+    .stat-label {
+      margin: 0;
+      font-size: 0.8rem;
+      color: #444;
+    }
+
+    .stat-value {
+      margin: 0;
+      font-weight: bold;
+      color: #007d57;
+      font-size: 1.0rem;
+    }
+         
