@@ -148,9 +148,10 @@
                   <div style="display: flex; align-items: center; gap: 15px;">
                    <!-- <img src="{{ asset('glosario/ph_Table.png') }}" style="width: 100px; height: 100px">----->
 
-                      <a data-fancybox="gallery" data-caption="pH" href="{{ asset('glosario/ph_Table.jpg') }}">
-  <img src="{{ asset('glosario/ph_Table.jpg') }}" style="width: 110px !important; height: 100px">
-</a>
+                   <a data-fancybox="gallery" data-caption="pH" href="{{ asset('glosario/ph_Table.png') }}">
+                      <img src="{{ asset('glosario/ph_Table.png') }}" style="width: 110px; height: 100px;" alt="pH">
+                    </a>
+
 
                     <div>
                       <dt>
@@ -168,7 +169,7 @@
                     <!--<img src="{{ asset('glosario/caudal_medicion.jpg') }}" style="width: 100px; height: 100px">-->
 
                     
-                      <a >
+                      <a>
   <img src="{{ asset('glosario/caudal_medicion.jpg') }}"  style="width: 110px !important; height: 100px">
 </a>
 
