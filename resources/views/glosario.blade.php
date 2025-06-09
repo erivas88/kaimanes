@@ -12,6 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/e5291bc371.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
   </head>
   <body>
 
@@ -74,12 +75,17 @@
               <div style="padding: 10px;">
                 <dl style="display: flex; flex-direction: column; gap: 15px;">
                 <div style="display: flex; align-items: center; gap: 15px;">
-                    <img src="{{ asset('glosario/agua_subterraneas_.jpg') }}" style="width: 100px; height: 100px">
+                    <!--<img src="{{ asset('glosario/agua_subterraneas_.jpg') }}" style="width: 100px; height: 100px">-->
+
+                               <a>
+  <img src="{{ asset('glosario/agua_subterraneas_.jpg') }}" style="width: 110px !important; height: 100px">
+</a>
+
                     <div>
                       <dt>
                         <strong class="title">Aguas Subterráneas</strong>
                       </dt>
-                      <dd class="subtitle_glosario" style="text-align:justify">
+                      <dd class="subtitle" style="text-align:justify">
                       Las aguas subterráneas son aquellas que se encuentran almacenadas en el subsuelo, en formaciones geológicas conocidas como acuíferos. Se originan a partir de la infiltración del agua de lluvia, ríos o lagos, que se filtra a través de capas permeables del suelo y la roca. Representan una fuente crucial de abastecimiento para el consumo humano, la agricultura y la industria, especialmente en zonas áridas donde los recursos hídricos superficiales son limitados. 
                     </dd>
                
@@ -88,110 +94,157 @@
               
 
                   <div style="display: flex; align-items: center; gap: 15px;">
-                    <img src="{{ asset('glosario/agua_superficial_.jpg') }}" style="width: 100px; height: 100px">
+                    <!--<img src="{{ asset('glosario/agua_superficial_.jpg') }}" style="width: 100px; height: 100px">-->
+
+                                               <a >
+  <img src="{{ asset('glosario/agua_superficial_.jpg') }}" style="width: 110px !important; height: 100px">
+</a>
+
                     <div>
                       <dt>
                         <strong class="title">Aguas Superficiales</strong>
                       </dt>
-                      <dd class="subtitle_glosario" style="text-align:justify">
+                        <dd class="subtitle" style="text-align:justify">
                       Las aguas superficiales son aquellas que fluyen o se almacenan en la superficie terrestre, como ríos, lagos, lagunas y embalses. Estas fuentes de agua dependen del régimen de precipitaciones, el deshielo de glaciares y el aporte de manantiales. Son fundamentales para el equilibrio ecológico y el abastecimiento de agua para diversas actividades humanas, incluyendo el riego, la generación de energía hidroeléctrica y el consumo doméstico.
                     </dd>
                     </div>
                   </div>
 
                   <div style="display: flex; align-items: center; gap: 15px;">
-                    <img src="{{ asset('glosario/piscina_tipay.jpg') }}" style="width: 100px; height: 100px">
+                    <!--<img src="{{ asset('glosario/piscina_tipay.jpg') }}" style="width: 100px; height: 100px">-->
+
+                         <a >
+  <img src="{{ asset('glosario/piscina_tipay.jpg') }}" style="width: 110px !important; height: 100px">
+</a>
+
+
                     <div>
                       <dt>
                         <strong class="title">Reservorios </strong>
                       </dt>
-                      <dd class="subtitle_glosario" style="text-align:justify">
-                      Los reservorios son cuerpos de agua artificiales o naturales utilizados para almacenar y regular el suministro de agua para distintos fines, como el consumo humano, el riego agrícola, la producción de energía y el control de inundaciones. Pueden formarse mediante la construcción de represas en ríos o mediante la adecuación de lagunas y embalses naturales. 
+                     <dd class="subtitle" style="text-align:justify">
+                      Los reservorios son cuerpos de agua artificiales o naturales utilizados para almacenar y regular el suministro de agua para distintos fines, como el consumo humano o  el riego agrícola. Pueden formarse mediante la construcción de estanques en lagunas, piscinas , embalses naturales u otros. 
                     </dd>
                     </div>
                   </div>
 
 
                   <div style="display: flex; align-items: center; gap: 15px;">
-                    <img src="{{ asset('glosario/conductividad_.jpg') }}" style="width: 100px; height: 100px">
+                   <!-- <img src="{{ asset('glosario/conductividad_.jpg') }}" style="width: 100px; height: 100px">-->
+                    
+                         <a >
+  <img src="{{ asset('glosario/conductividad_.jpg') }}" style="width: 110px !important; height: 100px">
+</a>
                     <div>
                       <dt>
                         <strong class="title">Conductividad</strong>
                       </dt>
-                      <dd class="subtitle_glosario" style="text-align:justify">
-                      La medición de la conductividad eléctrica permite evaluar la cantidad de sales disueltas en el agua de riego. Un monitoreo constante de la calidad del agua permite tomar decisiones informadas, asegurando la sostenibilidad del riego y la conservación de los suelos agrícolas. 
-                    </dd>
+                    <dd class="subtitle" style="text-align:justify">
+                      La medición de la conductividad eléctrica permite evaluar la cantidad de sales disueltas en el agua. 
+                       </dd>
                     </div>
                   </div>
 
                   <div style="display: flex; align-items: center; gap: 15px;">
-                    <img src="{{ asset('glosario/ph_medicion.jpg') }}" style="width: 100px; height: 100px">
+                   <!-- <img src="{{ asset('glosario/ph_Table.png') }}" style="width: 100px; height: 100px">-->
+
+                      <a data-fancybox="gallery" data-caption="pH" href="{{ asset('glosario/ph_Table.png') }}">
+  <img src="{{ asset('glosario/ph_Table.png') }}" style="width: 110px !important; height: 100px">
+</a>
+
                     <div>
                       <dt>
                         <strong class="title">pH</strong>
                       </dt>
-                      <dd class="subtitle_glosario" style="text-align:justify">                      
-                        La calidad del agua está sujeta a regulaciones que incluyen parámetros físico-químicos clave como el pH. Este indicador de acidez/alcalinidad es fundamental, pues mantener el pH en rangos adecuados ayuda a asegurar la potabilidad del agua, la productividad agrícola y la salud de los ecosistemas acuáticos. Chile cuenta con normativas técnicas que fijan rangos aceptables de pH según el uso del agua.
-
+                        <dd class="subtitle" style="text-align:justify">
+                        La calidad del agua en está sujeta a regulaciones que incluyen parámetros físico-químicos clave como el pH. Este indicador de acidez/alcalinidad es fundamental, pues mantener el pH en rangos adecuados ayuda a asegurar la potabilidad del agua, la productividad agrícola y la salud de los ecosistemas acuáticos.
                       </dd>
+                      <!--<img src="{{ asset('glosario/ph_Table.png') }}" alt="Descripción de la imagen" width="400">-->
+                      
                     </div>
                   </div>
 
                   <div style="display: flex; align-items: center; gap: 15px;">
-                    <img src="{{ asset('glosario/caudal_medicion.jpg') }}" style="width: 100px; height: 100px">
+                    <!--<img src="{{ asset('glosario/caudal_medicion.jpg') }}" style="width: 100px; height: 100px">-->
+
+                    
+                      <a >
+  <img src="{{ asset('glosario/caudal_medicion.jpg') }}"  style="width: 110px !important; height: 100px">
+</a>
+
                     <div>
                       <dt>
                         <strong class="title">Caudal</strong>
                       </dt>
-                      <dd class="subtitle_glosario" style="text-align:justify">
-                        El caudal es el volumen de agua que fluye por un cauce o tubería en un tiempo determinado (L/s o m³/s) y es un factor clave en la gestión del riego.
+                       <dd class="subtitle" style="text-align:justify">
+                         El caudal es el volumen de agua que fluye por un cauce o tubería en un tiempo determinado.
                       </dd>
                     </div>
                   </div>
 
                   <div style="display: flex; align-items: center; gap: 15px;">
-                    <img src="{{ asset('glosario/nivel_freatico.png') }}" style="width: 100px; height: 100px">
+                    <!--<img src="{{ asset('glosario/nivel_freatico.png') }}" style="width: 100px; height: 100px">-->
+
+                                <a >
+  <img src="{{ asset('glosario/nivel_freatico.png') }}" style="width: 110px !important; height: 100px">
+</a>
+
+
                     <div>
                       <dt>
                         <strong class="title">Nivel Freático</strong>
                       </dt>
-                      <dd class="subtitle_glosario" style="text-align:justify">
-                      El nivel freático es la superficie subterránea donde la presión del agua es igual a la atmosférica, marcando el límite superior de la zona saturada de un acuífero. Su monitoreo permite regular la extracción de agua subterránea y prevenir la sobreexplotación de los acuíferos, por lo que en Chile, la Dirección General de Aguas (DGA) supervisa su comportamiento mediante pozos de observación y mediciones periódicas
+                       <dd class="subtitle" style="text-align:justify">
+                        El nivel freático es la superficie subterránea donde la presión del agua es igual a la atmosférica, marcando el límite superior de la zona saturada de un acuífero. 
+                        Su monitoreo permite regular la extracción de agua subterránea y prevenir la sobreexplotación de los acuíferos. 
                       </dd>
                     </div>
                   </div>                  
                   
                   <div style="display: flex; align-items: center; gap: 15px;">
-                    <img src="{{ asset('glosario/regla.jpg') }}" style="width: 120px !important; height: 100px">
+                    <!--<img src="{{ asset('glosario/regla.jpg') }}" style="width: 120px !important; height: 100px">-->
+                           <a >
+  <img src="{{ asset('glosario/regla.jpg') }}" style="width: 110px !important; height: 100px">
+</a>
                     <div>
                       <dt>
                         <strong class="title">Nivel o Altura Limnimétrica</strong>
                       </dt>
-                      <dd class="subtitle_glosario" style="text-align:justify">
-                      Se refiere a la medida de la altura de la superficie del agua en un cuerpo hídrico, como ríos, lagos, embalses o canales. Esta medición se realiza utilizando escalas limnimétricas, que son dispositivos graduados instalados verticalmente o en taludes para proporcionar una lectura visual directa del nivel del agua. El monitoreo constante del nivel limnimétrico es esencial para la gestión de recursos hídricos, permitiendo anticipar crecidas, gestionar embalses y garantizar un suministro adecuado de agua para diversas actividades. </dd>
-                    </div>
-                  </div>
-
-                  <div style="display: flex; align-items: center; gap: 15px;">
-                    <img src="{{ asset('glosario/sd.jpg') }}" style="width: 120px !important ; height: 100px">
-                    <div>
-                      <dt>
-                        <strong class="title">Desviación estándar</strong>
-                      </dt>
-                      <dd class="subtitle_glosario" style="text-align:justify">
-                      La desviación estándar es una medida que nos indica cuánto varían los valores de un conjunto de datos con respecto a su promedio. Si la desviación estándar es baja, significa que los datos están muy próximos entre sí y al valor promedio, mientras que una desviación alta indica que los valores están más dispersos. 
+                     <dd class="subtitle" style="text-align:justify">
+                        Se refiere a la medida de la altura de la superficie del agua en un cuerpo hídrico, como ríos, lagos, embalses o canales. Esta medición se realiza utilizando escalas limnimétricas, que son dispositivos graduados instalados verticalmente o en taludes para proporcionar una lectura visual directa del nivel del agua. 
+                       
                       </dd>
                     </div>
                   </div>
 
                   <div style="display: flex; align-items: center; gap: 15px;">
-                    <img src="{{ asset('glosario/dga.jpg') }}" style="width: 100px; height: 100px">
+                    <!--<img src="{{ asset('glosario/sd.jpg') }}" style="width: 120px !important ; height: 100px">-->
+                    <a>
+  <img src="{{ asset('glosario/sd.jpg') }}" style="width: 110px !important; height: 100px">
+</a>
+                    <div>
+                      <dt>
+                        <strong class="title">Desviación estándar</strong>
+                      </dt>
+                      <dd class="subtitle_glosario" style="text-align:justify">
+                          La desviación estándar es una medida que nos indica cuánto varían los valores de un conjunto de datos con respecto a su promedio. Si la desviación estándar es baja, significa que los datos están muy próximos entre sí y al valor promedio, mientras que una desviación alta indica que los valores están más dispersos. 
+                      </dd>
+                    </div>
+                  </div>
+
+                  <div style="display: flex; align-items: center; gap: 15px;">
+                  <!-- <img src="{{ asset('glosario/dga.jpg') }}" style="width: 100px; height: 100px">-->
+
+                           <a data-fancybox="gallery" data-caption="DGA-1" href="{{ asset('glosario/dga-1.png') }}">
+  <img src="{{ asset('glosario/dga-1.png') }}" style="width: 110px !important; height: 100px">
+</a>
+
                     <div>
                       <dt>
                         <strong class="title">Monitoreo DGA </strong>
                       </dt>
                       <dd class="subtitle_glosario" style="text-align:justify">
-                      La Dirección General de Aguas (DGA) de Chile gestiona una amplia red hidrométrica nacional compuesta por aproximadamente 650 estaciones hidrometeorológicas. Estas estaciones transmiten datos en tiempo real mediante sistemas satelitales o GPRS. Esta infraestructura es esencial para monitorear y gestionar los recursos hídricos del país, proporcionando información crucial para la toma de decisiones en ámbitos como la agricultura, la gestión ambiental y la prevención de desastres naturales.
+                        La Dirección General de Aguas (DGA) de Chile gestiona una amplia red hidrométrica nacional  que entrega informacion relevante para la gestion del recurso hídrico esta es crucial para la toma de decisiones en ámbitos como la agricultura, la gestión ambiental y la prevención de desastres naturales.
                       </dd>
                     </div>
                   </div>
@@ -210,5 +263,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{ asset('lst/lst.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
   </body>
 </html>
