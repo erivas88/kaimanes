@@ -54,7 +54,7 @@
                alt="Logo Los Pelambres" class="logo">
             </a>
             <nav class="d-flex">
-               <a href="{{ url('/') }}" class="text-dark text-decoration-none mx-2 title_pop hover-underline x">Mapa</a>
+               <a href="{{ url('/sector') }}" class="text-dark text-decoration-none mx-2 title_pop hover-underline x">Mapa</a>
                <a href="{{ url('/glosary') }}" class="text-dark text-decoration-none mx-2  title_pop hover-underline">Glosario</a>      
             </nav>
          </div>

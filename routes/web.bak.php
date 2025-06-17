@@ -12,6 +12,10 @@ Route::get('/', function () {
     return redirect('/sector/');
 });
 
+Route::get('/sector', function () {
+    return redirect('/sector/');
+});
+
 Route::get('/estacion-publica/{id_estacion}', function ($id_estacion) {
     return view('estacion-publica', ['id_estacion' => $id_estacion]);
 });
