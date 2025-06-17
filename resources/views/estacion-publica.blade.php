@@ -12,6 +12,8 @@
       <link src="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.css">
       <link rel="stylesheet" href="{{ asset('css/styles.css') }}" rel="stylesheet" />
       <script src="https://kit.fontawesome.com/e5291bc371.js" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
+
    </head>
    <style>
       .hover-underline {
@@ -124,9 +126,11 @@
                               </div>
                            </div>
                         </div>
-                        <div class="col-lg-5 detail-image">
-                           <img id="imgDevice" src="{{ $estacion->link_imagen }}" alt="loading.." class="img_device" />
-                        </div>
+                       <div class="col-lg-5 detail-image">
+    <a data-fancybox="gallery" href="{{ asset($estacion->link_imagen) }} " data-caption="{{ $estacion->nombre }}">
+        <img id="imgDevice" src="{{ asset($estacion->link_imagen) }}" alt="loading.." class="img_device" />
+    </a>
+</div>
                      </div>
                   </div>
                   <br />
@@ -249,6 +253,7 @@
       <script src="{{ asset('stock/code/modules/no-data-to-display.js') }}"></script>
       <script src="{{ asset('lst/lst_op.js') }}"></script>
       <script src="{{ asset('plot/plot.js') }}"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
       <script>
          document.addEventListener("DOMContentLoaded", function () {
              var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));

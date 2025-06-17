@@ -12,7 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/e5291bc371.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
+    
   </head>
   <body>
 
@@ -132,8 +132,8 @@
                   <div style="display: flex; align-items: center; gap: 15px;">
                    <!-- <img src="{{ asset('glosario/conductividad_.jpg') }}" style="width: 100px; height: 100px">-->
                     
-                         <a >
-  <img src="{{ asset('glosario/conductividad_.jpg') }}" style="width: 110px !important; height: 100px">
+                         <a>
+                        <img src="{{ asset('glosario/conductividad_.jpg') }}" style="width: 110px !important; height: 100px">
 </a>
                     <div>
                       <dt>
