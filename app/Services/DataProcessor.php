@@ -106,9 +106,9 @@ public static function getCompromisos($idEstacion, $parametro)
 
     private static function calculateStatistics($dataPoints, $unidad)
     {
-        $values = array_column($dataPoints, 1);
+        $values = array_filter(array_column($dataPoints, 1), fn($v) => is_numeric($v));
         $count = count($values);
-        
+
         if ($count === 0) {
             return [
                 'min' => null,
@@ -118,11 +118,11 @@ public static function getCompromisos($idEstacion, $parametro)
                 'unidad' => $unidad
             ];
         }
-    
-        $average = array_sum($values) / $count;        
+
+        $average = array_sum($values) / $count;
         $variance = array_sum(array_map(fn($val) => pow($val - $average, 2), $values)) / $count;
         $standardDeviation = sqrt($variance);
-    
+
         return [
             'min' => min($values),
             'max' => max($values),
@@ -131,4 +131,5 @@ public static function getCompromisos($idEstacion, $parametro)
             'unidad' => $unidad
         ];
     }
+
 }
