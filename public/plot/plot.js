@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+    const BASE_URL = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+    console.log(BASE_URL)
+
     $.ajax({
         url: `http://monitoreocaimanes.gptelemetria.cl/api/info_device/${idDevice}`,
         method: 'GET',

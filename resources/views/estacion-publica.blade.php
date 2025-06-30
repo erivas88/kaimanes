@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="{{ asset('css/styles.css') }}" rel="stylesheet" />
         <script src="https://kit.fontawesome.com/e5291bc371.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
+        @include('layouts.partials.app')
     </head>
     <style>
         .hover-underline {
