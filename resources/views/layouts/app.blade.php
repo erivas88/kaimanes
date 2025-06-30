@@ -1,6 +1,7 @@
 
 @section('header')
 <!-- Header -->
+      
         <div class="header d-flex justify-content-between align-items-center px-3" style="background-color: white; padding: 10px 0;">
             <a href="{{ url('/') }}">
             <img   src="{{ asset('images/image.png') }}"

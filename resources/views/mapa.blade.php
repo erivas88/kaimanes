@@ -113,7 +113,7 @@
             </div>
          </div>
 
-        
+         @include('layouts.partials.app')
          @include('layouts.partials.footer')
          <style>
             .parrafos{
