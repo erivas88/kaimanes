@@ -5,28 +5,23 @@ const region = "us-east-1";
 let mapStyles;
 let markerGroup = [];
 let map;
-
+const BASE_URL = document.querySelector('meta[name="base-url"]').getAttribute('content');
+console.log(BASE_URL);
 // Obtener el token desde Laravel
-fetch('http://monitoreocaimanes.gptelemetria.cl/api/map-token')
+fetch(`${BASE_URL}api/map-token`)
     .then(response => response.json())
     .then(data => {
         apiKey = data.apiKey;
 
         mapStyles = {
-            
-            "Standard:Light": `https://maps.geo.${region}.amazonaws.com/v2/styles/Hybrid/descriptor?key=${apiKey}`,            
-            "Satellite": `https://maps.geo.${region}.amazonaws.com/v2/styles/Satellite/descriptor?key=${apiKey}`,           
+            "Standard:Light": `https://maps.geo.${region}.amazonaws.com/v2/styles/Hybrid/descriptor?key=${apiKey}`,
+            "Satellite": `https://maps.geo.${region}.amazonaws.com/v2/styles/Satellite/descriptor?key=${apiKey}`,
             "Street Map": `https://maps.geo.${region}.amazonaws.com/v2/styles/Standard/descriptor?key=${apiKey}&color-scheme=Light&political-view=AR`,
-
-            
-
-
         };
 
-        initAll(); // Llama a la inicialización del mapa cuando el token esté listo
+        initAll();
     })
     .catch(error => console.error('Error al obtener el token:', error));
-
 
     const sector = getSectorFromURL();
     //console.log("Sector encontrado:", sector);
@@ -162,7 +157,8 @@ async function loadMarkersForSector(sector) {
 // Obtener coordenadas dinámicas
 async function fetchCenter() {
     try {
-        const response = await axios.get(`http://monitoreocaimanes.gptelemetria.cl/api/location`);
+
+        const response = await axios.get(`${BASE_URL}api/location`);
         if (response.data && response.data.latitud && response.data.longitud) {
             return response.data;
         } else {
@@ -178,7 +174,8 @@ async function fetchCenter() {
 // Obtener marcadores desde el backend
 async function fetchMarkersBySector(id_sector) {
     try {
-        const response = await axios.get(`http://monitoreocaimanes.gptelemetria.cl/api/location/sector/sector_publico/${id_sector}`);
+      
+        const response = await axios.get(`${BASE_URL}api/location/sector/sector_publico/${id_sector}`);
         if (response.data && Array.isArray(response.data)) {
             return response.data;
         } else {
@@ -194,7 +191,8 @@ async function fetchMarkersBySector(id_sector) {
 
 async function fetchMarkersallSector(id_sector) {
     try {
-        const response = await axios.get(`http://monitoreocaimanes.gptelemetria.cl/api/estaciones`);
+
+        const response = await axios.get(`${BASE_URL}api/estaciones`);
         if (response.data && Array.isArray(response.data)) {
             return response.data;
         } else {
