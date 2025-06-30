@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log(BASE_URL)
 
     $.ajax({
-        url: `http://monitoreocaimanes.gptelemetria.cl/api/info_device/${idDevice}`,
+        url: `${BASE_URL}api/info_device/${idDevice}`,
         method: 'GET',
         dataType: 'json',
         success: function(response) {
@@ -43,10 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }).prop('disabled', false);
 
                 typeSelectValue = response.parametros.length > 0 ? response.parametros[0].sensor : null;
-                dateRangeSelectValue = response.periodos.length > 0 ? response.periodos[0].id_periodo : null;
-
-                // console.log('Valor inicial de #typeSelect:', typeSelectValue);
-                // console.log('Valor inicial de #dateRangeSelect:', dateRangeSelectValue);
+                dateRangeSelectValue = response.periodos.length > 0 ? response.periodos[0].id_periodo : null;      
                 drawChart([typeSelectValue], [dateRangeSelectValue], idDevice);
 
             } else {
@@ -86,7 +83,8 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         "lengthChange": false,
         ajax: {
-            url: "http://monitoreocaimanes.gptelemetria.cl/api/table",
+
+            url: `${BASE_URL}api/table`,
             type: "POST",
             data: function(d) {
                 d.device = idDevice;
