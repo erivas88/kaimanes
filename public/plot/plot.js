@@ -189,6 +189,10 @@ $('#dateRangeSelect').on('select2:select', function() {
 function drawChart(selectedId, dateRangeSelectValue, idDevice) {
     $('#loadingSpinner').show();
 
+    
+    const BASE_URL = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+    console.log(BASE_URL)
+
     /*console.log('Datos enviados:', {
        sensor: selectedId,
        periodo: dateRangeSelectValue,
