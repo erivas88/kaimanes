@@ -1,15 +1,10 @@
-
-
 let apiKey;
 const region = "us-east-1";
 let mapStyles;
 let markerGroup = [];
 let map;
-
 const BASE_URL = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
 console.log(BASE_URL)
-
-console.log(BASE_URL);
 // Obtener el token desde Laravel
 fetch(`${BASE_URL}api/map-token`)
     .then(response => response.json())
@@ -26,8 +21,8 @@ fetch(`${BASE_URL}api/map-token`)
     })
     .catch(error => console.error('Error al obtener el token:', error));
 
-    const sector = getSectorFromURL();
-    //console.log("Sector encontrado:", sector);
+const sector = getSectorFromURL();
+//console.log("Sector encontrado:", sector);
 
 async function initAll() {
     try {
@@ -48,7 +43,9 @@ async function initAll() {
         // Agregar controles de navegación
         map.addControl(new maplibregl.NavigationControl(), 'top-left');
         map.addControl(new maplibregl.FullscreenControl(), 'top-left');
-        map.addControl(new maplibregl.ScaleControl({ unit: 'metric' }), 'bottom-right');
+        map.addControl(new maplibregl.ScaleControl({
+            unit: 'metric'
+        }), 'bottom-right');
 
         // Escuchar cambios de estilo de mapa
         document.querySelectorAll('.layer-control input[name="map-style"]').forEach(input => {
@@ -61,33 +58,30 @@ async function initAll() {
         // Esperar a que el mapa esté completamente cargado
         map.on('load', async () => {
             //console.log("Mapa inicializado correctamente.");
-        
+
             try {
                 // Obtener los marcadores generales
                 const sectorMarkers = await fetchMarkersallSector();
-                
+
                 // Obtener los marcadores del sector específico (si existe)
                 const MarkerSectors = sector ? await fetchMarkersBySector(sector) : null;
-        
+
                 // Determinar qué conjunto de marcadores agregar
                 addMarkersToMap(map, MarkerSectors && MarkerSectors.length > 0 ? MarkerSectors : sectorMarkers);
             } catch (error) {
                 console.error("Error al cargar los marcadores:", error);
             }
         });
-        
 
     } catch (error) {
         console.error("Error al inicializar el mapa:", error);
     }
 };
 
-
-
 // Función para inicializar el mapa si no está definido
 async function initializeMap() {
     const center = await fetchCenter();
-    
+
     return new Promise((resolve) => {
         map = new maplibregl.Map({
             container: 'map-container',
@@ -99,7 +93,9 @@ async function initializeMap() {
 
         map.addControl(new maplibregl.NavigationControl(), 'top-left');
         map.addControl(new maplibregl.FullscreenControl(), 'top-left');
-        map.addControl(new maplibregl.ScaleControl({ unit: 'metric' }), 'bottom-right');
+        map.addControl(new maplibregl.ScaleControl({
+            unit: 'metric'
+        }), 'bottom-right');
 
         map.on('load', () => {
             //console.log("Mapa inicializado correctamente.");
@@ -107,8 +103,6 @@ async function initializeMap() {
         });
     });
 }
-
-
 
 function getSectorFromURL() {
     const path = window.location.pathname; // Obtiene la parte de la URL después del dominio
@@ -123,17 +117,12 @@ function getSectorFromURL() {
     return null; // Si no encuentra "sector", devuelve null
 }
 
-
 // Solo ejecutar `loadMarkersForSector(sector)` si `sector` tiene un valor válido
 if (sector) {
     var sector_route = loadMarkersForSector(sector);
 } else {
     //console.log("No se encontró sector en la URL. No se cargarán marcadores.");
 }
-
-
-
-
 
 async function loadMarkersForSector(sector) {
     try {
@@ -150,12 +139,11 @@ async function loadMarkersForSector(sector) {
         }
 
         // Ahora que `map` está listo, agregar los marcadores
-        addMarkersToMap(map,sector_route);
+        addMarkersToMap(map, sector_route);
     } catch (error) {
         console.error("Error al cargar los marcadores del sector:", error);
     }
 }
-
 
 // Obtener coordenadas dinámicas
 async function fetchCenter() {
@@ -166,18 +154,24 @@ async function fetchCenter() {
             return response.data;
         } else {
             console.error('Respuesta no válida o sin datos:', response);
-            return { latitud: -33.4569, longitud: -70.6483 }; // Coordenadas por defecto
+            return {
+                latitud: -33.4569,
+                longitud: -70.6483
+            }; // Coordenadas por defecto
         }
     } catch (error) {
         console.error('Error al obtener los datos del centro:', error);
-        return { latitud: -33.4569, longitud: -70.6483 }; // Coordenadas por defecto
+        return {
+            latitud: -33.4569,
+            longitud: -70.6483
+        }; // Coordenadas por defecto
     }
 }
 
 // Obtener marcadores desde el backend
 async function fetchMarkersBySector(id_sector) {
     try {
-      
+
         const response = await axios.get(`${BASE_URL}api/location/sector/sector_publico/${id_sector}`);
         if (response.data && Array.isArray(response.data)) {
             return response.data;
@@ -190,7 +184,6 @@ async function fetchMarkersBySector(id_sector) {
         return [];
     }
 }
-
 
 async function fetchMarkersallSector(id_sector) {
     try {
@@ -225,9 +218,7 @@ function addMarkersToMap(map, markers) {
         console.warn("No hay marcadores disponibles, no se mostrará información.");
         $('#sectorView').html(''); // Limpiar si no hay marcadores
     }
-    
 
-    
     markerGroup.forEach(marker => marker.remove());
     markerGroup = []; // Vaciar el grupo
 
@@ -240,16 +231,12 @@ function addMarkersToMap(map, markers) {
         reservorios: '/api_caimanes/public/images/icons/markers/pin-reservorio.svg'
     };
 
-
-   const icons = {
+    const icons = {
         agua_subterranea: '/images/icons/markers/pin-agua-subterranea.png',
         aguas_superficiales: '/images/icons/markers/pin-agua-superficial.png',
         reservorios: '/images/icons/markers/pin-reservorio.svg'
     };
 
-    
-
-   
     markers.forEach(marker => {
         if (marker.latitud && marker.longitud) {
             // Determinar el ícono a usar según el tipo de marcador
@@ -286,8 +273,6 @@ function addMarkersToMap(map, markers) {
             customIcon.style.backgroundPosition = 'center'; // Asegura una buena alineación
             customIcon.style.filter = 'drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.5))'; // Agrega un ligero suavizado*/
 
-
-
             const customIcon = document.createElement('div');
             customIcon.className = 'custom-marker'; // Clase CSS para personalización
             customIcon.style.backgroundImage = `url(${iconUrl})`;
@@ -299,36 +284,30 @@ function addMarkersToMap(map, markers) {
             customIcon.style.imageRendering = 'auto'; // Mantiene la calidad original
             customIcon.style.filter = 'drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.5))'; // Suavizado
 
-// Aplicar filtro para cambiar el color del SVG a rojo
-
-
-
-
-
-          
-
-            
+            // Aplicar filtro para cambiar el color del SVG a rojo
 
             // Crear el marcador con el ícono personalizado
-            const newMarker = new maplibregl.Marker({ element: customIcon })
+            const newMarker = new maplibregl.Marker({
+                    element: customIcon
+                })
                 .setLngLat([marker.longitud, marker.latitud])
                 .setPopup(
-        /*new maplibregl.Popup({
-            offset: {
-                'top': [0, -30], // Desplaza el popup hacia arriba 30 píxeles
-                'bottom': [0, -20],
-                'left': [-30, 0],
-                'right': [30, 0]
-            }
-        })*/
-            new maplibregl.Popup({
-                offset: {
-                    'top': [0, -20], // Reducir la distancia para acercarlo al marcador
-                    'bottom': [0, -15],
-                    'left': [-20, 0],
-                    'right': [20, 0]
-                }
-            }).setHTML(`<div style="
+                    /*new maplibregl.Popup({
+                        offset: {
+                            'top': [0, -30], // Desplaza el popup hacia arriba 30 píxeles
+                            'bottom': [0, -20],
+                            'left': [-30, 0],
+                            'right': [30, 0]
+                        }
+                    })*/
+                    new maplibregl.Popup({
+                        offset: {
+                            'top': [0, -20], // Reducir la distancia para acercarlo al marcador
+                            'bottom': [0, -15],
+                            'left': [-20, 0],
+                            'right': [20, 0]
+                        }
+                    }).setHTML(`<div style="
     font-family: 'Poppins', sans-serif; 
     font-size: 12px; 
     text-align: center; 
@@ -365,7 +344,7 @@ function addMarkersToMap(map, markers) {
     </div>
 </div>
 `)
-    )
+                )
                 .addTo(map);
 
             markerGroup.push(newMarker); // Almacenar el marcador
@@ -387,20 +366,18 @@ function addMarkersToMap(map, markers) {
             label.style.lineHeight = '10px'; // Reduce el espacio entre líneas
             label.style.padding = '2px 4px'; // Ajusta el espacio interno para un diseño más compacto         
 
-
             // Agregar la etiqueta al marcador
             customIcon.appendChild(label);
 
-
-           
         }
     });
 
     if (!bounds.isEmpty()) {
-        map.fitBounds(bounds, { padding: 50 });
+        map.fitBounds(bounds, {
+            padding: 50
+        });
     }
 }
-
 
 // Crear marcadores y ajustar la vista
 function addMarkersToMap_old(map, markers) {
@@ -412,7 +389,9 @@ function addMarkersToMap_old(map, markers) {
 
     markers.forEach(marker => {
         if (marker.latitud && marker.longitud) {
-            const newMarker = new maplibregl.Marker({ color: marker.color || 'white' })
+            const newMarker = new maplibregl.Marker({
+                    color: marker.color || 'white'
+                })
                 .setLngLat([marker.longitud, marker.latitud])
                 .setPopup(
                     new maplibregl.Popup().setHTML(`
@@ -429,8 +408,9 @@ function addMarkersToMap_old(map, markers) {
     });
 
     if (!bounds.isEmpty()) {
-        map.fitBounds(bounds, { padding: 50 });
-
+        map.fitBounds(bounds, {
+            padding: 50
+        });
 
         const bbox = bounds.toArray(); // [sw, ne]
         const polygon = [
@@ -468,15 +448,7 @@ function addMarkersToMap_old(map, markers) {
     }
 }
 
-
-
-
-
-
-
-
-
-$(document).on("click", ".accordion-button", async function () {
+$(document).on("click", ".accordion-button", async function() {
     let idSector = $(this).attr("id-sector"); // Obtener el valor del atributo id-sector
     //console.log("ID Sector:", idSector);
     const markers = await fetchMarkersBySector(idSector);
@@ -484,15 +456,10 @@ $(document).on("click", ".accordion-button", async function () {
     addMarkersToMap(map, markers); // Usar la variable global `map`
 });
 
-
-
 window.explorarEstacion = function(id) {
     //console.log(`Explorar estación con ID: ${id}`);
-    
 
     //window.location.href = window.location.origin + "/api_caimanes/public/estacion-publica/" + id;
     window.location.href = window.location.origin + "/estacion-publica/" + id;
 
-
 };
-
