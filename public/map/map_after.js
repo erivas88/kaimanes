@@ -6,27 +6,23 @@ let mapStyles;
 let markerGroup = [];
 let map;
 
+const BASE_URL = document.querySelector('meta[name="base-url"]').getAttribute('content');
+
 // Obtener el token desde Laravel
-fetch('http://monitoreocaimanes.gptelemetria.cl/api/map-token')
+fetch(`${BASE_URL}api/map-token`)
     .then(response => response.json())
     .then(data => {
         apiKey = data.apiKey;
 
         mapStyles = {
-            
-            "Standard:Light": `https://maps.geo.${region}.amazonaws.com/v2/styles/Hybrid/descriptor?key=${apiKey}`,            
-            "Satellite": `https://maps.geo.${region}.amazonaws.com/v2/styles/Satellite/descriptor?key=${apiKey}`,           
+            "Standard:Light": `https://maps.geo.${region}.amazonaws.com/v2/styles/Hybrid/descriptor?key=${apiKey}`,
+            "Satellite": `https://maps.geo.${region}.amazonaws.com/v2/styles/Satellite/descriptor?key=${apiKey}`,
             "Street Map": `https://maps.geo.${region}.amazonaws.com/v2/styles/Standard/descriptor?key=${apiKey}&color-scheme=Light&political-view=AR`,
-
-            
-
-
         };
 
-        initAll(); // Llama a la inicialización del mapa cuando el token esté listo
+        initAll();
     })
     .catch(error => console.error('Error al obtener el token:', error));
-
 
     const sector = getSectorFromURL();
     //console.log("Sector encontrado:", sector);
