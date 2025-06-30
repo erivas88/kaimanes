@@ -5,7 +5,10 @@ const region = "us-east-1";
 let mapStyles;
 let markerGroup = [];
 let map;
-const BASE_URL = document.querySelector('meta[name="base-url"]').getAttribute('content');
+
+const BASE_URL = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
+console.log(BASE_URL)
+
 console.log(BASE_URL);
 // Obtener el token desde Laravel
 fetch(`${BASE_URL}api/map-token`)
