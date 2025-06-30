@@ -13,7 +13,7 @@
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
       <script src="https://kit.fontawesome.com/e5291bc371.js" crossorigin="anonymous"></script>
       <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-
+      @include('layouts.partials.app')
    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8HDCBQ80LW"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -113,7 +113,7 @@
             </div>
          </div>
 
-         @include('layouts.partials.app')
+         
          @include('layouts.partials.footer')
          <style>
             .parrafos{
