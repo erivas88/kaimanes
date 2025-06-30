@@ -145,11 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!dateRangeSelectValue || dateRangeSelectValue.length === 0) {
             dateRangeSelectValue = $('#dateRangeSelect option:first').val();
-        }
-
-        //console.log('parametro =>', typeSelectValue);
-        //console.log('periodo =>', dateRangeSelectValue);
-        //console.log('dispositivo =>', idDevice);
+        }   
 
         const modal = new bootstrap.Modal(document.getElementById('observations'));
 
@@ -200,7 +196,7 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
     });*/
 
     $.ajax({
-        url: 'http://monitoreocaimanes.gptelemetria.cl/api/plot',
+        url: `${BASE_URL}api/plot`,
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({

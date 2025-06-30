@@ -127,8 +127,8 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-5 detail-image">
-                                    <a data-fancybox="gallery" href="{{ asset($estacion->link_imagen) }} " data-caption="{{ $estacion->nombre }}">
-                                        <img id="imgDevice" src="{{ asset($estacion->link_imagen) }}" alt="loading.." class="img_device" />
+                                    <a data-fancybox="gallery" href="{{ asset($estacion->link_backup) }} " data-caption="{{ $estacion->nombre }}">
+                                        <img id="imgDevice" src="{{ asset($estacion->link_backup) }}" alt="loading.." class="img_device" />
                                     </a>
                                 </div>
                             </div>
