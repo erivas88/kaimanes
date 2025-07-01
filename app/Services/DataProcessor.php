@@ -27,7 +27,8 @@ class DataProcessor
         $series['id_estacion'] = $row->id_estacion;
         $series['compromisos'] = $row->nota;
         $dataPoints[] = [$milliseconds, $value];
-        $unidad = $row->unidad;        
+        $unidad = $row->unidad;
+        $decimales =  $row->decimales_serie;
     }
 
     $series['data'] = $dataPoints;
@@ -35,7 +36,7 @@ class DataProcessor
     {
         $dateRange = self::getDateRange($dataPoints);
         $series['periodo'] = "Periodo desde {$dateRange['minDate']} hasta {$dateRange['maxDate']}";
-        $stats = self::calculateStatistics($dataPoints, $unidad);
+        $stats = self::calculateStatistics($dataPoints, $unidad,$decimales);
         $series['stats'] = $stats;
         $series['dateRange'] = $dateRange;
 
@@ -104,7 +105,7 @@ public static function getCompromisos($idEstacion, $parametro)
     }
 
 
-    private static function calculateStatistics($dataPoints, $unidad)
+    private static function calculateStatistics($dataPoints, $unidad,$decimales)
     {
         $values = array_filter(array_column($dataPoints, 1), fn($v) => is_numeric($v));
         $count = count($values);
@@ -123,13 +124,20 @@ public static function getCompromisos($idEstacion, $parametro)
         $variance = array_sum(array_map(fn($val) => pow($val - $average, 2), $values)) / $count;
         $standardDeviation = sqrt($variance);
 
-        return [
+        /*return [
             'min' => min($values),
             'max' => max($values),
             'average' => round($average, 2),
             'dvst' => round($standardDeviation, 2),
             'unidad' => $unidad
-        ];
+        ];*/
+        return [
+    'min' => min($values),
+    'max' => max($values),
+    'average' => number_format($average, $decimales, '.', ''),
+    'dvst' => number_format($standardDeviation, $decimales, '.', ''),
+    'unidad' => $unidad
+];
     }
 
 }
