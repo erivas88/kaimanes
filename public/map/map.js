@@ -4,7 +4,7 @@ let mapStyles;
 let markerGroup = [];
 let map;
 const BASE_URL = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
-console.log(BASE_URL)
+//console.log(BASE_URL)
 // Obtener el token desde Laravel
 fetch(`${BASE_URL}api/map-token`)
     .then(response => response.json())
@@ -69,7 +69,7 @@ async function initAll() {
                 // Determinar qué conjunto de marcadores agregar
                 addMarkersToMap(map, MarkerSectors && MarkerSectors.length > 0 ? MarkerSectors : sectorMarkers);
             } catch (error) {
-                console.error("Error al cargar los marcadores:", error);
+                //console.error("Error al cargar los marcadores:", error);
             }
         });
 
