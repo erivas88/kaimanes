@@ -47,7 +47,6 @@ class DataProcessor
 }
 
 
-
 public static function getPlotlines($idEstacion, $parametro)
 {
     $query = "CALL GetPlotlineByEstacionParametro(?, ?)";
@@ -123,21 +122,14 @@ public static function getCompromisos($idEstacion, $parametro)
         $average = array_sum($values) / $count;
         $variance = array_sum(array_map(fn($val) => pow($val - $average, 2), $values)) / $count;
         $standardDeviation = sqrt($variance);
-
-        /*return [
+      
+        return [
             'min' => min($values),
             'max' => max($values),
-            'average' => round($average, 2),
-            'dvst' => round($standardDeviation, 2),
+            'average' => number_format($average, $decimales, '.', ''),
+            'dvst' => number_format($standardDeviation, $decimales, '.', ''),
             'unidad' => $unidad
-        ];*/
-        return [
-    'min' => min($values),
-    'max' => max($values),
-    'average' => number_format($average, $decimales, '.', ''),
-    'dvst' => number_format($standardDeviation, $decimales, '.', ''),
-    'unidad' => $unidad
-];
+            ];
     }
 
 }

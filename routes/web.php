@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\DB;
 use App\Models\IpVisita;
 
 
+Route::fallback(function ()
+{
+    return redirect('/');
+});
 
 
 Route::get('/inicio', function ()
