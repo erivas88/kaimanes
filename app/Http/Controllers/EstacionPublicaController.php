@@ -14,7 +14,8 @@ class EstacionPublicaController extends Controller
         $estacion = DB::select("CALL GetEstacionById(?)", [$id_estacion]);
 
         if (empty($estacion)) {
-            abort(404, "Estación no encontrada");
+            /*abort(404, "Estación no encontrada");*/
+             return redirect('/');
         }
 
         $estacion[0]->icon_titlte = rtrim($estacion[0]->icon_titlte, '_');
