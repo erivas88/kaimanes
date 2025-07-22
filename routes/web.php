@@ -7,10 +7,11 @@ use App\Models\Visita;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\IpVisita;
+use Illuminate\Support\Facades\Log;
 
 
-Route::fallback(function ()
-{
+Route::fallback(function () {
+    Log::info('Entró al fallback');
     return redirect('/');
 });
 
