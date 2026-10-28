@@ -506,10 +506,10 @@ body {
   font-size: 10px;
   font-weight: 500;
   color: #fff;
-  /* contorno oscuro por detrás del relleno: bordes limpios en vez de 4 sombras desplazadas */
-  -webkit-text-stroke: 2.5px rgba(4, 52, 66, 0.85);
+  /* contorno fino y neutro (sin tinte verdoso) por detrás del relleno, más una sombra suave para separarlo del fondo */
+  -webkit-text-stroke: 2px #000;
   paint-order: stroke fill;
-  text-shadow: none;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
   -webkit-font-smoothing: antialiased;
   text-rendering: geometricPrecision;
 }
