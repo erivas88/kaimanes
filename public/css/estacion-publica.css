@@ -805,22 +805,15 @@
 }
 .welcome-photo {
   position: relative;
-  min-height: 400px;
+  align-self: center;
   overflow: hidden;
   border-radius: 24px 2px 24px 2px;
   box-shadow: 0 10px 28px rgba(4, 100, 124, .28);
 }
+/* La foto se muestra completa y sin filtros: proporción original, sin recorte, zoom ni velo de color */
 .welcome-photo img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 6s ease;
-}
-.welcome-modal.show .welcome-photo img { transform: scale(1.08); }
-.welcome-photo::after {
-  content: "";
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 55%, rgba(4, 100, 124, .45));
+  display: block;
+  width: 100%; height: auto;
 }
 .welcome-modal .modal-footer {
   justify-content: flex-start;
@@ -845,7 +838,7 @@
 .welcome-cta:hover i { transform: translateX(4px); }
 @media (max-width: 991px) {
   .welcome-text { padding-right: 0; }
-  .welcome-photo { min-height: 200px; margin-top: var(--ep-s5); }
+  .welcome-photo { margin-top: var(--ep-s5); max-width: 320px; margin-left: auto; margin-right: auto; }
   .welcome-title { font-size: 20px; }
   .welcome-modal .modal-header, .welcome-modal .modal-body, .welcome-modal .modal-footer { padding-left: var(--ep-s4); padding-right: var(--ep-s4); }
 }
