@@ -1176,7 +1176,30 @@ body {
       font-size: 1.0rem;
     }
 
-/* Pie de página: separar los bloques cuando se apilan en pantallas angostas */
+/* Pie de página */
+.site-footer { padding: 22px 24px; }
+.site-footer__inner {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 1.5fr 1fr;
+  gap: 24px;
+  align-items: center;
+}
+.site-footer__brand { display: flex; justify-content: center; align-items: center; }
+.site-footer__brand .logo { max-width: 70%; height: auto; }
+.site-footer__contact { overflow-wrap: anywhere; list-style: none; margin: 0; padding: 0; font-size: 13px; line-height: 1.9; text-align: left; }
+.site-footer__contact li { display: flex; align-items: baseline; gap: 10px; }
+.site-footer__contact i { width: 16px; text-align: center; opacity: 0.85; }
+.site-footer__contact span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.site-footer a { color: #fff; text-decoration: none; }
+.site-footer a:hover, .site-footer a:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+.site-footer__credit { margin: 0; font-size: 12.5px; line-height: 1.6; text-align: left; opacity: 0.95; }
 @media (max-width: 991.98px) {
-  .footer .row > div + div { margin-top: 16px; }
+  .site-footer__inner { grid-template-columns: 1fr 1fr; }
+  .site-footer__contact, .site-footer__credit { text-align: left; }
+}
+@media (max-width: 575.98px) {
+  .site-footer__inner { grid-template-columns: 1fr; gap: 18px; }
+  .site-footer__contact, .site-footer__credit { text-align: center; }
+  .site-footer__contact li { justify-content: center; }
+  .site-footer__brand .logo { max-width: 55%; }
 }
