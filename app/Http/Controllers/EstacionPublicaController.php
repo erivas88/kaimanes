@@ -96,6 +96,7 @@ class EstacionPublicaController extends Controller
       
             $html .= '<span class="' . htmlspecialchars($menu['icon']) . '"></span>';
             $html .= '&nbsp; ' . htmlspecialchars($menu['sector']);
+            $html .= '<span class="side-count">' . count($submenus) . '</span>';
             $html .= '</button>';
             $html .= '</h2>';
 

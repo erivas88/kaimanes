@@ -268,50 +268,40 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
                 `;*/
 
             return `
-    <div class="row justify-content-start">
-        <div class="col-custom mb-3">
-            <div class="stat-item">
-                <div class="stat-icon"><i class="fas fa-arrow-up"></i></div>
-                <div class="stat-text">
-                    <p class="stat-label">Valor Máximo</p>
-                    <p class="stat-value">${param.stats.max ?? "N/A"}</p>
-                </div>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-card-icon"><i class="fas fa-arrow-up"></i></div>
+            <div class="stat-card-text">
+                <p class="stat-card-label">Valor Máximo</p>
+                <p class="stat-card-value">${param.stats.max ?? "N/A"}</p>
             </div>
         </div>
-        <div class="col-custom mb-3">
-            <div class="stat-item">
-                <div class="stat-icon"><i class="fas fa-arrow-down"></i></div>
-                <div class="stat-text">
-                    <p class="stat-label">Valor Mínimo</p>
-                    <p class="stat-value">${param.stats.min ?? "N/A"}</p>
-                </div>
+        <div class="stat-card">
+            <div class="stat-card-icon"><i class="fas fa-arrow-down"></i></div>
+            <div class="stat-card-text">
+                <p class="stat-card-label">Valor Mínimo</p>
+                <p class="stat-card-value">${param.stats.min ?? "N/A"}</p>
             </div>
         </div>
-        <div class="col-custom mb-3">
-            <div class="stat-item">
-                <div class="stat-icon"><i class="fas fa-chart-bar"></i></div>
-                <div class="stat-text">
-                    <p class="stat-label">Promedio</p>
-                    <p class="stat-value">${param.stats.average ?? "N/A"}</p>
-                </div>
+        <div class="stat-card">
+            <div class="stat-card-icon"><i class="fas fa-chart-bar"></i></div>
+            <div class="stat-card-text">
+                <p class="stat-card-label">Promedio</p>
+                <p class="stat-card-value">${param.stats.average ?? "N/A"}</p>
             </div>
         </div>
-        <div class="col-custom mb-3">
-            <div class="stat-item">
-                <div class="stat-icon"><i class="fas fa-percentage"></i></div>
-                <div class="stat-text">
-                    <p class="stat-label">Desv. Std</p>
-                    <p class="stat-value">${param.stats.dvst ?? "N/A"}</p>
-                </div>
+        <div class="stat-card">
+            <div class="stat-card-icon"><i class="fas fa-percentage"></i></div>
+            <div class="stat-card-text">
+                <p class="stat-card-label">Desv. Std</p>
+                <p class="stat-card-value">${param.stats.dvst ?? "N/A"}</p>
             </div>
         </div>
-        <div class="col-custom mb-3">
-            <div class="stat-item">
-                <div class="stat-icon"><i class="fas fa-leaf"></i></div>
-                <div class="stat-text">
-                    <p class="stat-label">Parámetro</p>
-                    <p class="stat-value">${cleanParametro(param.parametro)}</p>
-                </div>
+        <div class="stat-card">
+            <div class="stat-card-icon"><i class="fas fa-leaf"></i></div>
+            <div class="stat-card-text">
+                <p class="stat-card-label">Parámetro</p>
+                <p class="stat-card-value">${cleanParametro(param.parametro)}</p>
             </div>
         </div>
     </div>

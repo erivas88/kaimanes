@@ -10,7 +10,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link src="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.css" />
-        <link rel="stylesheet" href="{{ asset('css/styles.css') }}" rel="stylesheet" />
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}?v={{ filemtime(public_path('css/styles.css')) }}" />
         <script src="https://kit.fontawesome.com/e5291bc371.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
         @include('layouts.partials.app')
@@ -85,12 +85,12 @@
             <div class="container-fluid mt-4">
                 <div class="row" style="padding-top: 20px;">
                     <div class="col-md-3">
-                        <div class="panel">
-                            <div style="background-color: #f5f5f5; padding: 15px 10px 0 10px;">
-                                <h5 class="fw-bold title_pop">Seleccionar</h5>
-                                <hr style="width: 100%;" />
+                        <div class="panel side-select">
+                            <div class="side-select-head">
+                                <h5 class="side-select-title">Seleccionar</h5>
+                                <input type="search" id="stationSearch" class="side-select-search" placeholder="Buscar estación…" autocomplete="off" />
                             </div>
-                            <div style="background-color: #f5f5f5;">
+                            <div class="side-select-body">
                                 {!! $side !!}
                             </div>
                         </div>
@@ -175,7 +175,7 @@
                                             Detalles de la variable <span id="plotVar"> </span> en el rango: <span id="dateMin">2024-12-31 00:00:00</span> al <span id="dateMax">2024-12-31 00:00:00</span>
                                         </p>
 
-                                        <div class="stats-container" style="display: flex; justify-content: space-around; margin-top: 10px; padding: 10px; font-family: 'Poppins';"></div>
+                                        <div class="stats-container"></div>
                                     </div>
                                 </div>
                             </div>
@@ -262,6 +262,13 @@
                 });
             });
         </script>
-        <script></script>
+        <script>
+            document.getElementById("stationSearch").addEventListener("input", function () {
+                var q = this.value.trim().toLowerCase();
+                document.querySelectorAll(".side-select .link-item").forEach(function (a) {
+                    a.style.display = a.textContent.toLowerCase().indexOf(q) === -1 ? "none" : "";
+                });
+            });
+        </script>
     </body>
 </html>
