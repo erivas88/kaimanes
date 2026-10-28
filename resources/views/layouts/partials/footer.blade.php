@@ -17,7 +17,7 @@
       </div>
       <div class="col-lg-3">
          <div class="section">
-            <p class="small-text jjtxt" style="font-size: 11px !important">Este desarrollo ha sido implementado por GP Consultores, a través de su equipo especializado en soluciones de monitoreo web. gp@gpconsultores.cl
+            <p class="small-text jjtxt" style="font-size: 11px !important; text-align: left;">Este desarrollo ha sido implementado por GP Consultores, a través de su equipo especializado en soluciones de monitoreo web. gp@gpconsultores.cl
             <p>
          </div>
       </div>

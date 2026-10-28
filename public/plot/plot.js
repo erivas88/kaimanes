@@ -11,39 +11,35 @@ document.addEventListener('DOMContentLoaded', function() {
          if (response && response.parametros && response.periodos) {
             $('#typeSelect').select2({
                placeholder: 'Parámetros',
-               allowClear: true,
-               multiple: true,
                minimumResultsForSearch: Infinity,
-               maximumSelectionLength: 1,
                data: response.parametros.map(item => ({
                   id: item.sensor,
                   text: item.tipo
                })),
                language: {
-                  noResults: () => "Sin parámetros asociados",
-                  maximumSelected: () => "Solo puedes seleccionar 1 parámetro"
+                  noResults: () => "Sin parámetros asociados"
                },
                escapeMarkup: markup => markup
             }).prop('disabled', false);
 
             $('#dateRangeSelect').select2({
                placeholder: 'Periodo',
-               allowClear: true,
-               multiple: true,
                minimumResultsForSearch: Infinity,
-               maximumSelectionLength: 1,
                data: response.periodos.map(item => ({
                   id: item.id_periodo,
                   text: item.descripcion
                })),
                language: {
-                  noResults: () => "Sin parámetros asociados",
-                  maximumSelected: () => "Solo puedes seleccionar 1 periodo"
+                  noResults: () => "Sin periodos asociados"
                }
             }).prop('disabled', false);
 
             typeSelectValue = response.parametros.length > 0 ? response.parametros[0].sensor : null;
             dateRangeSelectValue = response.periodos.length > 0 ? response.periodos[0].id_periodo : null;
+
+            $('#typeSelect').val(typeSelectValue).trigger('change');
+            $('#dateRangeSelect').val(dateRangeSelectValue).trigger('change');
+
             drawChart([typeSelectValue], [dateRangeSelectValue], idDevice);
 
          } else {
@@ -82,40 +78,80 @@ document.addEventListener('DOMContentLoaded', function() {
          }
       },
       "lengthChange": false,
+      "ordering": false,
       ajax: {
 
          url: `${BASE_URL}api/table`,
          type: "POST",
          data: function(d) {
             d.device = idDevice;
-            d.periodo = $('#dateRangeSelect').val() && $('#dateRangeSelect').val().length > 0 ?
-               $('#dateRangeSelect').val()[0] :
-               1;
+            d.periodo = $('#dateRangeSelect').val() || 1;
 
+         },
+         dataSrc: function(json) {
+            return prepararObservaciones(json.data || []);
          }
+      },
+      createdRow: function(row, data) {
+         $(row).addClass(data._vigente ? 'obs-vigente' : 'obs-vencida');
       },
       columns: [{
             data: 'nombre',
-            width: '15%'
+            width: '12%'
          },
          {
             data: 'tipo',
-            width: '15%'
+            width: '20%'
          },
          {
             data: 'fecha_inicio',
-            width: '15%'
+            width: '14%',
+            render: function(valor) {
+               return fechaObs(valor);
+            }
          },
          {
             data: 'fecha_fin',
-            width: '25%'
+            width: '16%',
+            render: function(valor, tipo, fila) {
+               let chip = fila._vigente ? '<span class="obs-chip">Vigente</span>' : '';
+               return fechaObs(valor) + chip;
+            }
          },
          {
             data: 'observacion',
-            width: '35%'
+            width: '38%'
          }
       ]
    });
+
+   // "dd-mm-yyyy HH:MM" -> Date (el servidor entrega las fechas ya formateadas)
+   function parseFechaObs(texto) {
+      let m = /^(\d{2})-(\d{2})-(\d{4}) (\d{2}):(\d{2})$/.exec(texto || '');
+      return m ? new Date(+m[3], +m[2] - 1, +m[1], +m[4], +m[5]) : null;
+   }
+
+   function fechaObs(texto) {
+      let partes = (texto || '').split(' ');
+      return `<span class="obs-fecha">${partes[0] || ''}</span><span class="obs-hora">${partes[1] || ''}</span>`;
+   }
+
+   // Marca las observaciones vigentes y las deja primero.
+   function prepararObservaciones(filas) {
+      let ahora = new Date();
+
+      return filas.map(function(f) {
+         let inicio = parseFechaObs(f.fecha_inicio);
+         let fin = parseFechaObs(f.fecha_fin);
+         return Object.assign({}, f, {
+            _fin: fin,
+            _vigente: !!(fin && fin >= ahora && (!inicio || inicio <= ahora))
+         });
+      }).sort(function(a, b) {
+         if (a._vigente !== b._vigente) return a._vigente ? -1 : 1;
+         return (b._fin || 0) - (a._fin || 0);
+      });
+   }
 
    function showSpinner(img) {
       const spinner = $('<div class="spinner"></div>');
@@ -171,20 +207,13 @@ function validateAndDrawChart(typeSelectValue, dateRangeSelectValue, idDevice) {
       return;
    }
 
-   drawChart(typeSelectValue, dateRangeSelectValue, idDevice);
+   // los selectores son de selección única; drawChart espera arreglos
+   drawChart([].concat(typeSelectValue), [].concat(dateRangeSelectValue), idDevice);
 }
 
-$('#typeSelect').on('select2:select select2:unselect', function() {
-   let typeSelectValue = $('#typeSelect').val();
-   let dateRangeSelectValue = $('#dateRangeSelect').val();
-   validateAndDrawChart(typeSelectValue, dateRangeSelectValue, idDevice);
+$('#typeSelect, #dateRangeSelect').on('select2:select', function() {
+   validateAndDrawChart($('#typeSelect').val(), $('#dateRangeSelect').val(), idDevice);
 });
-
-$('#dateRangeSelect').on('select2:select', function() {
-   let typeSelectValue = $('#typeSelect').val();
-   let dateRangeSelectValue = $('#dateRangeSelect').val();
-   validateAndDrawChart(typeSelectValue, dateRangeSelectValue, idDevice);
-});;
 
 function drawChart(selectedId, dateRangeSelectValue, idDevice) {
    $('#loadingSpinner').show();
@@ -223,6 +252,7 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
             $('#plotVar').html("Sin datos");
             $('#dateMin').html("—");
             $('#dateMax').html("—");
+            $('#lastUpdate').attr('hidden', true);
             plotChart(response);
             return;
          }
@@ -267,52 +297,34 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
                     </div>
                 `;*/
 
+            const unidad = param.unidad || "";
+            // coma decimal y punto de miles, igual que el eje y el tooltip del gráfico
+            const formatNumber = value => {
+               const [entero, decimal] = String(value).split('.');
+               const conMiles = entero.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+               return decimal !== undefined ? `${conMiles},${decimal}` : conMiles;
+            };
+            const withUnit = value => value === null || value === undefined ?
+               "N/A" :
+               `${formatNumber(value)}${unidad ? `<span class="kpi-unit">${unidad}</span>` : ""}`;
+
             return `
-    <div class="row justify-content-start">
-        <div class="col-custom mb-3">
-            <div class="stat-item">
-                <div class="stat-icon"><i class="fas fa-arrow-up"></i></div>
-                <div class="stat-text">
-                    <p class="stat-label">Valor Máximo</p>
-                    <p class="stat-value">${param.stats.max ?? "N/A"}</p>
-                </div>
-            </div>
+    <div class="kpi-strip">
+        <div class="kpi">
+            <div class="ds-label">Valor Máximo</div>
+            <p class="kpi-value">${withUnit(param.stats.max)}</p>
         </div>
-        <div class="col-custom mb-3">
-            <div class="stat-item">
-                <div class="stat-icon"><i class="fas fa-arrow-down"></i></div>
-                <div class="stat-text">
-                    <p class="stat-label">Valor Mínimo</p>
-                    <p class="stat-value">${param.stats.min ?? "N/A"}</p>
-                </div>
-            </div>
+        <div class="kpi">
+            <div class="ds-label">Valor Mínimo</div>
+            <p class="kpi-value">${withUnit(param.stats.min)}</p>
         </div>
-        <div class="col-custom mb-3">
-            <div class="stat-item">
-                <div class="stat-icon"><i class="fas fa-chart-bar"></i></div>
-                <div class="stat-text">
-                    <p class="stat-label">Promedio</p>
-                    <p class="stat-value">${param.stats.average ?? "N/A"}</p>
-                </div>
-            </div>
+        <div class="kpi">
+            <div class="ds-label">Promedio</div>
+            <p class="kpi-value">${withUnit(param.stats.average)}</p>
         </div>
-        <div class="col-custom mb-3">
-            <div class="stat-item">
-                <div class="stat-icon"><i class="fas fa-percentage"></i></div>
-                <div class="stat-text">
-                    <p class="stat-label">Desv. Std</p>
-                    <p class="stat-value">${param.stats.dvst ?? "N/A"}</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-custom mb-3">
-            <div class="stat-item">
-                <div class="stat-icon"><i class="fas fa-leaf"></i></div>
-                <div class="stat-text">
-                    <p class="stat-label">Parámetro</p>
-                    <p class="stat-value">${cleanParametro(param.parametro)}</p>
-                </div>
-            </div>
+        <div class="kpi">
+            <div class="ds-label">Desv. Std</div>
+            <p class="kpi-value">${withUnit(param.stats.dvst)}</p>
         </div>
     </div>
 `;
@@ -326,11 +338,29 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
          $('#dateMin').html(response[0].dateRange?.minDate || "—");
          $('#dateMax').html(response[0].dateRange?.maxDate || "—");
 
+         // Fecha y hora del último dato recibido
+         (function () {
+            const data = response[0]?.data;
+            let ultimo = null;
+            if (Array.isArray(data)) {
+               for (let i = data.length - 1; i >= 0 && ultimo === null; i--) {
+                  const p = data[i];
+                  const x = Array.isArray(p) ? p[0] : (p && typeof p === 'object' ? p.x : null);
+                  const y = Array.isArray(p) ? p[1] : (p && typeof p === 'object' ? p.y : p);
+                  if (x !== null && x !== undefined && y !== null && y !== undefined) ultimo = x;
+               }
+            }
+            const el = $('#lastUpdate');
+            if (ultimo === null) { el.attr('hidden', true); return; }
+            el.find('.chart-updated-text').text('Último dato: ' + Highcharts.dateFormat('%d-%m-%Y %H:%M', ultimo));
+            el.removeAttr('hidden');
+         })();
+
          // Llamar a la función para graficar si hay datos válidos
          if (response[0].data && response[0].data.length > 0) {
             plotChart(response);
          } else {
-            //console.warn("No hay datos para graficar.");
+            plotChart(response);
          }
       },
 
@@ -340,22 +370,6 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
       }
    });
 }
-
-function cleanParametro(nombre) {
-   if (!nombre) return "N/A";
-
-   const lower = nombre.toLowerCase();
-
-   if (lower.includes("nivel")) return "Nivel";
-   if (lower.includes("conductividad")) return "Conductividad";
-
-   // Por defecto devolver solo la primera palabra
-   return nombre.split(" ")[0];
-}
-
-$('#typeSelect').on('select2:clear', function() {
-   //console.log('Selección limpia');
-});
 
 function convertToBoolean(value) {
    return value === 0 ? true : false;
@@ -379,6 +393,34 @@ function generarBreaksDesdeDatos(data, umbralEnMilisegundos = 3 * 60 * 60 * 1000
    }
 
    return breaks;
+}
+
+// "26-10-2026 01:00:00" -> Date (null si el formato no coincide)
+function parseDateRange(text) {
+   const m = /^(\d{2})-(\d{2})-(\d{4})[ T](\d{2}):(\d{2})/.exec(text || '');
+   return m ? new Date(+m[3], +m[2] - 1, +m[1], +m[4], +m[5]) : null;
+}
+
+// Período legible: "Lunes 26 de octubre de 2026 · 01:00 – 13:00" (mismo día)
+// o "19 oct 2026 · 01:00  →  26 oct 2026 · 13:00  (7 días)" (varios días).
+function formatPeriodo(range, fallback) {
+   const from = parseDateRange(range?.minDate);
+   const to = parseDateRange(range?.maxDate);
+   if (!from || !to) return fallback || "Periodo no disponible";
+
+   const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+   const dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+   const hora = d => `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+   const corto = d => `${d.getDate()} ${meses[d.getMonth()].slice(0, 3)} ${d.getFullYear()}`;
+
+   if (from.toDateString() === to.toDateString()) {
+      const largo = `${dias[from.getDay()]} ${from.getDate()} de ${meses[from.getMonth()]} de ${from.getFullYear()}`;
+      return `${largo.charAt(0).toUpperCase()}${largo.slice(1)}  ·  ${hora(from)} – ${hora(to)}`;
+   }
+
+   // días completos transcurridos (7,5 días -> 7), coherente con "Últimos 7 Días"
+   const nDias = Math.max(1, Math.floor((to - from) / 86400000));
+   return `${corto(from)} · ${hora(from)}  →  ${corto(to)} · ${hora(to)}  (${nDias} ${nDias === 1 ? 'día' : 'días'})`;
 }
 
 function plotChart(dataArray) {
@@ -413,7 +455,6 @@ function plotChart(dataArray) {
       }
    });
 
-   //const colors = ['#00768e', '#ff5733'];
    const colors = ['#00768e', '#20c997'];
 
    if (!Array.isArray(dataArray) || dataArray.length === 0) {
@@ -427,9 +468,19 @@ function plotChart(dataArray) {
       }];
    }
 
-   const chartTitle = dataArray.length === 1 ?
+   // Sin ningún dato: el área del gráfico se muestra enmarcada y sin controles que no sirven
+   const sinDatos = !dataArray.some(p => Array.isArray(p?.data) && p.data.length > 0);
+   $('#conductivityChart').toggleClass('is-empty', sinDatos);
+
+   const stationName = document.getElementById('primary_title')?.textContent.trim() || '';
+   const stationPrefix = stationName ? `${stationName} — ` : '';
+
+   // En pantalla el título es solo el parámetro (la estación ya está en la cabecera);
+   // en las descargas (PNG/PDF/SVG) se antepone la estación para que la imagen sea autosuficiente.
+   const paramTitle = dataArray.length === 1 ?
       (dataArray[0]?.name || "Gráfica de Parámetros") :
       `${dataArray[0]?.name || "Parámetro 1"} vs ${dataArray[1]?.name || "Parámetro 2"}`;
+   const chartTitle = stationPrefix + paramTitle;
 
    // Define a custom symbol path
    Highcharts.SVGRenderer.prototype.symbols.doublearrow = function(
@@ -446,6 +497,38 @@ function plotChart(dataArray) {
          'L', x + w / 2 - 1, y + h,
          x - w / 2 - 1, y + h / 2,
          'Z'
+      ];
+   };
+
+   // Último valor registrado (para destacarlo con una serie aparte: así el navegador de abajo no lo muestra)
+   function getLastPoint(data) {
+      if (!Array.isArray(data)) return null;
+      for (let i = data.length - 1; i >= 0; i--) {
+         const p = data[i];
+         const x = Array.isArray(p) ? p[0] : (p && typeof p === 'object' ? p.x : undefined);
+         const y = Array.isArray(p) ? p[1] : (p && typeof p === 'object' ? p.y : p);
+         if (y !== null && y !== undefined && x !== undefined) return [x, y];
+      }
+      return null;
+   }
+
+   // Asa vertical con rayitas para el navegador: se lee como control de rango, no como un punto de la serie
+   Highcharts.SVGRenderer.prototype.symbols.grip = function(x, y, w, h) {
+      const r = 3;
+      const cx = x + w / 2;
+      return [
+         'M', x + r, y,
+         'L', x + w - r, y,
+         'A', r, r, 0, 0, 1, x + w, y + r,
+         'L', x + w, y + h - r,
+         'A', r, r, 0, 0, 1, x + w - r, y + h,
+         'L', x + r, y + h,
+         'A', r, r, 0, 0, 1, x, y + h - r,
+         'L', x, y + r,
+         'A', r, r, 0, 0, 1, x + r, y,
+         'Z',
+         'M', cx - 1.5, y + h * 0.3, 'L', cx - 1.5, y + h * 0.7,
+         'M', cx + 1.5, y + h * 0.3, 'L', cx + 1.5, y + h * 0.7
       ];
    };
 
@@ -476,13 +559,19 @@ function plotChart(dataArray) {
       chart: {
          type: 'line',
          backgroundColor: 'transparent',
+         spacing: [18, 18, 12, 12],
          style: {
             fontFamily: 'Poppins, serif'
          },
          zoomType: 'x',
       },
       exporting: {
-         enabled: true,
+         enabled: !sinDatos,
+         chartOptions: {
+            title: {
+               text: chartTitle
+            }
+         },
          buttons: {
             contextButton: {
                symbol: 'menu',
@@ -491,70 +580,84 @@ function plotChart(dataArray) {
          }
       },
       navigator: {
-         enabled: true,
-         height: 50,
-         maskFill: 'rgba(200, 200, 200, 0.3)',
-         outlineColor: '#cccccc',
+         enabled: !sinDatos,
+         height: 22,
+         margin: 8,
+         maskFill: 'rgba(32, 131, 147, 0.10)',
+         outlineColor: '#e3ebed',
          outlineWidth: 1,
-         /*handles: {
-             width: 12,
-             height: 15,
-             backgroundColor: '#00768e',
-             borderColor: 'white'
-         }*/
-         handles: {
-            symbols: ['doublearrow', 'doublearrow'],
+         series: {
+            type: 'line',
+            color: '#208393',
             lineWidth: 1,
-            width: 9,
-            height: 17,
-            backgroundColor: '#00768e',
-            borderColor: 'white'
+            fillOpacity: 0
+         },
+         xAxis: {
+            labels: { enabled: false },
+            tickLength: 0,
+            lineWidth: 0
+         },
+         yAxis: {
+            min: dataArray[0]?.limite_inferior,
+            max: dataArray[0]?.limite_superior
+         },
+         handles: {
+            symbols: ['grip', 'grip'],
+            lineWidth: 1,
+            width: 8,
+            height: 16,
+            backgroundColor: '#208393',
+            borderColor: '#ffffff'
          }
       },
       credits: {
          enabled: false
       },
       title: {
-         text: chartTitle,
+         text: sinDatos ? null : paramTitle,
          style: {
-            color: '#1f8293',
+            color: '#3d4f56',
             fontFamily: 'Poppins, serif',
             fontWeight: '600',
-            fontSize: '13px'
-         },
-
+            fontSize: '15px'
+         }
       },
       legend: {
          enabled: false
       },
       subtitle: {
-         text: dataArray[0]?.periodo || "Periodo no disponible",
+         text: sinDatos ? null : formatPeriodo(dataArray[0]?.dateRange, dataArray[0]?.periodo),
          style: {
-            color: '#949494',
+            color: '#8a949a',
             fontFamily: 'Poppins, serif',
-            fontSize: '11px'
+            fontSize: '12px'
          }
       },
       xAxis: {
+         visible: !sinDatos,
          type: 'datetime',
          breaks: breaksCalculados,
          labels: {
             style: {
+               color: '#6c757d',
                fontFamily: 'Poppins, serif',
                fontSize: '10px'
             }
          },
          gridLineWidth: 1,
-         gridLineColor: '#E0E0E0',
-         gridLineDashStyle: 'dash',
+         gridLineColor: '#eceff1',
+         gridLineDashStyle: 'Solid',
+         tickColor: '#d5d8da',
          crosshair: {
             width: 1,
-            dashStyle: 'solid'
+            color: '#b8c4c8',
+            dashStyle: 'Solid'
          },
-         lineColor: '#babbbc',
+         lineColor: '#d5d8da',
          lineWidth: 1
       },
       yAxis: dataArray.map((param, index) => ({
+         visible: !sinDatos,
          title: {
             text: `${param?.parametro || ""} [${param?.unidad || ""}]`,
             style: {
@@ -568,18 +671,19 @@ function plotChart(dataArray) {
                return this.value.toFixed(param?.decimales ?? 1).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
             },
             style: {
-               color: colors[index],
+               color: '#6c757d',
                fontFamily: 'Poppins, serif',
                fontSize: '10px'
             }
          },
          crosshair: {
             width: 1,
-            dashStyle: 'solid'
+            color: '#b8c4c8',
+            dashStyle: 'Solid'
          },
          gridLineWidth: 1,
-         gridLineColor: '#E0E0E0',
-         gridLineDashStyle: 'dash',
+         gridLineColor: '#eceff1',
+         gridLineDashStyle: 'Solid',
          min: param?.limite_inferior,
          max: param?.limite_superior,
          reversed: param?.yAxis === 0,
@@ -588,11 +692,20 @@ function plotChart(dataArray) {
       })),
       tooltip: {
          shared: true,
+         backgroundColor: '#ffffff',
+         borderColor: '#d5d8da',
+         borderRadius: 0,
+         borderWidth: 1,
+         shadow: {
+            color: 'rgba(0, 0, 0, 0.12)',
+            offsetX: 0,
+            offsetY: 2,
+            width: 6
+         },
          headerFormat: '<b>{point.x:%d-%m-%Y %H:%M}</b><br>',
          pointFormatter: function() {
             let serie = dataArray.find(s => s.name === this.series.name);
             let unidad = serie?.unidad ? ` ${serie.unidad}` : "";
-            //let valor = this.y !== null ? this.y.toFixed(serie?.decimales ?? 1).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.') : "N/A";
             let valor = this.y !== null ? String(this.y).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.') : "N/A";
             return `<span style="color:${this.color}">●</span> ${this.series.name}: <b>${valor}${unidad}</b><br>`;
          },
@@ -607,23 +720,63 @@ function plotChart(dataArray) {
             color: '#666'
          }
       },
-      series: dataArray.map((param, index) => ({
+      plotOptions: {
+         series: {
+            // entrada suave: la línea se dibuja de izquierda a derecha
+            animation: { duration: 900 }
+         }
+      },
+      series: dataArray.flatMap((param, index) => {
+         const main = {
          name: param?.name || " ",
          data: Array.isArray(param?.data) ? param.data : [],
          yAxis: index,
          color: colors[index % colors.length],
          threshold: null,
          dashStyle: 'Solid',
+         lineWidth: 2,
          marker: {
-            enabled: true,
+            // con muchos puntos los marcadores saturan la línea: solo al pasar el cursor
+            enabled: (param?.data?.length ?? 0) <= 60 ? true : false,
             symbol: 'circle',
             lineColor: colors[index % colors.length],
             lineWidth: 2,
             fillColor: '#FFFFFF',
-            radius: 3
+            radius: 3,
+            states: {
+               hover: {
+                  enabled: true,
+                  radius: 5
+               }
+            }
          },
          connectNulls: true
-      }))
+         };
+
+         // Punto grande en el último valor: serie aparte, sin tooltip ni reflejo en el navegador
+         const last = getLastPoint(param?.data);
+         if (!last) return [main];
+         return [main, {
+            type: 'scatter',
+            name: ' ',
+            data: [last],
+            yAxis: index,
+            color: colors[index % colors.length],
+            showInLegend: false,
+            showInNavigator: false,
+            enableMouseTracking: false,
+            zIndex: 5,
+            marker: {
+               enabled: true,
+               symbol: 'circle',
+               radius: 6,
+               fillColor: colors[index % colors.length],
+               lineColor: '#ffffff',
+               lineWidth: 2
+            },
+            states: { inactive: { opacity: 1 } }
+         }];
+      })
    });
 
 }

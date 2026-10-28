@@ -1,1 +1,1 @@
-<meta name="api-base-url" content="{{ config('app.api_base_url') }}">
+<meta name="api-base-url" content="{{ url('/') }}/">

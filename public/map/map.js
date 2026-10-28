@@ -22,6 +22,11 @@ fetch(`${BASE_URL}api/map-token`)
     .catch(error => console.error('Error al obtener el token:', error));
 
 const sector = getSectorFromURL();
+
+// Las peticiones de datos salen de inmediato, en paralelo con el token y la carga del estilo del mapa
+const centerPromise = fetchCenter();
+const allMarkersPromise = fetchMarkersallSector();
+const sectorMarkersPromise = sector ? fetchMarkersBySector(sector) : Promise.resolve(null);
 //console.log("Sector encontrado:", sector);
 
 async function initAll() {
@@ -29,7 +34,7 @@ async function initAll() {
         //console.log('Inicializando mapa y cargando marcadores...');
 
         // Obtener el centro del mapa
-        const center = await fetchCenter();
+        const center = await centerPromise;
 
         // Crear el mapa
         map = new maplibregl.Map({
@@ -61,10 +66,10 @@ async function initAll() {
 
             try {
                 // Obtener los marcadores generales
-                const sectorMarkers = await fetchMarkersallSector();
+                const sectorMarkers = await allMarkersPromise;
 
                 // Obtener los marcadores del sector específico (si existe)
-                const MarkerSectors = sector ? await fetchMarkersBySector(sector) : null;
+                const MarkerSectors = await sectorMarkersPromise;
 
                 // Determinar qué conjunto de marcadores agregar
                 addMarkersToMap(map, MarkerSectors && MarkerSectors.length > 0 ? MarkerSectors : sectorMarkers);
@@ -117,12 +122,7 @@ function getSectorFromURL() {
     return null; // Si no encuentra "sector", devuelve null
 }
 
-// Solo ejecutar `loadMarkersForSector(sector)` si `sector` tiene un valor válido
-if (sector) {
-    var sector_route = loadMarkersForSector(sector);
-} else {
-    //console.log("No se encontró sector en la URL. No se cargarán marcadores.");
-}
+// (La carga de marcadores del sector ocurre en initAll(): un único camino evita pedir los datos y crear el mapa dos veces.)
 
 async function loadMarkersForSector(sector) {
     try {
@@ -201,23 +201,20 @@ async function fetchMarkersallSector(id_sector) {
     }
 }
 
+// Escapa texto antes de insertarlo en HTML (nombres de estación vienen de la base de datos)
+function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, ch => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[ch])).replace(/&lt;br\s*\/?&gt;/gi, '<br>');
+}
+
 function addMarkersToMap(map, markers) {
     // Limpiar marcadores existentes
 
     const totalMarkers = markers.length;
     const sectores = [...new Set(markers.map(marker => marker.sector))]; // Sectores únicos
 
-    if (totalMarkers > 25) {
-        console.warn("no se mostrará información.");
-        $('#sectorView').html(''); // Limpiar si hay más de 25 marcadores
-    } else if (totalMarkers > 0) {
-        //console.log(`Total de marcadores: ${totalMarkers}`);
-        //console.log(`Sectores encontrados: ${sectores.join(', ')}`);
-        $('#sectorView').html(`${sectores.join(', ')} (${totalMarkers} estaciones)`);
-    } else {
-        console.warn("No hay marcadores disponibles, no se mostrará información.");
-        $('#sectorView').html(''); // Limpiar si no hay marcadores
-    }
+    // El título inicial lo define el servidor (mapa.blade.php); al cambiar de sector se actualiza en el clic del panel.
 
     markerGroup.forEach(marker => marker.remove());
     markerGroup = []; // Vaciar el grupo
@@ -225,16 +222,10 @@ function addMarkersToMap(map, markers) {
     const bounds = new maplibregl.LngLatBounds();
 
     // Definir íconos personalizados
-    const icons_bad = {
-        agua_subterranea: '/api_caimanes/public/images/icons/markers/pin-agua-subterranea.png',
-        aguas_superficiales: '/api_caimanes/public/images/icons/markers/pin-agua-superficial.png',
-        reservorios: '/api_caimanes/public/images/icons/markers/pin-reservorio.svg'
-    };
-
     const icons = {
-        agua_subterranea: '/images/icons/markers/pin-agua-subterranea.png',
-        aguas_superficiales: '/images/icons/markers/pin-agua-superficial.png',
-        reservorios: '/images/icons/markers/pin-reservorio.svg'
+        agua_subterranea: `${BASE_URL}images/icons/markers/pin-agua-subterranea.png`,
+        aguas_superficiales: `${BASE_URL}images/icons/markers/pin-agua-superficial.png`,
+        reservorios: `${BASE_URL}images/icons/markers/pin-reservorio.svg`
     };
 
     markers.forEach(marker => {
@@ -282,7 +273,7 @@ function addMarkersToMap(map, markers) {
             customIcon.style.width = '22px'; // Ancho del ícono
             customIcon.style.height = '26px'; // Altura del ícono
             customIcon.style.imageRendering = 'auto'; // Mantiene la calidad original
-            customIcon.style.filter = 'drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.5))'; // Suavizado
+            // Sin filter/will-change en el contenedor: rasterizan la etiqueta de texto y la vuelven borrosa
 
             // Aplicar filtro para cambiar el color del SVG a rojo
 
@@ -313,11 +304,11 @@ function addMarkersToMap(map, markers) {
     text-align: center; 
     padding: 5px;
 ">
-    <b style="display: block; margin-bottom: 6px; color: #333;">${marker.nombre}</b>
+    <b style="display: block; margin-bottom: 6px; color: #333;">${escapeHtml(marker.nombre)}</b>
     <div style="display: flex; justify-content: center;">
         <button 
             class="ver-estacion-btn"
-            onclick="explorarEstacion('${marker.id}')"
+            onclick="explorarEstacion(${Number(marker.id)})"
             style="
                 background: linear-gradient(135deg, #00768e, #00a6b8);
                 color: white;
@@ -336,7 +327,7 @@ function addMarkersToMap(map, markers) {
                 outline: none;
                 text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
             "
-            aria-label="Explorar estación ${marker.nombre}"
+            aria-label="Explorar estación ${escapeHtml(marker.nombre)}"
             tabindex="0"
         >
             <i class="fas fa-map-marker-alt"></i> Ver estación
@@ -353,18 +344,14 @@ function addMarkersToMap(map, markers) {
             // Crear una etiqueta debajo del marcador
             const label = document.createElement('div');
             label.className = 'marker-label'; // Clase CSS personalizada para la etiqueta
-            label.innerHTML = `<span>${marker.map_name || marker.nombre}</span>`;
-            label.style.position = 'absolute';
-            label.style.top = '23px'; // Posicionar debajo del marcador
-            label.style.left = '50%';
-            label.style.right = '50%';
-            label.style.transform = 'translateX(-50%,0)';
-            label.style.fontSize = '14px';
-            label.style.color = 'black';
-            //label.style.maxWidth = '120px'; // Limita el ancho para dividir etiquetas largas en múltiples líneas
-            label.style.wordWrap = 'break-word'; // Permite dividir palabras largas          
-            label.style.lineHeight = '10px'; // Reduce el espacio entre líneas
-            label.style.padding = '2px 4px'; // Ajusta el espacio interno para un diseño más compacto         
+            // Los nombres pueden traer <br> para partir líneas; cualquier otro HTML se muestra como texto
+            const labelText = document.createElement('span');
+            String(marker.map_name || marker.nombre || '').split(/<br\s*\/?>/i).forEach((part, i) => {
+                if (i > 0) labelText.appendChild(document.createElement('br'));
+                labelText.appendChild(document.createTextNode(part));
+            });
+            label.appendChild(labelText);
+            // La posición y el centrado de la etiqueta están en .marker-label (CSS): sin transform, el texto queda nítido
 
             // Agregar la etiqueta al marcador
             customIcon.appendChild(label);
@@ -451,6 +438,8 @@ function addMarkersToMap_old(map, markers) {
 $(document).on("click", ".accordion-button", async function() {
     let idSector = $(this).attr("id-sector"); // Obtener el valor del atributo id-sector
     //console.log("ID Sector:", idSector);
+    // El título lo pone el servidor según la URL: al elegir otro sector en el panel hay que actualizarlo
+    $("#sectorView").text($(this).text().trim());
     const markers = await fetchMarkersBySector(idSector);
     //console.log(markers);
     addMarkersToMap(map, markers); // Usar la variable global `map`
