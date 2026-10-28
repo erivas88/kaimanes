@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Sector;
@@ -33,15 +34,35 @@ class SectorController extends Controller
         // Generar el dropdown con todos los sectores cerrados si $id es nulo
         $dropdown = $this->generateDropdownHTML($sectores, $id);
 
+        // Resumen por sector (cabecera de la vista)
+        $resumen = array_map(function ($item) {
+            $menu = (array) $item['menu'];
+            return [
+                'id' => $menu['id_sector'],
+                'nombre' => $menu['sector'],
+                'icon' => $menu['icon'],
+                'total' => count((array) $item['submenu']['submenu']),
+            ];
+        }, $sectores);
+        $activo = collect($resumen)->firstWhere('id', $id !== null ? (int) $id : null);
+
         // Pasar los datos a la vista
         return view('mapa', [
             'sector' => $id,
-            'dropdown' => $dropdown
+            'dropdown' => $dropdown,
+            'resumen' => $resumen,
+            'titulo' => $activo ? $activo['nombre'] : 'Todos los sectores',
         ]);
     }
 
    
     private function getsSectores()
+    {
+        // El menú casi no cambia: se guarda 5 min en caché local (la base de datos es remota)
+        return Cache::store('file')->remember('menu.sectores', 300, fn () => $this->getsSectoresFromDb());
+    }
+
+    private function getsSectoresFromDb()
     {
         try {
             

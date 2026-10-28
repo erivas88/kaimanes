@@ -97,7 +97,6 @@ return [
 
     'cipher' => 'AES-256-CBC',
     'key' => env('APP_KEY'),
-    'api_base_url' => env('API_BASE_URL', 'http://localhost'),
 
     'previous_keys' => [
         ...array_filter(

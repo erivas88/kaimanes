@@ -53,9 +53,4 @@ Route::get('/estacion-publica/{id_estacion}', [EstacionPublicaController::class,
 Route::get('/estacion-publica/{id_estacion}', [EstacionPublicaController::class, 'show']);
 
 Route::get('/glosary', [SectorController::class, 'glosary']);
-Route::get('/sector/{id}', function ($id) {
-    contarVisita();
-    return view('mapa', ['sector' => $id]);
-})->where('id', '[0-9]+'); 
-Route::get('/sector/{id}', [SectorController::class, 'show'])->where('id', '[0-9]+');
 Route::get('/sector/{id?}', [SectorController::class, 'show'])->where('id', '[0-9]+');

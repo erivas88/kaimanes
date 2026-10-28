@@ -20,6 +20,12 @@ class TableController extends Controller
             ], 400);
         }
 
+        if (!ctype_digit((string) $periodo) || !ctype_digit((string) $device)) {
+            return response()->json([
+                'error' => 'Los parámetros "periodo" y "device" deben ser numéricos.'
+            ], 422);
+        }
+
         // Llamamos al procedimiento almacenado con periodo y device
         $data = DB::select("CALL spi_obtener_observaciones(?, ?)", [$periodo, $device]);
 

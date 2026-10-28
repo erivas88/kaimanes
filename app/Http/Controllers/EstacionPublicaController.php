@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Sector;
@@ -11,7 +12,7 @@ class EstacionPublicaController extends Controller
     public function show($id_estacion)
     {   
         contarVisita();
-        $estacion = DB::select("CALL GetEstacionById(?)", [$id_estacion]);
+        $estacion = Cache::store('file')->remember('estacion.' . md5((string) $id_estacion), 120, fn () => DB::select("CALL GetEstacionById(?)", [$id_estacion]));
 
         if (empty($estacion)) {
             /*abort(404, "Estación no encontrada");*/
@@ -163,6 +164,12 @@ class EstacionPublicaController extends Controller
 
 
     private function getsSectores()
+    {
+        // El menú casi no cambia: se guarda 5 min en caché local (la base de datos es remota)
+        return Cache::store('file')->remember('menu.sectores', 300, fn () => $this->getsSectoresFromDb());
+    }
+
+    private function getsSectoresFromDb()
     {
         try {
             $sectores = DB::table('sectores')->get();

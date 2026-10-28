@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Services\MarkerService;
@@ -12,7 +13,7 @@ class LocationController extends Controller
     public function getLocation()
     {
         try {
-            $result = DB::select('CALL GetAverageCoordinates()');
+            $result = Cache::store('file')->remember('loc.centro', 300, fn () => DB::select('CALL GetAverageCoordinates()'));
 
             if (empty($result)) {
                 return response()->json([
@@ -35,7 +36,7 @@ class LocationController extends Controller
     public function getBySectorPublico($sector_publico)
     {
         try {
-            $result = DB::select('CALL GetEstacionesBySector(?)', [$sector_publico]);
+            $result = Cache::store('file')->remember('loc.sector.' . (int) $sector_publico, 300, fn () => DB::select('CALL GetEstacionesBySector(?)', [$sector_publico]));
 
             if (empty($result)) {
                 return response()->json([
@@ -64,7 +65,7 @@ class LocationController extends Controller
     public function getAllEstaciones()
     {
         try {
-            $result = DB::select('CALL GetEstaciones()');
+            $result = Cache::store('file')->remember('loc.estaciones', 300, fn () => DB::select('CALL GetEstaciones()'));
 
             if (empty($result)) {
                 return response()->json([

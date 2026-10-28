@@ -17,6 +17,9 @@ return [
 
     'default' => env('CACHE_STORE', 'database'),
 
+    // El límite de peticiones (throttle) usa un almacén local: con la base de datos remota cada petición pagaba viajes extra
+    'limiter' => env('CACHE_LIMITER_STORE', 'file'),
+
     /*
     |--------------------------------------------------------------------------
     | Cache Stores
