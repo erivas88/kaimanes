@@ -299,8 +299,12 @@ function drawChart(selectedId, dateRangeSelectValue, idDevice) {
 
             const unidad = param.unidad || "";
             // coma decimal y punto de miles, igual que el eje y el tooltip del gráfico
+            // respeta los decimales que entrega el backend (decimales_serie); sin dato, deja el valor tal cual
+            const decimalesSerie = param.decimales_serie ?? param.decimales;
             const formatNumber = value => {
-               const [entero, decimal] = String(value).split('.');
+               const texto = decimalesSerie !== null && decimalesSerie !== undefined && !isNaN(value) ?
+                  Number(value).toFixed(decimalesSerie) : String(value);
+               const [entero, decimal] = texto.split('.');
                const conMiles = entero.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
                return decimal !== undefined ? `${conMiles},${decimal}` : conMiles;
             };
@@ -706,7 +710,10 @@ function plotChart(dataArray) {
          pointFormatter: function() {
             let serie = dataArray.find(s => s.name === this.series.name);
             let unidad = serie?.unidad ? ` ${serie.unidad}` : "";
-            let valor = this.y !== null ? String(this.y).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.') : "N/A";
+            // respeta los decimales que entrega el backend (decimales_serie); sin dato, deja el valor tal cual
+            let dec = serie?.decimales_serie ?? serie?.decimales;
+            let texto = this.y !== null ? (dec !== null && dec !== undefined ? Number(this.y).toFixed(dec) : String(this.y)) : null;
+            let valor = texto !== null ? texto.replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.') : "N/A";
             return `<span style="color:${this.color}">●</span> ${this.series.name}: <b>${valor}${unidad}</b><br>`;
          },
          style: {
