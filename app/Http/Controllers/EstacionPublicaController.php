@@ -6,9 +6,51 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Sector;
 use App\Models\Estacion;
+use Illuminate\Support\Facades\Http;
 
 class EstacionPublicaController extends Controller
 {
+    // Miniatura WebP de la foto de la estación: el original (S3) puede pesar varios MB y aquí se muestra a ~640 px
+    public function imagen($id_estacion)
+    {
+        $url = Estacion::where('estacion_id', $id_estacion)->value('link_backup');
+        if (!$url) {
+            abort(404);
+        }
+
+        $dir = storage_path('app/img-cache');
+        $archivo = $dir . '/' . (int) $id_estacion . '-' . md5($url) . '.webp';
+
+        if (!is_file($archivo)) {
+            try {
+                ini_set('memory_limit', '512M');
+                $respuesta = Http::timeout(15)->get($url);
+                $origen = $respuesta->successful() ? @imagecreatefromstring($respuesta->body()) : false;
+                if (!$origen) {
+                    return redirect()->away($url);
+                }
+
+                $ancho = imagesx($origen);
+                $miniatura = $ancho > 640 ? imagescale($origen, 640) : $origen;
+                imagepalettetotruecolor($miniatura);
+                imagealphablending($miniatura, true);
+                imagesavealpha($miniatura, true);
+
+                if (!is_dir($dir)) {
+                    mkdir($dir, 0775, true);
+                }
+                imagewebp($miniatura, $archivo, 78);
+            } catch (\Throwable $e) {
+                return redirect()->away($url);
+            }
+        }
+
+        return response()->file($archivo, [
+            'Content-Type' => 'image/webp',
+            'Cache-Control' => 'public, max-age=31536000, immutable',
+        ]);
+    }
+
     public function show($id_estacion)
     {   
         contarVisita();

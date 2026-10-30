@@ -52,5 +52,7 @@ Route::get('/estacion-publica/{id_estacion}', function ($id_estacion)
 Route::get('/estacion-publica/{id_estacion}', [EstacionPublicaController::class, 'show']);
 Route::get('/estacion-publica/{id_estacion}', [EstacionPublicaController::class, 'show']);
 
+Route::get('/estacion-imagen/{id_estacion}', [EstacionPublicaController::class, 'imagen'])->where('id_estacion', '[0-9]+');
+
 Route::get('/glosary', [SectorController::class, 'glosary']);
 Route::get('/sector/{id?}', [SectorController::class, 'show'])->where('id', '[0-9]+');

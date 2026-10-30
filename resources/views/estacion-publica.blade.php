@@ -12,11 +12,9 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" rel="stylesheet" />
         <link src="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.css" />
         <link rel="stylesheet" href="{{ asset('css/styles.css') }}?v={{ filemtime(public_path('css/styles.css')) }}" rel="stylesheet" />
-        @php($imgHost = parse_url($estacion->link_backup, PHP_URL_HOST))
-        @if ($imgHost)
-            <link rel="preconnect" href="{{ parse_url($estacion->link_backup, PHP_URL_SCHEME) }}://{{ $imgHost }}" />
-        @endif
-        <link rel="preload" as="image" href="{{ asset($estacion->link_backup) }}" fetchpriority="high" />
+        {{-- miniatura WebP cacheada en el servidor; el original (S3) solo se pide al ampliar con Fancybox --}}
+        @php($imgThumb = url('estacion-imagen/' . $estacion->estacion_id) . '?v=' . substr(md5($estacion->link_backup), 0, 8))
+        <link rel="preload" as="image" type="image/webp" href="{{ $imgThumb }}" fetchpriority="high" />
         <link rel="stylesheet" href="{{ asset('css/estacion-publica.css') }}?v={{ filemtime(public_path('css/estacion-publica.css')) }}" />
         <script src="https://kit.fontawesome.com/e5291bc371.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.css" integrity="sha384-kPPlFUTv5pDfb8JmcIDGDPhxzM4ZG0aIQ5/7vANkrD1Z7GR9e3k459LTa7fDCOX/" crossorigin="anonymous" />
@@ -99,7 +97,7 @@
                             <section class="dash-hero">
                                 <div class="hero-stage">
                                     <a data-fancybox="gallery" href="{{ asset($estacion->link_backup) }} " data-caption="{{ $estacion->nombre }}" class="station-photo hero-cover ep-img" aria-label="Ampliar imagen: {{ $estacion->nombre }}">
-                                        <img id="imgDevice" src="{{ asset($estacion->link_backup) }}" alt="{{ $estacion->nombre }}" class="img_device" fetchpriority="high" decoding="async" />
+                                        <img id="imgDevice" src="{{ $imgThumb }}" alt="{{ $estacion->nombre }}" class="img_device" fetchpriority="high" decoding="async" />
                                         <span class="station-photo-badge zoom-badge" aria-hidden="true"><i class="fas fa-plus"></i></span>
                                     </a>
                                     <div class="hero-content">
