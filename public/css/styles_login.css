@@ -7,7 +7,8 @@ body {
 
 /* Sección izquierda */
 .left-section {
-  background-image: url('../images/portada-home.jpg'); /* Asegúrate que la ruta sea correcta */
+  background-image: url('../images/portada-home.jpg'); /* respaldo para navegadores sin image-set */
+  background-image: image-set(url('../images/portada-home.webp') type('image/webp'), url('../images/portada-home.jpg') type('image/jpeg'));
   background-size: cover;
   background-position: center;
   color: white;
